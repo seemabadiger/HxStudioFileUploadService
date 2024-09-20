@@ -1,0 +1,21 @@
+2024-08-05 17:59:00.618 +05:30 [INF] Executed DbCommand (47ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-08-05 17:59:00.754 +05:30 [INF] Executed DbCommand (32ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-08-05 17:59:00.805 +05:30 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-08-05 17:59:01.155 +05:30 [INF] Now listening on: https://localhost:7231
+2024-08-05 17:59:01.157 +05:30 [INF] Now listening on: http://localhost:5027
+2024-08-05 17:59:01.161 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-08-05 17:59:01.162 +05:30 [INF] Hosting environment: Development
+2024-08-05 17:59:01.163 +05:30 [INF] Content root path: C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService
+2024-08-05 17:59:02.844 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/index.html - null null
+2024-08-05 17:59:03.712 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/index.html - 200 null text/html;charset=utf-8 882.9491ms
+2024-08-05 17:59:03.732 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - null null
+2024-08-05 17:59:03.732 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_vs/browserLink - null null
+2024-08-05 17:59:03.754 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - 200 13786 application/javascript; charset=utf-8 22.0243ms
+2024-08-05 17:59:03.963 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_vs/browserLink - 200 null text/javascript; charset=UTF-8 230.3366ms
+2024-08-05 17:59:04.220 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - null null
+2024-08-05 17:59:04.486 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 266.6937ms

@@ -1,0 +1,24 @@
+2024-08-01 17:02:02.510 +05:30 [INF] Executed DbCommand (32ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-08-01 17:02:02.653 +05:30 [INF] Executed DbCommand (34ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-08-01 17:02:02.708 +05:30 [INF] Executed DbCommand (25ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-08-01 17:02:03.384 +05:30 [INF] Now listening on: https://localhost:7231
+2024-08-01 17:02:03.387 +05:30 [INF] Now listening on: http://localhost:5027
+2024-08-01 17:02:03.393 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-08-01 17:02:03.395 +05:30 [INF] Hosting environment: Development
+2024-08-01 17:02:03.396 +05:30 [INF] Content root path: C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService
+2024-08-01 17:02:05.021 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/index.html - null null
+2024-08-01 17:02:05.626 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/index.html - 200 null text/html;charset=utf-8 615.6928ms
+2024-08-01 17:02:05.687 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - null null
+2024-08-01 17:02:05.688 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_vs/browserLink - null null
+2024-08-01 17:02:05.720 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - 200 13786 application/javascript; charset=utf-8 33.4596ms
+2024-08-01 17:02:05.853 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_vs/browserLink - 200 null text/javascript; charset=UTF-8 167.041ms
+2024-08-01 17:02:06.069 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - null null
+2024-08-01 17:02:06.104 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/favicon-32x32.png - null null
+2024-08-01 17:02:06.132 +05:30 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2024-08-01 17:02:06.137 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/favicon-32x32.png - 200 628 image/png 32.6371ms
+2024-08-01 17:02:06.270 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 201.6194ms

@@ -1,0 +1,133 @@
+2024-09-05 17:44:34.309 +05:30 [INF] Executed DbCommand (62ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-09-05 17:44:34.559 +05:30 [INF] Executed DbCommand (36ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-09-05 17:44:34.627 +05:30 [INF] Executed DbCommand (32ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-09-05 17:44:34.647 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-09-05 17:44:34.659 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-09-05 17:44:34.666 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-09-05 17:44:34.676 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-09-05 17:44:34.691 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-09-05 17:44:34.723 +05:30 [INF] Applying migration '20240806154820_AddNewFieldsToMockup'.
+2024-09-05 17:44:34.897 +05:30 [INF] Executed DbCommand (27ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Domain] (
+    [Id] uniqueidentifier NOT NULL,
+    [Name] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Domain] PRIMARY KEY ([Id])
+);
+2024-09-05 17:44:34.916 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Mockups] (
+    [Id] uniqueidentifier NOT NULL,
+    [Name] nvarchar(max) NOT NULL,
+    [Tags] nvarchar(max) NOT NULL,
+    [FileName] nvarchar(max) NOT NULL,
+    [FilePath] nvarchar(max) NOT NULL,
+    [CreatedBy] uniqueidentifier NOT NULL,
+    [CreatedDate] datetime2 NOT NULL,
+    [ModifiedBy] uniqueidentifier NULL,
+    [ModifiedDate] datetime2 NULL,
+    [Domainname] nvarchar(max) NOT NULL,
+    [Subdomainname] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Mockups] PRIMARY KEY ([Id])
+);
+2024-09-05 17:44:34.932 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Users] (
+    [Id] uniqueidentifier NOT NULL,
+    [Name] nvarchar(max) NOT NULL,
+    [Email] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Users] PRIMARY KEY ([Id])
+);
+2024-09-05 17:44:34.946 +05:30 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Subdomain] (
+    [Id] uniqueidentifier NOT NULL,
+    [Name] nvarchar(max) NOT NULL,
+    [DomainId] uniqueidentifier NOT NULL,
+    CONSTRAINT [PK_Subdomain] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Subdomain_Domain_DomainId] FOREIGN KEY ([DomainId]) REFERENCES [Domain] ([Id])
+);
+2024-09-05 17:44:34.957 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Likes] (
+    [UserId] uniqueidentifier NOT NULL,
+    [MockupId] uniqueidentifier NOT NULL,
+    [Id] uniqueidentifier NOT NULL,
+    [IsLiked] bit NOT NULL,
+    CONSTRAINT [PK_Likes] PRIMARY KEY ([UserId], [MockupId]),
+    CONSTRAINT [FK_Likes_Mockups_MockupId] FOREIGN KEY ([MockupId]) REFERENCES [Mockups] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Likes_Users_UserId] FOREIGN KEY ([UserId]) REFERENCES [Users] ([Id]) ON DELETE CASCADE
+);
+2024-09-05 17:44:34.972 +05:30 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Likes_MockupId] ON [Likes] ([MockupId]);
+2024-09-05 17:44:34.978 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Subdomain_DomainId] ON [Subdomain] ([DomainId]);
+2024-09-05 17:44:34.989 +05:30 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240806154820_AddNewFieldsToMockup', N'8.0.7');
+2024-09-05 17:44:35.017 +05:30 [INF] Applying migration '20240807131618_fileuploadtables'.
+2024-09-05 17:44:35.053 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240807131618_fileuploadtables', N'8.0.7');
+2024-09-05 17:44:35.615 +05:30 [INF] Now listening on: https://localhost:7231
+2024-09-05 17:44:35.622 +05:30 [INF] Now listening on: http://localhost:5027
+2024-09-05 17:44:35.631 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-05 17:44:35.636 +05:30 [INF] Hosting environment: Development
+2024-09-05 17:44:35.642 +05:30 [INF] Content root path: C:\Users\seema.badiger\Downloads\HxStudioFileUploadService 1\HxStudioFileUploadService
+2024-09-05 17:44:37.711 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger - null null
+2024-09-05 17:44:38.201 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger - 301 0 null 502.9822ms
+2024-09-05 17:44:38.212 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/index.html - null null
+2024-09-05 17:44:38.439 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/swagger-ui.css - null null
+2024-09-05 17:44:38.460 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/index.html - 200 null text/html;charset=utf-8 248.1505ms
+2024-09-05 17:44:38.440 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/swagger-ui-bundle.js - null null
+2024-09-05 17:44:38.441 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/swagger-ui-standalone-preset.js - null null
+2024-09-05 17:44:38.460 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - null null
+2024-09-05 17:44:38.459 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_vs/browserLink - null null
+2024-09-05 17:44:38.607 +05:30 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2024-09-05 17:44:38.621 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - 200 13786 application/javascript; charset=utf-8 161.0567ms
+2024-09-05 17:44:38.624 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/swagger-ui.css - 200 143943 text/css 186.0142ms
+2024-09-05 17:44:38.658 +05:30 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2024-09-05 17:44:38.686 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/swagger-ui-standalone-preset.js - 200 339486 text/javascript 244.5021ms
+2024-09-05 17:44:38.691 +05:30 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2024-09-05 17:44:38.701 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/swagger-ui-bundle.js - 200 1096145 text/javascript 261.2741ms
+2024-09-05 17:44:38.834 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_vs/browserLink - 200 null text/javascript; charset=UTF-8 376.5551ms
+2024-09-05 17:44:39.219 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - null null
+2024-09-05 17:44:39.270 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/favicon-32x32.png - null null
+2024-09-05 17:44:39.291 +05:30 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2024-09-05 17:44:39.299 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/favicon-32x32.png - 200 628 image/png 30.6505ms
+2024-09-05 17:44:39.534 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 315.4651ms
+2024-09-05 18:28:27.951 +05:30 [INF] Executed DbCommand (36ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-09-05 18:28:28.087 +05:30 [INF] Executed DbCommand (26ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-09-05 18:28:28.120 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-09-05 18:28:28.632 +05:30 [INF] Now listening on: https://localhost:7231
+2024-09-05 18:28:28.642 +05:30 [INF] Now listening on: http://localhost:5027
+2024-09-05 18:28:28.656 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-05 18:28:28.664 +05:30 [INF] Hosting environment: Development
+2024-09-05 18:28:28.674 +05:30 [INF] Content root path: C:\Users\seema.badiger\Downloads\HxStudioFileUploadService 1\HxStudioFileUploadService
+2024-09-05 18:28:30.116 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/index.html - null null
+2024-09-05 18:28:30.696 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/index.html - 200 null text/html;charset=utf-8 590.8357ms
+2024-09-05 18:28:30.703 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_vs/browserLink - null null
+2024-09-05 18:28:30.703 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - null null
+2024-09-05 18:28:30.777 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - 200 13786 application/javascript; charset=utf-8 75.0469ms
+2024-09-05 18:28:30.850 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_vs/browserLink - 200 null text/javascript; charset=UTF-8 147.787ms
+2024-09-05 18:28:31.048 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - null null
+2024-09-05 18:28:31.293 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 246.5511ms
+2024-09-05 18:30:54.950 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7231/api/auth/login - null null
+2024-09-05 18:30:54.973 +05:30 [INF] CORS policy execution successful.
+2024-09-05 18:30:54.975 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7231/api/auth/login - 204 null null 26.8403ms
+2024-09-05 18:30:54.981 +05:30 [INF] Request starting HTTP/2 POST https://localhost:7231/api/auth/login - application/json 55
+2024-09-05 18:30:54.999 +05:30 [INF] CORS policy execution successful.
+2024-09-05 18:30:55.007 +05:30 [INF] Request finished HTTP/2 POST https://localhost:7231/api/auth/login - 404 0 null 25.832ms
+2024-09-05 18:30:55.029 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: POST https://localhost:7231/api/auth/login, Response status code: 404

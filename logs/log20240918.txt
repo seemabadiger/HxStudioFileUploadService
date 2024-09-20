@@ -1,0 +1,86 @@
+2024-09-18 10:44:52.905 +05:30 [INF] Executed DbCommand (51ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-09-18 10:44:53.145 +05:30 [INF] Executed DbCommand (40ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-09-18 10:44:53.220 +05:30 [INF] Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-09-18 10:44:53.778 +05:30 [INF] Now listening on: https://localhost:7231
+2024-09-18 10:44:53.786 +05:30 [INF] Now listening on: http://localhost:5027
+2024-09-18 10:44:53.798 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-18 10:44:53.801 +05:30 [INF] Hosting environment: Development
+2024-09-18 10:44:53.803 +05:30 [INF] Content root path: C:\Users\seema.badiger\Downloads\HxStudioFileUploadService 1\HxStudioFileUploadService
+2024-09-18 10:45:02.756 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/index.html - null null
+2024-09-18 10:45:03.503 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/index.html - 200 null text/html;charset=utf-8 763.3905ms
+2024-09-18 10:45:03.513 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_vs/browserLink - null null
+2024-09-18 10:45:03.513 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - null null
+2024-09-18 10:45:03.555 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - 200 13786 application/javascript; charset=utf-8 43.0092ms
+2024-09-18 10:45:03.717 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_vs/browserLink - 200 null text/javascript; charset=UTF-8 204.8749ms
+2024-09-18 10:45:04.025 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - null null
+2024-09-18 10:45:04.397 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 372.6806ms
+2024-09-18 10:47:24.314 +05:30 [INF] Executed DbCommand (50ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-09-18 10:47:24.511 +05:30 [INF] Executed DbCommand (38ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-09-18 10:47:24.587 +05:30 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-09-18 10:47:25.068 +05:30 [INF] Now listening on: https://localhost:7231
+2024-09-18 10:47:25.077 +05:30 [INF] Now listening on: http://localhost:5027
+2024-09-18 10:47:25.087 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-18 10:47:25.095 +05:30 [INF] Hosting environment: Development
+2024-09-18 10:47:25.101 +05:30 [INF] Content root path: C:\Users\seema.badiger\Downloads\HxStudioFileUploadService 1\HxStudioFileUploadService
+2024-09-18 10:47:29.209 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/index.html - null null
+2024-09-18 10:47:29.987 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/index.html - 200 null text/html;charset=utf-8 786.8164ms
+2024-09-18 10:47:30.027 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_vs/browserLink - null null
+2024-09-18 10:47:30.042 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - null null
+2024-09-18 10:47:30.073 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - 200 13786 application/javascript; charset=utf-8 30.9097ms
+2024-09-18 10:47:30.190 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_vs/browserLink - 200 null text/javascript; charset=UTF-8 163.0097ms
+2024-09-18 10:47:31.122 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - null null
+2024-09-18 10:47:31.477 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 355.6431ms
+2024-09-18 10:47:54.573 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - null null
+2024-09-18 10:47:54.574 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - null null
+2024-09-18 10:47:54.604 +05:30 [INF] CORS policy execution successful.
+2024-09-18 10:47:54.604 +05:30 [INF] CORS policy execution successful.
+2024-09-18 10:47:54.636 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-18 10:47:54.636 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-18 10:47:54.711 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-18 10:47:54.711 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-18 10:47:55.555 +05:30 [INF] Executed DbCommand (25ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-18 10:47:55.555 +05:30 [INF] Executed DbCommand (62ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-18 10:47:55.649 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-18 10:47:55.649 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-18 10:47:55.691 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - null null
+2024-09-18 10:47:55.691 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - null null
+2024-09-18 10:47:55.693 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 961.6015ms
+2024-09-18 10:47:55.693 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 946.9243ms
+2024-09-18 10:47:55.703 +05:30 [INF] CORS policy execution successful.
+2024-09-18 10:47:55.707 +05:30 [INF] CORS policy execution successful.
+2024-09-18 10:47:55.724 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-18 10:47:55.737 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-18 10:47:55.744 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-18 10:47:55.743 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-18 10:47:55.773 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - 200 null application/json; charset=utf-8 1202.1221ms
+2024-09-18 10:47:55.773 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - 200 null application/json; charset=utf-8 1200.091ms
+2024-09-18 10:47:55.778 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-18 10:47:55.789 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-18 10:47:56.000 +05:30 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-18 10:47:56.000 +05:30 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-18 10:47:56.006 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-18 10:47:56.012 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-18 10:47:56.014 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 166.837ms
+2024-09-18 10:47:56.020 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 160.6635ms
+2024-09-18 10:47:56.022 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-18 10:47:56.033 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-18 10:47:56.036 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - 200 null application/json; charset=utf-8 345.8079ms
+2024-09-18 10:47:56.045 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - 200 null application/json; charset=utf-8 353.8874ms

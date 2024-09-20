@@ -1,0 +1,1154 @@
+2024-07-25 10:55:33.173 +05:30 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 10:55:33.220 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-07-25 10:55:33.222 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 10:55:33.283 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [__EFMigrationsHistory] (
+    [MigrationId] nvarchar(150) NOT NULL,
+    [ProductVersion] nvarchar(32) NOT NULL,
+    CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+);
+2024-07-25 10:55:33.284 +05:30 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 10:55:33.286 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-07-25 10:55:33.294 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-07-25 10:55:33.308 +05:30 [INF] Applying migration '20240725052440_fileuploadtables'.
+2024-07-25 10:55:33.346 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Domain] (
+    [Id] uniqueidentifier NOT NULL,
+    [Name] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Domain] PRIMARY KEY ([Id])
+);
+2024-07-25 10:55:33.348 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Users] (
+    [Id] uniqueidentifier NOT NULL,
+    [Name] nvarchar(max) NOT NULL,
+    [Email] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Users] PRIMARY KEY ([Id])
+);
+2024-07-25 10:55:33.351 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Subdomain] (
+    [Id] uniqueidentifier NOT NULL,
+    [Name] nvarchar(max) NOT NULL,
+    [DomainId] uniqueidentifier NOT NULL,
+    CONSTRAINT [PK_Subdomain] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Subdomain_Domain_DomainId] FOREIGN KEY ([DomainId]) REFERENCES [Domain] ([Id]) ON DELETE CASCADE
+);
+2024-07-25 10:55:33.365 +05:30 [ERR] Failed executing DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Mockups] (
+    [Id] uniqueidentifier NOT NULL,
+    [Name] nvarchar(max) NOT NULL,
+    [DomainId] uniqueidentifier NOT NULL,
+    [SubdomainId] uniqueidentifier NOT NULL,
+    [Tags] nvarchar(max) NOT NULL,
+    [FileName] nvarchar(max) NOT NULL,
+    [FilePath] nvarchar(max) NOT NULL,
+    [CreatedBy] uniqueidentifier NOT NULL,
+    [CreatedDate] datetime2 NOT NULL,
+    [ModifiedBy] uniqueidentifier NULL,
+    [ModifiedDate] datetime2 NULL,
+    CONSTRAINT [PK_Mockups] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Mockups_Domain_DomainId] FOREIGN KEY ([DomainId]) REFERENCES [Domain] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Mockups_Subdomain_SubdomainId] FOREIGN KEY ([SubdomainId]) REFERENCES [Subdomain] ([Id]) ON DELETE CASCADE
+);
+2024-07-25 10:57:47.399 +05:30 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 10:57:47.453 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-07-25 10:57:47.455 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 10:57:47.507 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [__EFMigrationsHistory] (
+    [MigrationId] nvarchar(150) NOT NULL,
+    [ProductVersion] nvarchar(32) NOT NULL,
+    CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+);
+2024-07-25 10:57:47.508 +05:30 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 10:57:47.510 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-07-25 10:57:47.519 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-07-25 10:57:47.536 +05:30 [INF] Applying migration '20240725052736_fileuploadtables'.
+2024-07-25 10:57:47.576 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Domain] (
+    [Id] uniqueidentifier NOT NULL,
+    [Name] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Domain] PRIMARY KEY ([Id])
+);
+2024-07-25 10:57:47.579 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Users] (
+    [Id] uniqueidentifier NOT NULL,
+    [Name] nvarchar(max) NOT NULL,
+    [Email] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Users] PRIMARY KEY ([Id])
+);
+2024-07-25 10:57:47.583 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Subdomain] (
+    [Id] uniqueidentifier NOT NULL,
+    [Name] nvarchar(max) NOT NULL,
+    [DomainId] uniqueidentifier NOT NULL,
+    CONSTRAINT [PK_Subdomain] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Subdomain_Domain_DomainId] FOREIGN KEY ([DomainId]) REFERENCES [Domain] ([Id]) ON DELETE CASCADE
+);
+2024-07-25 10:57:47.586 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Mockups] (
+    [Id] uniqueidentifier NOT NULL,
+    [Name] nvarchar(max) NOT NULL,
+    [DomainId] uniqueidentifier NOT NULL,
+    [SubdomainId] uniqueidentifier NOT NULL,
+    [Tags] nvarchar(max) NOT NULL,
+    [FileName] nvarchar(max) NOT NULL,
+    [FilePath] nvarchar(max) NOT NULL,
+    [CreatedBy] uniqueidentifier NOT NULL,
+    [CreatedDate] datetime2 NOT NULL,
+    [ModifiedBy] uniqueidentifier NULL,
+    [ModifiedDate] datetime2 NULL,
+    CONSTRAINT [PK_Mockups] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Mockups_Domain_DomainId] FOREIGN KEY ([DomainId]) REFERENCES [Domain] ([Id]),
+    CONSTRAINT [FK_Mockups_Subdomain_SubdomainId] FOREIGN KEY ([SubdomainId]) REFERENCES [Subdomain] ([Id])
+);
+2024-07-25 10:57:47.589 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Likes] (
+    [UserId] uniqueidentifier NOT NULL,
+    [MockupId] uniqueidentifier NOT NULL,
+    [Id] uniqueidentifier NOT NULL,
+    [IsLiked] bit NOT NULL,
+    CONSTRAINT [PK_Likes] PRIMARY KEY ([UserId], [MockupId]),
+    CONSTRAINT [FK_Likes_Mockups_MockupId] FOREIGN KEY ([MockupId]) REFERENCES [Mockups] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Likes_Users_UserId] FOREIGN KEY ([UserId]) REFERENCES [Users] ([Id]) ON DELETE CASCADE
+);
+2024-07-25 10:57:47.591 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Likes_MockupId] ON [Likes] ([MockupId]);
+2024-07-25 10:57:47.593 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Mockups_DomainId] ON [Mockups] ([DomainId]);
+2024-07-25 10:57:47.594 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Mockups_SubdomainId] ON [Mockups] ([SubdomainId]);
+2024-07-25 10:57:47.596 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Subdomain_DomainId] ON [Subdomain] ([DomainId]);
+2024-07-25 10:57:47.599 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240725052736_fileuploadtables', N'8.0.7');
+2024-07-25 11:19:53.228 +05:30 [INF] Executed DbCommand (37ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 11:19:53.347 +05:30 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-07-25 11:19:53.378 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-07-25 11:19:53.621 +05:30 [INF] Now listening on: https://localhost:7231
+2024-07-25 11:19:53.623 +05:30 [INF] Now listening on: http://localhost:5027
+2024-07-25 11:19:53.627 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-07-25 11:19:53.630 +05:30 [INF] Hosting environment: Development
+2024-07-25 11:19:53.633 +05:30 [INF] Content root path: C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService
+2024-07-25 11:19:54.519 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/index.html - null null
+2024-07-25 11:19:54.804 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/index.html - 200 null text/html;charset=utf-8 292.7217ms
+2024-07-25 11:19:54.813 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - null null
+2024-07-25 11:19:54.819 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_vs/browserLink - null null
+2024-07-25 11:19:54.839 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - 200 13786 application/javascript; charset=utf-8 25.6173ms
+2024-07-25 11:19:54.891 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_vs/browserLink - 200 null text/javascript; charset=UTF-8 72.274ms
+2024-07-25 11:19:54.935 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - null null
+2024-07-25 11:19:55.020 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "POST api/FileUploadAPI" for actions - HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain (HxStudioFileUploadService),HxStudioFileUploadService.Controllers.FileUploadAPIController.AddSubdomain (HxStudioFileUploadService). Actions require a unique method/path combination for Swagger/OpenAPI 3.0. Use ConflictingActionsResolver as a workaround
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerDocumentWithoutFilters(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-07-25 11:19:55.051 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - 500 null text/plain; charset=utf-8 116.6193ms
+2024-07-25 11:20:43.692 +05:30 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 11:20:43.755 +05:30 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-07-25 11:20:43.771 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-07-25 11:20:43.959 +05:30 [INF] Now listening on: https://localhost:7231
+2024-07-25 11:20:43.961 +05:30 [INF] Now listening on: http://localhost:5027
+2024-07-25 11:20:43.964 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-07-25 11:20:43.965 +05:30 [INF] Hosting environment: Development
+2024-07-25 11:20:43.965 +05:30 [INF] Content root path: C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService
+2024-07-25 11:20:44.708 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/index.html - null null
+2024-07-25 11:20:44.937 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/index.html - 200 null text/html;charset=utf-8 235.4543ms
+2024-07-25 11:20:44.950 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - null null
+2024-07-25 11:20:44.950 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_vs/browserLink - null null
+2024-07-25 11:20:44.962 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - 200 13786 application/javascript; charset=utf-8 12.0991ms
+2024-07-25 11:20:45.001 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_vs/browserLink - 200 null text/javascript; charset=UTF-8 50.8339ms
+2024-07-25 11:20:45.054 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - null null
+2024-07-25 11:20:45.132 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "POST api/FileUploadAPI" for actions - HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain (HxStudioFileUploadService),HxStudioFileUploadService.Controllers.FileUploadAPIController.AddSubdomain (HxStudioFileUploadService). Actions require a unique method/path combination for Swagger/OpenAPI 3.0. Use ConflictingActionsResolver as a workaround
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerDocumentWithoutFilters(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-07-25 11:20:45.152 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - 500 null text/plain; charset=utf-8 98.5088ms
+2024-07-25 11:22:46.768 +05:30 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 11:22:46.824 +05:30 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-07-25 11:22:46.842 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-07-25 11:22:47.021 +05:30 [INF] Now listening on: https://localhost:7231
+2024-07-25 11:22:47.024 +05:30 [INF] Now listening on: http://localhost:5027
+2024-07-25 11:22:47.026 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-07-25 11:22:47.027 +05:30 [INF] Hosting environment: Development
+2024-07-25 11:22:47.027 +05:30 [INF] Content root path: C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService
+2024-07-25 11:22:47.612 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/index.html - null null
+2024-07-25 11:22:47.881 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/index.html - 200 null text/html;charset=utf-8 273.924ms
+2024-07-25 11:22:47.886 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - null null
+2024-07-25 11:22:47.889 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_vs/browserLink - null null
+2024-07-25 11:22:47.904 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - 200 13786 application/javascript; charset=utf-8 18.4878ms
+2024-07-25 11:22:47.943 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_vs/browserLink - 200 null text/javascript; charset=UTF-8 53.9875ms
+2024-07-25 11:22:47.998 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - null null
+2024-07-25 11:22:48.096 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 97.9439ms
+2024-07-25 11:23:38.005 +05:30 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 11:23:38.066 +05:30 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-07-25 11:23:38.083 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-07-25 11:23:38.262 +05:30 [INF] Now listening on: https://localhost:7231
+2024-07-25 11:23:38.263 +05:30 [INF] Now listening on: http://localhost:5027
+2024-07-25 11:23:38.266 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-07-25 11:23:38.268 +05:30 [INF] Hosting environment: Development
+2024-07-25 11:23:38.268 +05:30 [INF] Content root path: C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService
+2024-07-25 11:23:38.957 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/index.html - null null
+2024-07-25 11:23:39.195 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/index.html - 200 null text/html;charset=utf-8 243.0251ms
+2024-07-25 11:23:39.200 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - null null
+2024-07-25 11:23:39.202 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_vs/browserLink - null null
+2024-07-25 11:23:39.221 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - 200 13786 application/javascript; charset=utf-8 21.5ms
+2024-07-25 11:23:39.259 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_vs/browserLink - 200 null text/javascript; charset=UTF-8 58.0939ms
+2024-07-25 11:23:39.305 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - null null
+2024-07-25 11:23:39.411 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 106.8344ms
+2024-07-25 11:25:02.026 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI - null null
+2024-07-25 11:25:02.037 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetDomains (HxStudioFileUploadService)'
+2024-07-25 11:25:02.053 +05:30 [INF] Route matched with {action = "GetDomains", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDomains() on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-07-25 11:25:02.311 +05:30 [ERR] Failed executing DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Name]
+FROM [Domains] AS [d]
+2024-07-25 11:25:02.342 +05:30 [ERR] An exception occurred while iterating over the results of a query for context type 'HxStudioFileUploadService.Data.AppDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'Domains'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__211_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:17fa5013-edcd-40ba-a5d7-4182f247d716
+Error Number:208,State:1,Class:16
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'Domains'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__211_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:17fa5013-edcd-40ba-a5d7-4182f247d716
+Error Number:208,State:1,Class:16
+2024-07-25 11:25:02.413 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetDomains (HxStudioFileUploadService) in 356.5564ms
+2024-07-25 11:25:02.416 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetDomains (HxStudioFileUploadService)'
+2024-07-25 11:25:02.420 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'Domains'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__211_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at HxStudioFileUploadService.Services.FileUploadService.GetDomainsAsync() in C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService\Service\FileUploadService .cs:line 171
+   at HxStudioFileUploadService.Controllers.FileUploadAPIController.GetDomains() in C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService\Controllers\FileUploadAPIController.cs:line 90
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+ClientConnectionId:17fa5013-edcd-40ba-a5d7-4182f247d716
+Error Number:208,State:1,Class:16
+2024-07-25 11:25:02.450 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI - 500 null text/plain; charset=utf-8 424.6105ms
+2024-07-25 11:26:42.175 +05:30 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 11:26:42.233 +05:30 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-07-25 11:26:42.251 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-07-25 11:26:42.434 +05:30 [INF] Now listening on: https://localhost:7231
+2024-07-25 11:26:42.438 +05:30 [INF] Now listening on: http://localhost:5027
+2024-07-25 11:26:42.441 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-07-25 11:26:42.442 +05:30 [INF] Hosting environment: Development
+2024-07-25 11:26:42.443 +05:30 [INF] Content root path: C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService
+2024-07-25 11:26:42.791 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/index.html - null null
+2024-07-25 11:26:43.124 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/index.html - 200 null text/html;charset=utf-8 337.8863ms
+2024-07-25 11:26:43.135 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_vs/browserLink - null null
+2024-07-25 11:26:43.135 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - null null
+2024-07-25 11:26:43.157 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - 200 13786 application/javascript; charset=utf-8 28.5545ms
+2024-07-25 11:26:43.202 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_vs/browserLink - 200 null text/javascript; charset=UTF-8 67.7596ms
+2024-07-25 11:26:43.247 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - null null
+2024-07-25 11:26:43.348 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 101.0411ms
+2024-07-25 11:28:47.920 +05:30 [INF] Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 11:28:47.974 +05:30 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-07-25 11:28:47.992 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-07-25 11:28:48.181 +05:30 [INF] Now listening on: https://localhost:7231
+2024-07-25 11:28:48.184 +05:30 [INF] Now listening on: http://localhost:5027
+2024-07-25 11:28:48.185 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-07-25 11:28:48.186 +05:30 [INF] Hosting environment: Development
+2024-07-25 11:28:48.187 +05:30 [INF] Content root path: C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService
+2024-07-25 11:28:48.831 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/index.html - null null
+2024-07-25 11:28:49.107 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/index.html - 200 null text/html;charset=utf-8 279.7439ms
+2024-07-25 11:28:49.112 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - null null
+2024-07-25 11:28:49.116 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_vs/browserLink - null null
+2024-07-25 11:28:49.134 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - 200 13786 application/javascript; charset=utf-8 22.4252ms
+2024-07-25 11:28:49.178 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_vs/browserLink - 200 null text/javascript; charset=UTF-8 62.3801ms
+2024-07-25 11:28:49.230 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - null null
+2024-07-25 11:28:49.327 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 97.4294ms
+2024-07-25 11:31:37.669 +05:30 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 11:31:37.732 +05:30 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-07-25 11:31:37.764 +05:30 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-07-25 11:31:37.951 +05:30 [INF] Now listening on: https://localhost:7231
+2024-07-25 11:31:37.953 +05:30 [INF] Now listening on: http://localhost:5027
+2024-07-25 11:31:37.955 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-07-25 11:31:37.956 +05:30 [INF] Hosting environment: Development
+2024-07-25 11:31:37.957 +05:30 [INF] Content root path: C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService
+2024-07-25 11:31:38.382 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/index.html - null null
+2024-07-25 11:31:38.665 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/index.html - 200 null text/html;charset=utf-8 286.5343ms
+2024-07-25 11:31:38.695 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - null null
+2024-07-25 11:31:38.696 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_vs/browserLink - null null
+2024-07-25 11:31:38.712 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - 200 13786 application/javascript; charset=utf-8 16.5977ms
+2024-07-25 11:31:38.761 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_vs/browserLink - 200 null text/javascript; charset=UTF-8 65.441ms
+2024-07-25 11:31:38.805 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - null null
+2024-07-25 11:31:38.911 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 106.6157ms
+2024-07-25 11:32:24.581 +05:30 [INF] Request starting HTTP/2 POST https://localhost:7231/api/FileUploadAPI - application/json 22
+2024-07-25 11:32:24.596 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain (HxStudioFileUploadService)'
+2024-07-25 11:32:24.621 +05:30 [INF] Route matched with {action = "AddDomain", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddDomain(HxStudioFileUploadService.Models.Dto.DomainDto) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-07-25 11:32:24.863 +05:30 [ERR] Failed executing DbCommand (41ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Domains] ([Id], [Name])
+VALUES (@p0, @p1);
+2024-07-25 11:32:24.898 +05:30 [ERR] An exception occurred in the database while saving changes for context type 'HxStudioFileUploadService.Data.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'Domains'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__211_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:05e98ae8-f18b-4de2-b141-c06fd75248df
+Error Number:208,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'Domains'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__211_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:05e98ae8-f18b-4de2-b141-c06fd75248df
+Error Number:208,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2024-07-25 11:32:24.990 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain (HxStudioFileUploadService) in 361.4833ms
+2024-07-25 11:32:24.993 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain (HxStudioFileUploadService)'
+2024-07-25 11:32:24.998 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'Domains'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__211_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:05e98ae8-f18b-4de2-b141-c06fd75248df
+Error Number:208,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at HxStudioFileUploadService.Services.FileUploadService.AddDomainAsync(DomainDto domainDto) in C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService\Service\FileUploadService .cs:line 166
+   at HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain(DomainDto domain) in C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService\Controllers\FileUploadAPIController.cs:line 67
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-07-25 11:32:25.032 +05:30 [INF] Request finished HTTP/2 POST https://localhost:7231/api/FileUploadAPI - 500 null text/plain; charset=utf-8 451.2044ms
+2024-07-25 11:33:44.488 +05:30 [INF] Request starting HTTP/2 POST https://localhost:7231/api/FileUploadAPI - application/json 22
+2024-07-25 11:33:44.498 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain (HxStudioFileUploadService)'
+2024-07-25 11:33:44.500 +05:30 [INF] Route matched with {action = "AddDomain", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddDomain(HxStudioFileUploadService.Models.Dto.DomainDto) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-07-25 11:33:53.532 +05:30 [ERR] Failed executing DbCommand (24ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Domains] ([Id], [Name])
+VALUES (@p0, @p1);
+2024-07-25 11:33:53.537 +05:30 [ERR] An exception occurred in the database while saving changes for context type 'HxStudioFileUploadService.Data.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'Domains'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__211_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:05e98ae8-f18b-4de2-b141-c06fd75248df
+Error Number:208,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'Domains'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__211_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:05e98ae8-f18b-4de2-b141-c06fd75248df
+Error Number:208,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2024-07-25 11:33:53.633 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain (HxStudioFileUploadService) in 9130.4379ms
+2024-07-25 11:33:53.638 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain (HxStudioFileUploadService)'
+2024-07-25 11:33:53.639 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'Domains'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__211_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:05e98ae8-f18b-4de2-b141-c06fd75248df
+Error Number:208,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at HxStudioFileUploadService.Services.FileUploadService.AddDomainAsync(DomainDto domainDto) in C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService\Service\FileUploadService .cs:line 166
+   at HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain(DomainDto domain) in C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService\Controllers\FileUploadAPIController.cs:line 67
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-07-25 11:33:53.657 +05:30 [INF] Request finished HTTP/2 POST https://localhost:7231/api/FileUploadAPI - 500 null text/plain; charset=utf-8 9174.168ms
+2024-07-25 11:37:08.543 +05:30 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 11:37:08.605 +05:30 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-07-25 11:37:08.623 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-07-25 11:37:08.824 +05:30 [INF] Now listening on: https://localhost:7231
+2024-07-25 11:37:08.827 +05:30 [INF] Now listening on: http://localhost:5027
+2024-07-25 11:37:08.828 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-07-25 11:37:08.829 +05:30 [INF] Hosting environment: Development
+2024-07-25 11:37:08.831 +05:30 [INF] Content root path: C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService
+2024-07-25 11:37:09.404 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/index.html - null null
+2024-07-25 11:37:09.662 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/index.html - 200 null text/html;charset=utf-8 265.0935ms
+2024-07-25 11:37:09.668 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - null null
+2024-07-25 11:37:09.670 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_vs/browserLink - null null
+2024-07-25 11:37:09.686 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - 200 13786 application/javascript; charset=utf-8 17.8926ms
+2024-07-25 11:37:09.723 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_vs/browserLink - 200 null text/javascript; charset=UTF-8 52.5215ms
+2024-07-25 11:37:09.774 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - null null
+2024-07-25 11:37:09.882 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 108.1296ms
+2024-07-25 11:37:22.908 +05:30 [INF] Request starting HTTP/2 POST https://localhost:7231/api/FileUploadAPI - application/json 22
+2024-07-25 11:37:22.919 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain (HxStudioFileUploadService)'
+2024-07-25 11:37:22.943 +05:30 [INF] Route matched with {action = "AddDomain", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddDomain(HxStudioFileUploadService.Models.Dto.DomainDto) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-07-25 11:37:26.959 +05:30 [INF] Executed DbCommand (55ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Domain] ([Id], [Name])
+VALUES (@p0, @p1);
+2024-07-25 11:37:29.434 +05:30 [INF] Executing CreatedAtActionResult, writing value of type 'HxStudioFileUploadService.Models.Dto.DomainDto'.
+2024-07-25 11:37:29.462 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain (HxStudioFileUploadService) in 6514.0153ms
+2024-07-25 11:37:29.464 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain (HxStudioFileUploadService)'
+2024-07-25 11:37:29.471 +05:30 [INF] Request finished HTTP/2 POST https://localhost:7231/api/FileUploadAPI - 201 null application/json; charset=utf-8 6563.5798ms
+2024-07-25 11:38:13.387 +05:30 [INF] Request starting HTTP/2 POST https://localhost:7231/api/FileUploadAPI - application/json 26
+2024-07-25 11:38:13.399 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain (HxStudioFileUploadService)'
+2024-07-25 11:38:13.400 +05:30 [INF] Route matched with {action = "AddDomain", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddDomain(HxStudioFileUploadService.Models.Dto.DomainDto) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-07-25 11:38:15.922 +05:30 [INF] Executed DbCommand (15ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Domain] ([Id], [Name])
+VALUES (@p0, @p1);
+2024-07-25 11:38:15.926 +05:30 [INF] Executing CreatedAtActionResult, writing value of type 'HxStudioFileUploadService.Models.Dto.DomainDto'.
+2024-07-25 11:38:15.928 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain (HxStudioFileUploadService) in 2526.1295ms
+2024-07-25 11:38:15.929 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain (HxStudioFileUploadService)'
+2024-07-25 11:38:15.930 +05:30 [INF] Request finished HTTP/2 POST https://localhost:7231/api/FileUploadAPI - 201 null application/json; charset=utf-8 2543.4252ms
+2024-07-25 11:38:31.162 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI - null null
+2024-07-25 11:38:31.169 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetDomains (HxStudioFileUploadService)'
+2024-07-25 11:38:31.175 +05:30 [INF] Route matched with {action = "GetDomains", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDomains() on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-07-25 11:38:31.357 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Name]
+FROM [Domain] AS [d]
+2024-07-25 11:38:31.372 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Domain, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-07-25 11:38:31.381 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetDomains (HxStudioFileUploadService) in 203.3131ms
+2024-07-25 11:38:31.383 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetDomains (HxStudioFileUploadService)'
+2024-07-25 11:38:31.384 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI - 200 null application/json; charset=utf-8 222.0995ms
+2024-07-25 11:39:26.045 +05:30 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 11:39:26.103 +05:30 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-07-25 11:39:26.119 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-07-25 11:39:26.302 +05:30 [INF] Now listening on: https://localhost:7231
+2024-07-25 11:39:26.304 +05:30 [INF] Now listening on: http://localhost:5027
+2024-07-25 11:39:26.306 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-07-25 11:39:26.307 +05:30 [INF] Hosting environment: Development
+2024-07-25 11:39:26.307 +05:30 [INF] Content root path: C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService
+2024-07-25 11:39:26.964 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/index.html - null null
+2024-07-25 11:39:27.203 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/index.html - 200 null text/html;charset=utf-8 247.6285ms
+2024-07-25 11:39:27.210 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - null null
+2024-07-25 11:39:27.211 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_vs/browserLink - null null
+2024-07-25 11:39:27.228 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - 200 13786 application/javascript; charset=utf-8 18.6607ms
+2024-07-25 11:39:27.266 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_vs/browserLink - 200 null text/javascript; charset=UTF-8 55.0812ms
+2024-07-25 11:39:27.313 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - null null
+2024-07-25 11:39:27.381 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "POST api/FileUploadAPI" for actions - HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain (HxStudioFileUploadService),HxStudioFileUploadService.Controllers.FileUploadAPIController.AddSubdomain (HxStudioFileUploadService). Actions require a unique method/path combination for Swagger/OpenAPI 3.0. Use ConflictingActionsResolver as a workaround
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerDocumentWithoutFilters(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-07-25 11:39:27.401 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - 500 null text/plain; charset=utf-8 88.2519ms
+2024-07-25 11:44:35.107 +05:30 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 11:44:35.170 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-07-25 11:44:35.185 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-07-25 11:44:35.368 +05:30 [INF] Now listening on: https://localhost:7231
+2024-07-25 11:44:35.370 +05:30 [INF] Now listening on: http://localhost:5027
+2024-07-25 11:44:35.372 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-07-25 11:44:35.372 +05:30 [INF] Hosting environment: Development
+2024-07-25 11:44:35.373 +05:30 [INF] Content root path: C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService
+2024-07-25 11:44:35.872 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/index.html - null null
+2024-07-25 11:44:36.124 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - null null
+2024-07-25 11:44:36.127 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_vs/browserLink - null null
+2024-07-25 11:44:36.130 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/index.html - 200 null text/html;charset=utf-8 265.4717ms
+2024-07-25 11:44:36.145 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - 200 13786 application/javascript; charset=utf-8 20.6247ms
+2024-07-25 11:44:36.188 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_vs/browserLink - 200 null text/javascript; charset=UTF-8 61.5736ms
+2024-07-25 11:44:36.238 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - null null
+2024-07-25 11:44:36.302 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "POST api/FileUploadAPI" for actions - HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain (HxStudioFileUploadService),HxStudioFileUploadService.Controllers.FileUploadAPIController.AddSubdomain (HxStudioFileUploadService). Actions require a unique method/path combination for Swagger/OpenAPI 3.0. Use ConflictingActionsResolver as a workaround
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerDocumentWithoutFilters(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-07-25 11:44:36.322 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - 500 null text/plain; charset=utf-8 84.7538ms
+2024-07-25 11:45:42.873 +05:30 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 11:45:42.930 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-07-25 11:45:42.948 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-07-25 11:45:43.137 +05:30 [INF] Now listening on: https://localhost:7231
+2024-07-25 11:45:43.140 +05:30 [INF] Now listening on: http://localhost:5027
+2024-07-25 11:45:43.142 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-07-25 11:45:43.142 +05:30 [INF] Hosting environment: Development
+2024-07-25 11:45:43.143 +05:30 [INF] Content root path: C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService
+2024-07-25 11:45:43.739 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/index.html - null null
+2024-07-25 11:45:43.965 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/index.html - 200 null text/html;charset=utf-8 232.055ms
+2024-07-25 11:45:43.973 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - null null
+2024-07-25 11:45:43.976 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_vs/browserLink - null null
+2024-07-25 11:45:43.989 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - 200 13786 application/javascript; charset=utf-8 16.3276ms
+2024-07-25 11:45:44.023 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_vs/browserLink - 200 null text/javascript; charset=UTF-8 46.6903ms
+2024-07-25 11:45:44.069 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - null null
+2024-07-25 11:45:44.185 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 116.8674ms
+2024-07-25 11:46:13.525 +05:30 [INF] Request starting HTTP/2 POST https://localhost:7231/api/FileUploadAPI - application/json 22
+2024-07-25 11:46:13.542 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain (HxStudioFileUploadService)'
+2024-07-25 11:46:13.577 +05:30 [INF] Route matched with {action = "AddDomain", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddDomain(HxStudioFileUploadService.Models.Dto.DomainDto) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-07-25 11:46:17.358 +05:30 [INF] Executed DbCommand (49ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Domain] ([Id], [Name])
+VALUES (@p0, @p1);
+2024-07-25 11:46:17.382 +05:30 [INF] Executing CreatedAtActionResult, writing value of type 'HxStudioFileUploadService.Models.Dto.DomainDto'.
+2024-07-25 11:46:17.405 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain (HxStudioFileUploadService) in 3819.4535ms
+2024-07-25 11:46:17.408 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain (HxStudioFileUploadService)'
+2024-07-25 11:46:17.412 +05:30 [INF] Request finished HTTP/2 POST https://localhost:7231/api/FileUploadAPI - 201 null application/json; charset=utf-8 3893.4522ms
+2024-07-25 11:49:03.615 +05:30 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 11:49:03.675 +05:30 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-07-25 11:49:03.691 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-07-25 11:49:03.879 +05:30 [INF] Now listening on: https://localhost:7231
+2024-07-25 11:49:03.882 +05:30 [INF] Now listening on: http://localhost:5027
+2024-07-25 11:49:03.884 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-07-25 11:49:03.885 +05:30 [INF] Hosting environment: Development
+2024-07-25 11:49:03.886 +05:30 [INF] Content root path: C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService
+2024-07-25 11:49:04.630 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/index.html - null null
+2024-07-25 11:49:04.852 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/index.html - 200 null text/html;charset=utf-8 227.1153ms
+2024-07-25 11:49:04.866 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - null null
+2024-07-25 11:49:04.866 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_vs/browserLink - null null
+2024-07-25 11:49:04.880 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - 200 13786 application/javascript; charset=utf-8 13.8736ms
+2024-07-25 11:49:04.924 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_vs/browserLink - 200 null text/javascript; charset=UTF-8 57.5866ms
+2024-07-25 11:49:04.969 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - null null
+2024-07-25 11:49:05.038 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "POST api/FileUploadAPI" for actions - HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain (HxStudioFileUploadService),HxStudioFileUploadService.Controllers.FileUploadAPIController.AddSubdomain (HxStudioFileUploadService). Actions require a unique method/path combination for Swagger/OpenAPI 3.0. Use ConflictingActionsResolver as a workaround
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerDocumentWithoutFilters(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-07-25 11:49:05.057 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - 500 null text/plain; charset=utf-8 88.1815ms
+2024-07-25 11:50:42.150 +05:30 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 11:50:42.208 +05:30 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-07-25 11:50:42.225 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-07-25 11:50:42.404 +05:30 [INF] Now listening on: https://localhost:7231
+2024-07-25 11:50:42.407 +05:30 [INF] Now listening on: http://localhost:5027
+2024-07-25 11:50:42.409 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-07-25 11:50:42.410 +05:30 [INF] Hosting environment: Development
+2024-07-25 11:50:42.410 +05:30 [INF] Content root path: C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService
+2024-07-25 11:50:42.889 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/index.html - null null
+2024-07-25 11:50:43.110 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/index.html - 200 null text/html;charset=utf-8 227.5424ms
+2024-07-25 11:50:43.123 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - null null
+2024-07-25 11:50:43.123 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_vs/browserLink - null null
+2024-07-25 11:50:43.137 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - 200 13786 application/javascript; charset=utf-8 13.9931ms
+2024-07-25 11:50:43.173 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_vs/browserLink - 200 null text/javascript; charset=UTF-8 50.0211ms
+2024-07-25 11:50:43.237 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - null null
+2024-07-25 11:50:43.296 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "POST api/FileUploadAPI" for actions - HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain (HxStudioFileUploadService),HxStudioFileUploadService.Controllers.FileUploadAPIController.AddSubdomain (HxStudioFileUploadService). Actions require a unique method/path combination for Swagger/OpenAPI 3.0. Use ConflictingActionsResolver as a workaround
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerDocumentWithoutFilters(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-07-25 11:50:43.315 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - 500 null text/plain; charset=utf-8 78.9203ms
+2024-07-25 11:57:03.658 +05:30 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 11:57:03.702 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-07-25 11:57:03.704 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 11:57:03.705 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-07-25 11:57:03.717 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-07-25 11:57:03.726 +05:30 [INF] No migrations were applied. The database is already up to date.
+2024-07-25 11:57:16.171 +05:30 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 11:57:16.229 +05:30 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-07-25 11:57:16.244 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-07-25 11:57:16.484 +05:30 [INF] Now listening on: https://localhost:7231
+2024-07-25 11:57:16.487 +05:30 [INF] Now listening on: http://localhost:5027
+2024-07-25 11:57:16.489 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-07-25 11:57:16.490 +05:30 [INF] Hosting environment: Development
+2024-07-25 11:57:16.491 +05:30 [INF] Content root path: C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService
+2024-07-25 11:57:17.032 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/index.html - null null
+2024-07-25 11:57:17.259 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/index.html - 200 null text/html;charset=utf-8 231.7758ms
+2024-07-25 11:57:17.264 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - null null
+2024-07-25 11:57:17.266 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_vs/browserLink - null null
+2024-07-25 11:57:17.285 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - 200 13786 application/javascript; charset=utf-8 21.7607ms
+2024-07-25 11:57:17.325 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_vs/browserLink - 200 null text/javascript; charset=UTF-8 58.7959ms
+2024-07-25 11:57:17.369 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - null null
+2024-07-25 11:57:17.449 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "POST api/FileUploadAPI" for actions - HxStudioFileUploadService.Controllers.FileUploadAPIController.AddDomain (HxStudioFileUploadService),HxStudioFileUploadService.Controllers.FileUploadAPIController.AddSubdomain (HxStudioFileUploadService). Actions require a unique method/path combination for Swagger/OpenAPI 3.0. Use ConflictingActionsResolver as a workaround
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerDocumentWithoutFilters(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-07-25 11:57:17.470 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - 500 null text/plain; charset=utf-8 101.7068ms
+2024-07-25 11:58:33.725 +05:30 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 11:58:33.783 +05:30 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-07-25 11:58:33.802 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-07-25 11:58:33.993 +05:30 [INF] Now listening on: https://localhost:7231
+2024-07-25 11:58:33.996 +05:30 [INF] Now listening on: http://localhost:5027
+2024-07-25 11:58:33.998 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-07-25 11:58:33.999 +05:30 [INF] Hosting environment: Development
+2024-07-25 11:58:33.999 +05:30 [INF] Content root path: C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService
+2024-07-25 11:58:34.759 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/index.html - null null
+2024-07-25 11:58:35.009 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/index.html - 200 null text/html;charset=utf-8 255.5885ms
+2024-07-25 11:58:35.014 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - null null
+2024-07-25 11:58:35.016 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_vs/browserLink - null null
+2024-07-25 11:58:35.031 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - 200 13786 application/javascript; charset=utf-8 17.4036ms
+2024-07-25 11:58:35.077 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_vs/browserLink - 200 null text/javascript; charset=UTF-8 62.0815ms
+2024-07-25 11:58:35.120 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - null null
+2024-07-25 11:58:35.217 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 97.0222ms
+2024-07-25 12:00:19.617 +05:30 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-07-25 12:00:19.674 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-07-25 12:00:19.689 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-07-25 12:00:19.874 +05:30 [INF] Now listening on: https://localhost:7231
+2024-07-25 12:00:19.878 +05:30 [INF] Now listening on: http://localhost:5027
+2024-07-25 12:00:19.880 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-07-25 12:00:19.880 +05:30 [INF] Hosting environment: Development
+2024-07-25 12:00:19.881 +05:30 [INF] Content root path: C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService
+2024-07-25 12:00:20.397 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/index.html - null null
+2024-07-25 12:00:20.642 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - null null
+2024-07-25 12:00:20.643 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_vs/browserLink - null null
+2024-07-25 12:00:20.651 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/index.html - 200 null text/html;charset=utf-8 258.6692ms
+2024-07-25 12:00:20.660 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - 200 13786 application/javascript; charset=utf-8 18.3895ms
+2024-07-25 12:00:20.702 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_vs/browserLink - 200 null text/javascript; charset=UTF-8 59.2271ms
+2024-07-25 12:00:20.746 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - null null
+2024-07-25 12:00:20.840 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 95.1843ms
+2024-07-25 12:00:42.477 +05:30 [INF] Request starting HTTP/2 POST https://localhost:7231/api/FileUploadAPI/subdomain - application/json 78
+2024-07-25 12:00:42.499 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.AddSubdomain (HxStudioFileUploadService)'
+2024-07-25 12:00:42.524 +05:30 [INF] Route matched with {action = "AddSubdomain", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddSubdomain(HxStudioFileUploadService.Models.Dto.SubdomainDto) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-07-25 12:00:42.797 +05:30 [INF] Executed DbCommand (50ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p2='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Subdomain] ([Id], [DomainId], [Name])
+VALUES (@p0, @p1, @p2);
+2024-07-25 12:00:42.823 +05:30 [INF] Executing CreatedAtActionResult, writing value of type 'HxStudioFileUploadService.Models.Subdomain'.
+2024-07-25 12:00:42.862 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.AddSubdomain (HxStudioFileUploadService) in 327.9049ms
+2024-07-25 12:00:42.866 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.AddSubdomain (HxStudioFileUploadService)'
+2024-07-25 12:00:42.873 +05:30 [INF] Request finished HTTP/2 POST https://localhost:7231/api/FileUploadAPI/subdomain - 201 null application/json; charset=utf-8 395.9321ms
+2024-07-25 12:01:21.975 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/C1DB06DA-48E4-45A0-AB5E-7965ADCC5562 - null null
+2024-07-25 12:01:21.984 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetSubdomains (HxStudioFileUploadService)'
+2024-07-25 12:01:21.988 +05:30 [INF] Route matched with {action = "GetSubdomains", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetSubdomains(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-07-25 12:01:22.317 +05:30 [INF] Executed DbCommand (14ms) [Parameters=[@__domainId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DomainId], [s].[Name]
+FROM [Subdomain] AS [s]
+WHERE [s].[DomainId] = @__domainId_0
+2024-07-25 12:01:22.330 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Subdomain, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-07-25 12:01:22.333 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetSubdomains (HxStudioFileUploadService) in 342.9983ms
+2024-07-25 12:01:22.339 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetSubdomains (HxStudioFileUploadService)'
+2024-07-25 12:01:22.340 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/C1DB06DA-48E4-45A0-AB5E-7965ADCC5562 - 200 null application/json; charset=utf-8 366.2366ms
+2024-07-25 12:03:01.088 +05:30 [INF] Request starting HTTP/2 POST https://localhost:7231/api/FileUploadAPI/upload?userId=0f63bd86-8a02-4b4e-8191-37d74ba52859 - multipart/form-data; boundary=----WebKitFormBoundaryRXFrbAHWkJiQJxEP 28964
+2024-07-25 12:03:01.096 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.UploadFiles (HxStudioFileUploadService)'
+2024-07-25 12:03:01.103 +05:30 [INF] Route matched with {action = "UploadFiles", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UploadFiles(System.Guid, HxStudioFileUploadService.Models.Dto.FileUploadRequestDto, System.Collections.Generic.List`1[Microsoft.AspNetCore.Http.IFormFile]) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-07-25 12:03:02.481 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Guid), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (DbType = Guid), @p7='?' (DbType = DateTime2), @p8='?' (Size = 4000), @p9='?' (DbType = Guid), @p10='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Mockups] ([Id], [CreatedBy], [CreatedDate], [DomainId], [FileName], [FilePath], [ModifiedBy], [ModifiedDate], [Name], [SubdomainId], [Tags])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10);
+2024-07-25 12:03:02.485 +05:30 [INF] Executing OkObjectResult, writing value of type 'HxStudioFileUploadService.Models.Dto.FileUploadResponseDto'.
+2024-07-25 12:03:02.487 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.UploadFiles (HxStudioFileUploadService) in 1382.1686ms
+2024-07-25 12:03:02.488 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.UploadFiles (HxStudioFileUploadService)'
+2024-07-25 12:03:02.492 +05:30 [INF] Request finished HTTP/2 POST https://localhost:7231/api/FileUploadAPI/upload?userId=0f63bd86-8a02-4b4e-8191-37d74ba52859 - 200 null application/json; charset=utf-8 1407.8879ms
+2024-07-25 12:03:28.928 +05:30 [INF] Request starting HTTP/2 POST https://localhost:7231/api/FileUploadAPI/F339467C-FE09-4007-91A6-CDEA7D39AB8F/like/5CFF12CA-5BE0-4544-9374-50823752947E - application/json 4
+2024-07-25 12:03:28.939 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.LikeMockup (HxStudioFileUploadService)'
+2024-07-25 12:03:28.943 +05:30 [INF] Route matched with {action = "LikeMockup", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] LikeMockup(System.Guid, System.Guid, Boolean) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-07-25 12:03:30.426 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (DbType = Guid), @__mockupId_1='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[UserId], [l].[MockupId], [l].[Id], [l].[IsLiked]
+FROM [Likes] AS [l]
+WHERE [l].[UserId] = @__userId_0 AND [l].[MockupId] = @__mockupId_1
+2024-07-25 12:03:30.471 +05:30 [ERR] Failed executing DbCommand (19ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p2='?' (DbType = Guid), @p3='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Likes] ([MockupId], [UserId], [Id], [IsLiked])
+VALUES (@p0, @p1, @p2, @p3);
+2024-07-25 12:03:30.505 +05:30 [ERR] An exception occurred in the database while saving changes for context type 'HxStudioFileUploadService.Data.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Likes_Users_UserId". The conflict occurred in database "HXStudioFileUpload_db", table "dbo.Users", column 'Id'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__211_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:bde094b9-01f6-41f5-b161-223a2d0ff86c
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Likes_Users_UserId". The conflict occurred in database "HXStudioFileUpload_db", table "dbo.Users", column 'Id'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__211_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:bde094b9-01f6-41f5-b161-223a2d0ff86c
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2024-07-25 12:03:30.601 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.LikeMockup (HxStudioFileUploadService) in 1656.6424ms
+2024-07-25 12:03:30.603 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.LikeMockup (HxStudioFileUploadService)'
+2024-07-25 12:03:30.608 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Likes_Users_UserId". The conflict occurred in database "HXStudioFileUpload_db", table "dbo.Users", column 'Id'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__211_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:bde094b9-01f6-41f5-b161-223a2d0ff86c
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at HxStudioFileUploadService.Services.FileUploadService.LikeMockupAsync(Guid userId, Guid mockupId, Boolean isLiked) in C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService\Service\FileUploadService .cs:line 140
+   at HxStudioFileUploadService.Controllers.FileUploadAPIController.LikeMockup(Guid userId, Guid mockupId, Boolean isLiked) in C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService\Controllers\FileUploadAPIController.cs:line 38
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-07-25 12:03:30.632 +05:30 [INF] Request finished HTTP/2 POST https://localhost:7231/api/FileUploadAPI/F339467C-FE09-4007-91A6-CDEA7D39AB8F/like/5CFF12CA-5BE0-4544-9374-50823752947E - 500 null text/plain; charset=utf-8 1705.2602ms
+2024-07-25 12:04:41.808 +05:30 [INF] Request starting HTTP/2 POST https://localhost:7231/api/FileUploadAPI/F339467C-FE09-4007-91A6-CDEA7D39AB8F/like/5CFF12CA-5BE0-4544-9374-50823752947E - application/json 4
+2024-07-25 12:04:41.818 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.LikeMockup (HxStudioFileUploadService)'
+2024-07-25 12:04:41.820 +05:30 [INF] Route matched with {action = "LikeMockup", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] LikeMockup(System.Guid, System.Guid, Boolean) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-07-25 12:04:45.479 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (DbType = Guid), @__mockupId_1='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[UserId], [l].[MockupId], [l].[Id], [l].[IsLiked]
+FROM [Likes] AS [l]
+WHERE [l].[UserId] = @__userId_0 AND [l].[MockupId] = @__mockupId_1
+2024-07-25 12:04:54.477 +05:30 [ERR] Failed executing DbCommand (16ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p2='?' (DbType = Guid), @p3='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Likes] ([MockupId], [UserId], [Id], [IsLiked])
+VALUES (@p0, @p1, @p2, @p3);
+2024-07-25 12:04:54.483 +05:30 [ERR] An exception occurred in the database while saving changes for context type 'HxStudioFileUploadService.Data.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Likes_Users_UserId". The conflict occurred in database "HXStudioFileUpload_db", table "dbo.Users", column 'Id'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__211_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:bde094b9-01f6-41f5-b161-223a2d0ff86c
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Likes_Users_UserId". The conflict occurred in database "HXStudioFileUpload_db", table "dbo.Users", column 'Id'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__211_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:bde094b9-01f6-41f5-b161-223a2d0ff86c
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2024-07-25 12:04:54.575 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.LikeMockup (HxStudioFileUploadService) in 12751.8075ms
+2024-07-25 12:04:54.578 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.LikeMockup (HxStudioFileUploadService)'
+2024-07-25 12:04:54.581 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Likes_Users_UserId". The conflict occurred in database "HXStudioFileUpload_db", table "dbo.Users", column 'Id'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__211_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:bde094b9-01f6-41f5-b161-223a2d0ff86c
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at HxStudioFileUploadService.Services.FileUploadService.LikeMockupAsync(Guid userId, Guid mockupId, Boolean isLiked) in C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService\Service\FileUploadService .cs:line 140
+   at HxStudioFileUploadService.Controllers.FileUploadAPIController.LikeMockup(Guid userId, Guid mockupId, Boolean isLiked) in C:\Users\Pallavi.Dhake\source\repos\HxStudioFileUploadService\HxStudioFileUploadService\Controllers\FileUploadAPIController.cs:line 38
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-07-25 12:04:54.601 +05:30 [INF] Request finished HTTP/2 POST https://localhost:7231/api/FileUploadAPI/F339467C-FE09-4007-91A6-CDEA7D39AB8F/like/5CFF12CA-5BE0-4544-9374-50823752947E - 500 null text/plain; charset=utf-8 12794.0567ms
+2024-07-25 12:05:55.102 +05:30 [INF] Request starting HTTP/2 POST https://localhost:7231/api/FileUploadAPI/0F63BD86-8A02-4B4E-8191-37D74BA52859/like/5CFF12CA-5BE0-4544-9374-50823752947E - application/json 4
+2024-07-25 12:05:55.110 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.LikeMockup (HxStudioFileUploadService)'
+2024-07-25 12:05:55.112 +05:30 [INF] Route matched with {action = "LikeMockup", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] LikeMockup(System.Guid, System.Guid, Boolean) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-07-25 12:05:59.849 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__userId_0='?' (DbType = Guid), @__mockupId_1='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[UserId], [l].[MockupId], [l].[Id], [l].[IsLiked]
+FROM [Likes] AS [l]
+WHERE [l].[UserId] = @__userId_0 AND [l].[MockupId] = @__mockupId_1
+2024-07-25 12:05:59.856 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p2='?' (DbType = Guid), @p3='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Likes] ([MockupId], [UserId], [Id], [IsLiked])
+VALUES (@p0, @p1, @p2, @p3);
+2024-07-25 12:05:59.861 +05:30 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2024-07-25 12:05:59.862 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.LikeMockup (HxStudioFileUploadService) in 4748.8215ms
+2024-07-25 12:05:59.863 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.LikeMockup (HxStudioFileUploadService)'
+2024-07-25 12:05:59.863 +05:30 [INF] Request finished HTTP/2 POST https://localhost:7231/api/FileUploadAPI/0F63BD86-8A02-4B4E-8191-37D74BA52859/like/5CFF12CA-5BE0-4544-9374-50823752947E - 200 0 null 4762.7326ms
+2024-07-25 12:06:21.244 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/0f63bd86-8a02-4b4e-8191-37d74ba52859/mockups - null null
+2024-07-25 12:06:21.253 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-07-25 12:06:21.258 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-07-25 12:06:21.320 +05:30 [INF] Executed DbCommand (10ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[DomainId] AS [Domain], [m].[SubdomainId] AS [Subdomain], [l].[IsLiked]
+FROM [Likes] AS [l]
+INNER JOIN [Mockups] AS [m] ON [l].[MockupId] = [m].[Id]
+WHERE [l].[UserId] = @__userId_0
+2024-07-25 12:06:21.325 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-07-25 12:06:21.328 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 67.6502ms
+2024-07-25 12:06:21.330 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-07-25 12:06:21.331 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/0f63bd86-8a02-4b4e-8191-37d74ba52859/mockups - 200 null application/json; charset=utf-8 87.6324ms

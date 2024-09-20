@@ -1,0 +1,363 @@
+2024-09-06 11:49:57.134 +05:30 [INF] Executed DbCommand (38ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-09-06 11:49:57.319 +05:30 [INF] Executed DbCommand (32ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-09-06 11:49:57.394 +05:30 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-09-06 11:49:58.901 +05:30 [INF] Now listening on: https://localhost:7231
+2024-09-06 11:49:58.944 +05:30 [INF] Now listening on: http://localhost:5027
+2024-09-06 11:49:59.033 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-06 11:49:59.041 +05:30 [INF] Hosting environment: Development
+2024-09-06 11:49:59.043 +05:30 [INF] Content root path: C:\Users\seema.badiger\Downloads\HxStudioFileUploadService 1\HxStudioFileUploadService
+2024-09-06 11:50:04.300 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/index.html - null null
+2024-09-06 11:50:04.827 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/index.html - 200 null text/html;charset=utf-8 543.1359ms
+2024-09-06 11:50:04.872 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - null null
+2024-09-06 11:50:04.891 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_framework/aspnetcore-browser-refresh.js - 200 13786 application/javascript; charset=utf-8 19.434ms
+2024-09-06 11:50:04.927 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/_vs/browserLink - null null
+2024-09-06 11:50:05.055 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/_vs/browserLink - 200 null text/javascript; charset=UTF-8 129.1505ms
+2024-09-06 11:50:05.177 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - null null
+2024-09-06 11:50:05.451 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 274.8336ms
+2024-09-06 11:50:39.729 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - null null
+2024-09-06 11:50:39.729 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - null null
+2024-09-06 11:50:39.753 +05:30 [INF] CORS policy execution successful.
+2024-09-06 11:50:39.753 +05:30 [INF] CORS policy execution successful.
+2024-09-06 11:50:39.776 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:50:39.776 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:50:39.807 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 11:50:39.807 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 11:50:40.150 +05:30 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-06 11:50:40.150 +05:30 [INF] Executed DbCommand (23ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-06 11:50:40.175 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-06 11:50:40.175 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-06 11:50:40.188 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - null null
+2024-09-06 11:50:40.188 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - null null
+2024-09-06 11:50:40.190 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 374.1823ms
+2024-09-06 11:50:40.190 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 375.5578ms
+2024-09-06 11:50:40.191 +05:30 [INF] CORS policy execution successful.
+2024-09-06 11:50:40.192 +05:30 [INF] CORS policy execution successful.
+2024-09-06 11:50:40.194 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:50:40.194 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:50:40.196 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:50:40.196 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:50:40.207 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 11:50:40.208 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 11:50:40.211 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - 200 null application/json; charset=utf-8 482.0523ms
+2024-09-06 11:50:40.211 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - 200 null application/json; charset=utf-8 482.0295ms
+2024-09-06 11:50:40.280 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-06 11:50:40.280 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-06 11:50:40.283 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-06 11:50:40.284 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-06 11:50:40.285 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 75.136ms
+2024-09-06 11:50:40.287 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 73.5839ms
+2024-09-06 11:50:40.289 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:50:40.290 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:50:40.292 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - 200 null application/json; charset=utf-8 104.5518ms
+2024-09-06 11:50:40.293 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - 200 null application/json; charset=utf-8 105.9204ms
+2024-09-06 11:51:53.523 +05:30 [INF] Request starting HTTP/2 POST https://localhost:7231/api/FileUploadAPI/upload?userId=d96c72a5-990b-497a-974a-14611c77edb0 - multipart/form-data; boundary=----WebKitFormBoundaryYT0yTK6CVMlg7BMq 5243478
+2024-09-06 11:51:53.527 +05:30 [INF] CORS policy execution successful.
+2024-09-06 11:51:53.528 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.UploadFiles (HxStudioFileUploadService)'
+2024-09-06 11:51:53.535 +05:30 [INF] Route matched with {action = "UploadFiles", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UploadFiles(System.Guid, HxStudioFileUploadService.Models.Dto.FileUploadRequestDto, System.Collections.Generic.List`1[Microsoft.AspNetCore.Http.IFormFile]) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 11:51:53.923 +05:30 [INF] Executed DbCommand (28ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p2='?' (DbType = DateTime2), @p3='?' (Size = 4000), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (DbType = Guid), @p7='?' (DbType = DateTime2), @p8='?' (Size = 4000), @p9='?' (Size = 4000), @p10='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Mockups] ([Id], [CreatedBy], [CreatedDate], [Domainname], [FileName], [FilePath], [ModifiedBy], [ModifiedDate], [Name], [Subdomainname], [Tags])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10);
+2024-09-06 11:51:53.948 +05:30 [INF] Executing OkObjectResult, writing value of type 'HxStudioFileUploadService.Models.Dto.FileUploadResponseDto'.
+2024-09-06 11:51:53.950 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.UploadFiles (HxStudioFileUploadService) in 412.8954ms
+2024-09-06 11:51:53.951 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.UploadFiles (HxStudioFileUploadService)'
+2024-09-06 11:51:53.955 +05:30 [INF] Request finished HTTP/2 POST https://localhost:7231/api/FileUploadAPI/upload?userId=d96c72a5-990b-497a-974a-14611c77edb0 - 200 null application/json; charset=utf-8 434.8254ms
+2024-09-06 11:55:37.595 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - null null
+2024-09-06 11:55:37.606 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - null null
+2024-09-06 11:55:37.614 +05:30 [INF] CORS policy execution successful.
+2024-09-06 11:55:37.620 +05:30 [INF] CORS policy execution successful.
+2024-09-06 11:55:37.622 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:55:37.625 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:55:37.628 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 11:55:37.633 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 11:55:37.667 +05:30 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-06 11:55:37.667 +05:30 [INF] Executed DbCommand (21ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-06 11:55:37.691 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-06 11:55:37.691 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-06 11:55:37.703 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 60.8003ms
+2024-09-06 11:55:37.704 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 49.3899ms
+2024-09-06 11:55:37.713 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - null null
+2024-09-06 11:55:37.714 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:55:37.715 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - null null
+2024-09-06 11:55:37.731 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - 200 null application/json; charset=utf-8 136.4663ms
+2024-09-06 11:55:37.729 +05:30 [INF] CORS policy execution successful.
+2024-09-06 11:55:37.722 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:55:37.745 +05:30 [INF] CORS policy execution successful.
+2024-09-06 11:55:37.761 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:55:37.764 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - 200 null application/json; charset=utf-8 158.2448ms
+2024-09-06 11:55:37.765 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:55:37.767 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 11:55:37.776 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 11:55:37.805 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-06 11:55:37.811 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-06 11:55:37.812 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-06 11:55:37.816 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-06 11:55:37.821 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 25.85ms
+2024-09-06 11:55:37.823 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 17.2784ms
+2024-09-06 11:55:37.826 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:55:37.829 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:55:37.832 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - 200 null application/json; charset=utf-8 118.2081ms
+2024-09-06 11:55:37.838 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - 200 null application/json; charset=utf-8 123.522ms
+2024-09-06 11:56:21.403 +05:30 [INF] Request starting HTTP/2 POST https://localhost:7231/api/FileUploadAPI/upload?userId=d96c72a5-990b-497a-974a-14611c77edb0 - multipart/form-data; boundary=----WebKitFormBoundaryD5qbyxKdCFkXFBxg 1038744
+2024-09-06 11:56:21.415 +05:30 [INF] CORS policy execution successful.
+2024-09-06 11:56:21.416 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.UploadFiles (HxStudioFileUploadService)'
+2024-09-06 11:56:21.418 +05:30 [INF] Route matched with {action = "UploadFiles", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UploadFiles(System.Guid, HxStudioFileUploadService.Models.Dto.FileUploadRequestDto, System.Collections.Generic.List`1[Microsoft.AspNetCore.Http.IFormFile]) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 11:56:21.460 +05:30 [INF] Executed DbCommand (9ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p2='?' (DbType = DateTime2), @p3='?' (Size = 4000), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (DbType = Guid), @p7='?' (DbType = DateTime2), @p8='?' (Size = 4000), @p9='?' (Size = 4000), @p10='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Mockups] ([Id], [CreatedBy], [CreatedDate], [Domainname], [FileName], [FilePath], [ModifiedBy], [ModifiedDate], [Name], [Subdomainname], [Tags])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10);
+2024-09-06 11:56:21.463 +05:30 [INF] Executing OkObjectResult, writing value of type 'HxStudioFileUploadService.Models.Dto.FileUploadResponseDto'.
+2024-09-06 11:56:21.464 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.UploadFiles (HxStudioFileUploadService) in 44.018ms
+2024-09-06 11:56:21.465 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.UploadFiles (HxStudioFileUploadService)'
+2024-09-06 11:56:21.469 +05:30 [INF] Request finished HTTP/2 POST https://localhost:7231/api/FileUploadAPI/upload?userId=d96c72a5-990b-497a-974a-14611c77edb0 - 200 null application/json; charset=utf-8 65.5464ms
+2024-09-06 11:56:35.455 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - null null
+2024-09-06 11:56:35.455 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - null null
+2024-09-06 11:56:35.460 +05:30 [INF] CORS policy execution successful.
+2024-09-06 11:56:35.465 +05:30 [INF] CORS policy execution successful.
+2024-09-06 11:56:35.468 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:56:35.470 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:56:35.472 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 11:56:35.474 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 11:56:35.490 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-06 11:56:35.490 +05:30 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-06 11:56:35.493 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-06 11:56:35.495 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-06 11:56:35.497 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 13.9831ms
+2024-09-06 11:56:35.502 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - null null
+2024-09-06 11:56:35.504 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:56:35.502 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 24.1344ms
+2024-09-06 11:56:35.504 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - null null
+2024-09-06 11:56:35.506 +05:30 [INF] CORS policy execution successful.
+2024-09-06 11:56:35.508 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - 200 null application/json; charset=utf-8 53.1408ms
+2024-09-06 11:56:35.511 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:56:35.515 +05:30 [INF] CORS policy execution successful.
+2024-09-06 11:56:35.516 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:56:35.521 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - 200 null application/json; charset=utf-8 66.0669ms
+2024-09-06 11:56:35.522 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:56:35.523 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 11:56:35.529 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 11:56:35.535 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-06 11:56:35.538 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-06 11:56:35.539 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-06 11:56:35.543 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-06 11:56:35.544 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 12.8266ms
+2024-09-06 11:56:35.546 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 10.7861ms
+2024-09-06 11:56:35.547 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:56:35.549 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:56:35.550 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - 200 null application/json; charset=utf-8 49.1776ms
+2024-09-06 11:56:35.552 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - 200 null application/json; charset=utf-8 47.8737ms
+2024-09-06 11:57:13.062 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/alphabetical?userId=D96C72A5-990B-497A-974A-14611C77EDB0 - null null
+2024-09-06 11:57:13.071 +05:30 [INF] CORS policy execution successful.
+2024-09-06 11:57:13.072 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetAllMockups (HxStudioFileUploadService)'
+2024-09-06 11:57:13.078 +05:30 [INF] Route matched with {action = "GetAllMockups", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllMockups(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 11:57:13.125 +05:30 [INF] Executed DbCommand (15ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+WHERE [m].[CreatedBy] = @__userId_0
+ORDER BY [m].[Name]
+2024-09-06 11:57:13.128 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-06 11:57:13.129 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetAllMockups (HxStudioFileUploadService) in 49.6302ms
+2024-09-06 11:57:13.131 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetAllMockups (HxStudioFileUploadService)'
+2024-09-06 11:57:13.132 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/alphabetical?userId=D96C72A5-990B-497A-974A-14611C77EDB0 - 200 null application/json; charset=utf-8 70.5793ms
+2024-09-06 11:57:17.706 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/recent?userId=D96C72A5-990B-497A-974A-14611C77EDB0 - null null
+2024-09-06 11:57:17.709 +05:30 [INF] CORS policy execution successful.
+2024-09-06 11:57:17.710 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetRecentMockups (HxStudioFileUploadService)'
+2024-09-06 11:57:17.720 +05:30 [INF] Route matched with {action = "GetRecentMockups", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetRecentMockups(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 11:57:17.740 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[@__userId_0='?' (DbType = Guid), @__recentDate_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+WHERE [m].[CreatedBy] = @__userId_0 AND [m].[CreatedDate] >= @__recentDate_1
+2024-09-06 11:57:17.744 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-06 11:57:17.745 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetRecentMockups (HxStudioFileUploadService) in 22.6833ms
+2024-09-06 11:57:17.747 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetRecentMockups (HxStudioFileUploadService)'
+2024-09-06 11:57:17.748 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/recent?userId=D96C72A5-990B-497A-974A-14611C77EDB0 - 200 null application/json; charset=utf-8 41.581ms
+2024-09-06 11:57:24.813 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/search?userId=D96C72A5-990B-497A-974A-14611C77EDB0&query=abc - null null
+2024-09-06 11:57:24.827 +05:30 [INF] CORS policy execution successful.
+2024-09-06 11:57:24.830 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.SearchMockups (HxStudioFileUploadService)'
+2024-09-06 11:57:24.837 +05:30 [INF] Route matched with {action = "SearchMockups", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] SearchMockups(System.Guid, System.String) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 11:57:24.916 +05:30 [INF] Executed DbCommand (26ms) [Parameters=[@__userId_0='?' (DbType = Guid), @__lowerSearchTerm_1_contains='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+WHERE [m].[CreatedBy] = @__userId_0 AND (LOWER([m].[Name]) LIKE @__lowerSearchTerm_1_contains ESCAPE N'\' OR EXISTS (
+    SELECT 1
+    FROM OPENJSON([m].[Tags]) WITH ([value] nvarchar(max) '$') AS [t]
+    WHERE LOWER([t].[value]) LIKE @__lowerSearchTerm_1_contains ESCAPE N'\') OR LOWER([m].[Domainname]) LIKE @__lowerSearchTerm_1_contains ESCAPE N'\' OR LOWER([m].[Subdomainname]) LIKE @__lowerSearchTerm_1_contains ESCAPE N'\')
+2024-09-06 11:57:24.919 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-06 11:57:24.920 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.SearchMockups (HxStudioFileUploadService) in 81.612ms
+2024-09-06 11:57:24.922 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.SearchMockups (HxStudioFileUploadService)'
+2024-09-06 11:57:24.923 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/search?userId=D96C72A5-990B-497A-974A-14611C77EDB0&query=abc - 200 null application/json; charset=utf-8 110.3888ms
+2024-09-06 11:59:50.213 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - null null
+2024-09-06 11:59:50.222 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - null null
+2024-09-06 11:59:50.225 +05:30 [INF] CORS policy execution successful.
+2024-09-06 11:59:50.229 +05:30 [INF] CORS policy execution successful.
+2024-09-06 11:59:50.230 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:59:50.230 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:59:50.232 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 11:59:50.234 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 11:59:50.247 +05:30 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-06 11:59:50.247 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-06 11:59:50.249 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-06 11:59:50.251 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-06 11:59:50.253 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 17.4945ms
+2024-09-06 11:59:50.254 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 16.1081ms
+2024-09-06 11:59:50.259 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:59:50.258 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - null null
+2024-09-06 11:59:50.264 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - 200 null application/json; charset=utf-8 51.0899ms
+2024-09-06 11:59:50.263 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:59:50.259 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - null null
+2024-09-06 11:59:50.271 +05:30 [INF] CORS policy execution successful.
+2024-09-06 11:59:50.275 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - 200 null application/json; charset=utf-8 53.5349ms
+2024-09-06 11:59:50.277 +05:30 [INF] CORS policy execution successful.
+2024-09-06 11:59:50.277 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:59:50.280 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:59:50.281 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 11:59:50.282 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 11:59:50.288 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-06 11:59:50.291 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-06 11:59:50.292 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-06 11:59:50.294 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-06 11:59:50.295 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 11.2677ms
+2024-09-06 11:59:50.297 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 10.9129ms
+2024-09-06 11:59:50.298 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:59:50.300 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 11:59:50.303 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - 200 null application/json; charset=utf-8 45.2668ms
+2024-09-06 11:59:50.305 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - 200 null application/json; charset=utf-8 46.2547ms
+2024-09-06 12:00:33.532 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7231/api/FileUploadAPI/delete/140c5d49-b61a-4e46-8124-bbd035ab05b1 - null null
+2024-09-06 12:00:33.546 +05:30 [INF] CORS policy execution successful.
+2024-09-06 12:00:33.547 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7231/api/FileUploadAPI/delete/140c5d49-b61a-4e46-8124-bbd035ab05b1 - 204 null null 16.0349ms
+2024-09-06 12:00:33.550 +05:30 [INF] Request starting HTTP/2 DELETE https://localhost:7231/api/FileUploadAPI/delete/140c5d49-b61a-4e46-8124-bbd035ab05b1 - null null
+2024-09-06 12:00:33.558 +05:30 [INF] CORS policy execution successful.
+2024-09-06 12:00:33.559 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.DeleteTemplate (HxStudioFileUploadService)'
+2024-09-06 12:00:33.563 +05:30 [INF] Route matched with {action = "DeleteTemplate", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DeleteTemplate(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 12:00:33.604 +05:30 [INF] Executed DbCommand (9ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [m].[Id], [m].[CreatedBy], [m].[CreatedDate], [m].[Domainname], [m].[FileName], [m].[FilePath], [m].[ModifiedBy], [m].[ModifiedDate], [m].[Name], [m].[Subdomainname], [m].[Tags]
+FROM [Mockups] AS [m]
+WHERE [m].[Id] = @__id_0
+2024-09-06 12:00:33.631 +05:30 [INF] Executed DbCommand (10ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+DELETE FROM [Mockups]
+OUTPUT 1
+WHERE [Id] = @p0;
+2024-09-06 12:00:33.639 +05:30 [INF] Executing OkObjectResult, writing value of type 'HxStudioFileUploadService.Models.Dto.FileUploadResponseDto'.
+2024-09-06 12:00:33.642 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.DeleteTemplate (HxStudioFileUploadService) in 76.4225ms
+2024-09-06 12:00:33.644 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.DeleteTemplate (HxStudioFileUploadService)'
+2024-09-06 12:00:33.645 +05:30 [INF] Request finished HTTP/2 DELETE https://localhost:7231/api/FileUploadAPI/delete/140c5d49-b61a-4e46-8124-bbd035ab05b1 - 200 null application/json; charset=utf-8 95.7897ms
+2024-09-06 12:00:34.929 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7231/api/FileUploadAPI/delete/d1dd0085-f1b7-4f1f-9089-49bde0f36ca5 - null null
+2024-09-06 12:00:34.933 +05:30 [INF] CORS policy execution successful.
+2024-09-06 12:00:34.934 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7231/api/FileUploadAPI/delete/d1dd0085-f1b7-4f1f-9089-49bde0f36ca5 - 204 null null 6.4375ms
+2024-09-06 12:00:34.944 +05:30 [INF] Request starting HTTP/2 DELETE https://localhost:7231/api/FileUploadAPI/delete/d1dd0085-f1b7-4f1f-9089-49bde0f36ca5 - null null
+2024-09-06 12:00:34.947 +05:30 [INF] CORS policy execution successful.
+2024-09-06 12:00:34.947 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.DeleteTemplate (HxStudioFileUploadService)'
+2024-09-06 12:00:34.948 +05:30 [INF] Route matched with {action = "DeleteTemplate", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DeleteTemplate(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 12:00:34.955 +05:30 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [m].[Id], [m].[CreatedBy], [m].[CreatedDate], [m].[Domainname], [m].[FileName], [m].[FilePath], [m].[ModifiedBy], [m].[ModifiedDate], [m].[Name], [m].[Subdomainname], [m].[Tags]
+FROM [Mockups] AS [m]
+WHERE [m].[Id] = @__id_0
+2024-09-06 12:00:34.959 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+DELETE FROM [Mockups]
+OUTPUT 1
+WHERE [Id] = @p0;
+2024-09-06 12:00:34.964 +05:30 [INF] Executing OkObjectResult, writing value of type 'HxStudioFileUploadService.Models.Dto.FileUploadResponseDto'.
+2024-09-06 12:00:34.966 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.DeleteTemplate (HxStudioFileUploadService) in 13.3196ms
+2024-09-06 12:00:34.968 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.DeleteTemplate (HxStudioFileUploadService)'
+2024-09-06 12:00:34.970 +05:30 [INF] Request finished HTTP/2 DELETE https://localhost:7231/api/FileUploadAPI/delete/d1dd0085-f1b7-4f1f-9089-49bde0f36ca5 - 200 null application/json; charset=utf-8 26.6879ms
+2024-09-06 12:00:57.891 +05:30 [INF] Request starting HTTP/2 POST https://localhost:7231/api/FileUploadAPI/upload?userId=d96c72a5-990b-497a-974a-14611c77edb0 - multipart/form-data; boundary=----WebKitFormBoundaryQB0ACssc1YTOCd9A 28796
+2024-09-06 12:00:57.915 +05:30 [INF] CORS policy execution successful.
+2024-09-06 12:00:57.916 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.UploadFiles (HxStudioFileUploadService)'
+2024-09-06 12:00:57.919 +05:30 [INF] Route matched with {action = "UploadFiles", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UploadFiles(System.Guid, HxStudioFileUploadService.Models.Dto.FileUploadRequestDto, System.Collections.Generic.List`1[Microsoft.AspNetCore.Http.IFormFile]) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 12:00:57.944 +05:30 [INF] Executed DbCommand (14ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid), @p2='?' (DbType = DateTime2), @p3='?' (Size = 4000), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (DbType = Guid), @p7='?' (DbType = DateTime2), @p8='?' (Size = 4000), @p9='?' (Size = 4000), @p10='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Mockups] ([Id], [CreatedBy], [CreatedDate], [Domainname], [FileName], [FilePath], [ModifiedBy], [ModifiedDate], [Name], [Subdomainname], [Tags])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10);
+2024-09-06 12:00:57.946 +05:30 [INF] Executing OkObjectResult, writing value of type 'HxStudioFileUploadService.Models.Dto.FileUploadResponseDto'.
+2024-09-06 12:00:57.947 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.UploadFiles (HxStudioFileUploadService) in 24.5453ms
+2024-09-06 12:00:57.949 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.UploadFiles (HxStudioFileUploadService)'
+2024-09-06 12:00:57.950 +05:30 [INF] Request finished HTTP/2 POST https://localhost:7231/api/FileUploadAPI/upload?userId=d96c72a5-990b-497a-974a-14611c77edb0 - 200 null application/json; charset=utf-8 59.2774ms
+2024-09-06 12:01:02.689 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - null null
+2024-09-06 12:01:02.689 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - null null
+2024-09-06 12:01:02.694 +05:30 [INF] CORS policy execution successful.
+2024-09-06 12:01:02.698 +05:30 [INF] CORS policy execution successful.
+2024-09-06 12:01:02.699 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 12:01:02.700 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 12:01:02.702 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 12:01:02.703 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 12:01:02.712 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-06 12:01:02.714 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-06 12:01:02.754 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-06 12:01:02.759 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-06 12:01:02.760 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 55.2353ms
+2024-09-06 12:01:02.762 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - null null
+2024-09-06 12:01:02.762 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 50.5155ms
+2024-09-06 12:01:02.764 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 12:01:02.763 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - null null
+2024-09-06 12:01:02.770 +05:30 [INF] CORS policy execution successful.
+2024-09-06 12:01:02.771 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 12:01:02.772 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - 200 null application/json; charset=utf-8 83.6568ms
+2024-09-06 12:01:02.777 +05:30 [INF] CORS policy execution successful.
+2024-09-06 12:01:02.778 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 12:01:02.778 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - 200 null application/json; charset=utf-8 89.5986ms
+2024-09-06 12:01:02.781 +05:30 [INF] Executing endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 12:01:02.782 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 12:01:02.786 +05:30 [INF] Route matched with {action = "GetMockupsByUser", controller = "FileUploadAPI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMockupsByUser(System.Guid) on controller HxStudioFileUploadService.Controllers.FileUploadAPIController (HxStudioFileUploadService).
+2024-09-06 12:01:02.790 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-06 12:01:02.793 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Name], [m].[Domainname], [m].[Subdomainname], REPLACE([m].[FilePath], N'C:\Uploads\uploads\', N'http://localhost:8080/') AS [FilePath], [m].[Tags]
+FROM [Mockups] AS [m]
+2024-09-06 12:01:02.793 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-06 12:01:02.795 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[HxStudioFileUploadService.Models.Dto.MockupDto, HxStudioFileUploadService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-06 12:01:02.797 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 8.6711ms
+2024-09-06 12:01:02.799 +05:30 [INF] Executed action HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService) in 9.0973ms
+2024-09-06 12:01:02.801 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 12:01:02.802 +05:30 [INF] Executed endpoint 'HxStudioFileUploadService.Controllers.FileUploadAPIController.GetMockupsByUser (HxStudioFileUploadService)'
+2024-09-06 12:01:02.803 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/d96c72a5-990b-497a-974a-14611c77edb0/mockups - 200 null application/json; charset=utf-8 40.6814ms
+2024-09-06 12:01:02.804 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7231/api/FileUploadAPI/D96C72A5-990B-497A-974A-14611C77EDB0/mockups - 200 null application/json; charset=utf-8 40.532ms
+2024-09-06 12:13:25.612 +05:30 [INF] Application is shutting down...
