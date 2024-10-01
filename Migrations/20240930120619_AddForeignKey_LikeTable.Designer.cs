@@ -4,6 +4,7 @@ using HxStudioFileUploadService.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HxStudioFileUploadService.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240930120619_AddForeignKey_LikeTable")]
+    partial class AddForeignKey_LikeTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,8 +58,7 @@ namespace HxStudioFileUploadService.Migrations
 
                     b.HasKey("UserId", "MockupGroupId");
 
-                    b.HasIndex("MockupGroupId")
-                        .IsUnique();
+                    b.HasIndex("MockupGroupId");
 
                     b.ToTable("Likes");
                 });
@@ -174,15 +176,44 @@ namespace HxStudioFileUploadService.Migrations
                     b.ToTable("Tags");
                 });
 
+            modelBuilder.Entity("HxStudioFileUploadService.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("HxStudioFileUploadService.Models.Like", b =>
                 {
                     b.HasOne("HxStudioFileUploadService.Models.MockupGroup", "MockupGroup")
-                        .WithOne("Like")
-                        .HasForeignKey("HxStudioFileUploadService.Models.Like", "MockupGroupId")
+                        .WithMany()
+                        .HasForeignKey("MockupGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HxStudioFileUploadService.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("MockupGroup");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("HxStudioFileUploadService.Models.Mockup", b =>
@@ -239,9 +270,6 @@ namespace HxStudioFileUploadService.Migrations
 
             modelBuilder.Entity("HxStudioFileUploadService.Models.MockupGroup", b =>
                 {
-                    b.Navigation("Like")
-                        .IsRequired();
-
                     b.Navigation("Mockups");
 
                     b.Navigation("Tags");

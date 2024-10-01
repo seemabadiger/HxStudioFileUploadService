@@ -6,11 +6,10 @@ namespace HxStudioFileUploadService.Models
     public class Subdomain
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-
-        public Guid DomainId { get; set; }
         [ForeignKey("DomainId")]
-        public Domain Domain { get; set; }
+        public int DomainId { get; set; }
+        public virtual Domain Domain { get; set; }
     }
 }

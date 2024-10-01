@@ -1,16 +1,17 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HxStudioFileUploadService.Models
 {
     public class Like
     {
         [Key]
-        public Guid Id { get; set; }
-        public Guid UserId { get; set; }
-        public User User { get; set; }
-        public Guid MockupId { get; set; }
-        public Mockup Mockup { get; set; }
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        [ForeignKey("MockupGroupId")]
+        public int MockupGroupId { get; set; }
+        public virtual MockupGroup MockupGroup { get; set; }
         public bool IsLiked { get; set; }
     }
 }

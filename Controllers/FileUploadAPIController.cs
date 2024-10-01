@@ -20,9 +20,9 @@ namespace HxStudioFileUploadService.Controllers
 
         [HttpPost]
         [Route("upload")]
-        public async Task<IActionResult> UploadFiles(Guid userId, [FromForm] FileUploadRequestDto mockupUploadDto, [FromForm] List<IFormFile> files)
+        public async Task<IActionResult> UploadFiles(int userId, [FromForm] FileUploadRequestDto mockupUploadDto)
         {
-            var response = await _fileUploadService.UploadFilesAsync(userId,mockupUploadDto, files);
+            var response = await _fileUploadService.UploadFilesAsync(userId,mockupUploadDto);
             if (response.Success)
             {
                 return Ok(response);
@@ -34,7 +34,7 @@ namespace HxStudioFileUploadService.Controllers
         }
         [HttpDelete]
         [Route("delete/{id}")]
-        public async Task<IActionResult> DeleteTemplate(Guid id)
+        public async Task<IActionResult> DeleteTemplate(int id)
         {
             var response = await _fileUploadService.DeleteTemplateAsync(id);
             if (response.Success)
@@ -50,9 +50,9 @@ namespace HxStudioFileUploadService.Controllers
 
         [HttpPut]
         [Route("update/{id}")]
-        public async Task<IActionResult> UpdateTemplate(Guid id, [FromForm] FileUploadRequestDto mockupUpdateDto, [FromForm] List<IFormFile> files)
+        public async Task<IActionResult> UpdateTemplate(int id, [FromForm] FileUploadRequestDto mockupUpdateDto, int userId)
         {
-            var response = await _fileUploadService.UpdateTemplateAsync(id, mockupUpdateDto, files);
+            var response = await _fileUploadService.UpdateTemplateAsync(id, mockupUpdateDto, userId);
             if (response.Success)
             {
                 return Ok(response);
@@ -64,9 +64,9 @@ namespace HxStudioFileUploadService.Controllers
         }
 
         [HttpPost("{userId}/like/{mockupId}")]
-        public async Task<IActionResult> LikeMockup(Guid userId, Guid mockupId, [FromBody] bool isLiked)
+        public async Task<IActionResult> LikeMockup(int userId, int mockupGroupId, [FromBody] bool isLiked)
         {
-            var result = await _fileUploadService.LikeMockupAsync(userId, mockupId, isLiked);
+            var result = await _fileUploadService.LikeMockupAsync(userId, mockupGroupId, isLiked);
             if (result)
             {
                 return Ok();
@@ -75,7 +75,7 @@ namespace HxStudioFileUploadService.Controllers
             return BadRequest("Error liking the mockup.");
         }
         [HttpGet("{userId}/mockups")]
-        public async Task<IActionResult> GetMockupsByUser(Guid userId)
+        public async Task<IActionResult> GetMockupsByUser(int userId)
         {
             try
             {
@@ -116,7 +116,7 @@ namespace HxStudioFileUploadService.Controllers
             return CreatedAtAction(nameof(GetSubdomains), new { domainId = createdSubdomain.DomainId, id = createdSubdomain.Id }, createdSubdomain);
         }
         [HttpGet("{domainId}")]
-        public async Task<IActionResult> GetSubdomains(Guid domainId)
+        public async Task<IActionResult> GetSubdomains(int domainId)
         {
             var subdomains = await _fileUploadService.GetSubdomainsAsync(domainId);
             return Ok(subdomains);
@@ -128,7 +128,7 @@ namespace HxStudioFileUploadService.Controllers
             return Ok(domains);
         }
         [HttpGet("recent")]
-        public async Task<IActionResult> GetRecentMockups(Guid userId)
+        public async Task<IActionResult> GetRecentMockups(int userId)
         {
             try
             {
@@ -142,7 +142,7 @@ namespace HxStudioFileUploadService.Controllers
             }
         }
         [HttpGet("alphabetical")]
-        public async Task<IActionResult> GetAllMockups(Guid userId)
+        public async Task<IActionResult> GetAllMockups(int userId)
         {
             try
             {
@@ -157,13 +157,13 @@ namespace HxStudioFileUploadService.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<IActionResult> SearchMockups(Guid userId, string query)
+        public async Task<IActionResult> SearchMockups(int userId, string query)
         {
             var result = await _fileUploadService.SearchMockupsAsync(userId, query);
             return Ok(result);
         }
         [HttpGet("searchByDomain")]
-        public async Task<IActionResult> SearchByDomain([FromQuery] Guid userId, [FromQuery] string domainName)
+        public async Task<IActionResult> SearchByDomain([FromQuery] int userId, [FromQuery] string domainName)
         {
             var mockups = await _fileUploadService.SearchMockupsByDomainAsync(userId, domainName);
 

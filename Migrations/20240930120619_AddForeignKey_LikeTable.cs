@@ -5,7 +5,7 @@
 namespace HxStudioFileUploadService.Migrations
 {
     /// <inheritdoc />
-    public partial class fileuploadtables : Migration
+    public partial class AddForeignKey_LikeTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

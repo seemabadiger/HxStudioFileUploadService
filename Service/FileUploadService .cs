@@ -1,31 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using HxStudioFileUploadService.Services;
-using HxStudioFileUploadService.Models.Dto;
-using HxStudioFileUploadService.Data;
+﻿using HxStudioFileUploadService.Data;
 using HxStudioFileUploadService.Models;
+using HxStudioFileUploadService.Models.Dto;
 using HxStudioFileUploadService.Service;
-using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
-using HxStudioFileUploadService.Models.Dto;
-using HxStudioFileUploadService.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
-using System.Text.Json.Nodes;
+using Microsoft.Extensions.Options;
 
 namespace HxStudioFileUploadService.Services
 {
     public class FileUploadService : IFileUploadService
     {
         private readonly AppDbContext _db;
-      //  private readonly IWebHostEnvironment _environment;
         private readonly ILogger<FileUploadService> _logger;
         private readonly UploadSettings _uploadSettings;
         public FileUploadService(AppDbContext db, IOptions<UploadSettings> uploadSettings, ILogger<FileUploadService> logger)
@@ -34,14 +18,12 @@ namespace HxStudioFileUploadService.Services
             _uploadSettings = uploadSettings.Value;
             _logger = logger;
         }
-
-        public async Task<FileUploadResponseDto> UploadFilesAsync(Guid userId,FileUploadRequestDto mockupUploadDto, List<IFormFile> files)
+        public async Task<FileUploadResponseDto> UploadFilesAsync(int userId,FileUploadRequestDto mockupUploadDto)
         {
             var response = new FileUploadResponseDto();
-            var mockups = new List<Mockup>();
-
+            var mockups = new List<MockupDto>();
             // Check if files are provided
-            if (files == null || !files.Any())
+            if (mockupUploadDto.MockupFiles == null || !mockupUploadDto.MockupFiles.Any())
             {
                 response.Success = false;
                 response.Message = "No files selected";
@@ -58,7 +40,7 @@ namespace HxStudioFileUploadService.Services
 
             try
             {
-                foreach (var file in files)
+                foreach (var file in mockupUploadDto.MockupFiles)
                 {
                     if (file.Length > 0)
                     {
@@ -69,44 +51,30 @@ namespace HxStudioFileUploadService.Services
                         {
                             await file.CopyToAsync(fileStream);
                         }
-
-                        // Create Mockup object
-                        var mockup = new Mockup
-                        {
-                            Id = Guid.NewGuid(),
-                            Name = mockupUploadDto.Name,
-                            Domainname = mockupUploadDto.Domainname,
-                            Subdomainname = mockupUploadDto.Subdomainname,
-                            Tags = mockupUploadDto.Tags,
-                            FileName = file.FileName,
-                            FilePath = filePath,
-                            CreatedBy=userId,
-                            CreatedDate=DateTime.Now
-                        };
-
-                        mockups.Add(mockup);
-                        _db.Mockups.Add(mockup);
+                        mockups.Add(new MockupDto { FileName = file.FileName, FilePath = filePath });
                     }
                 }
-
-                // Save all mockups to database
-                await _db.SaveChangesAsync();
-
+                var domain = await AddDomainAsync(new DomainDto { Name = mockupUploadDto.DomainName });
+                var subdomain = await AddSubdomainAsync(new SubdomainDto { Name = mockupUploadDto.SubdomainName, DomainId=domain.Id,Domain=domain });
+                var mockupGroupDto = new MockupGroupDto
+                {
+                    ProjectTitle = mockupUploadDto.ProjectTitle,
+                    ProjectDescription = mockupUploadDto.ProjectDescription,
+                    DomainId = domain.Id,
+                    SubDomainId = subdomain.Id,
+                    CreatedBy = userId,
+                    CreatedDate = DateTime.Now,
+                    Tags = mockupUploadDto.Tags.Select(tagName => new Tag { Name = tagName }).ToList()
+                };
+                var mockupGroup = await AddMockUpGroup(mockupGroupDto);
+                 await AddMockUpFiles(mockups, mockupGroup.Id);
+                mockupGroupDto.Id = mockupGroup.Id;
+                await AddTagsToMockupGroup(mockupGroupDto);
                 // Prepare response
                 response.Success = true;
                 response.Message = "Files uploaded successfully";
-                //response.UploadedFiles = mockups.Select(m => new MockupResponseDto
-                //{
-                //    Id = m.Id,
-                //    Name = m.Name,
-                //    Domain = m.Domain,
-                //    Subdomain = m.Subdomain,
-                //    Tags = m.Tags,
-                //    FileName = m.FileName,
-                //    FilePath = m.FilePath
-                //}).ToList();
-
-               // _logger.LogInformation("Files uploaded successfully. Details: " + JsonConvert.SerializeObject(response.UploadedFiles));
+               
+                _logger.LogInformation("Files uploaded successfully. Details: Mockup Group Id: " + mockupGroup.Id);
             }
             catch (Exception ex)
             {
@@ -118,12 +86,12 @@ namespace HxStudioFileUploadService.Services
 
             return response;
         }
-        public async Task<FileUploadResponseDto> UpdateTemplateAsync(Guid id, FileUploadRequestDto mockupUpdateDto, List<IFormFile> files)
+        public async Task<FileUploadResponseDto> UpdateTemplateAsync(int id, FileUploadRequestDto mockupUpdateDtos, int userId)
         {
             var response = new FileUploadResponseDto();
-
+            var mockups = new List<MockupDto>();
             // Find the existing mockup
-            var existingMockup = _db.Mockups.FirstOrDefault(m => m.Id == id);
+            var existingMockup = _db.MockupGroups.FirstOrDefault(m => m.Id == id);
             if (existingMockup == null)
             {
                 response.Success = false;
@@ -137,9 +105,9 @@ namespace HxStudioFileUploadService.Services
 
             try
             {
-                if (files != null && files.Any())
+                if (mockupUpdateDtos.MockupFiles != null && mockupUpdateDtos.MockupFiles.Any())
                 {
-                    foreach (var file in files)
+                    foreach (var file in mockupUpdateDtos.MockupFiles)
                     {
                         if (file.Length > 0)
                         {
@@ -150,28 +118,21 @@ namespace HxStudioFileUploadService.Services
                             {
                                 await file.CopyToAsync(fileStream);
                             }
-
+                            mockups.Add(new MockupDto { FileName = file.FileName, FilePath = filePath,MockupGroupId= existingMockup.Id });
                             // Update the existing mockup object
-                            existingMockup.Name = mockupUpdateDto.Name;
-                            existingMockup.Domainname = mockupUpdateDto.Domainname;
-                            existingMockup.Subdomainname = mockupUpdateDto.Subdomainname;
-                            existingMockup.Tags = mockupUpdateDto.Tags;
-                            existingMockup.FileName = file.FileName;
-                            existingMockup.FilePath = filePath;
-                            existingMockup.ModifiedDate = DateTime.Now;
                         }
                     }
                 }
-                else
-                {
-                    // If no files are provided, just update other details
-                    existingMockup.Name = mockupUpdateDto.Name;
-                    existingMockup.Domainname = mockupUpdateDto.Domainname;
-                    existingMockup.Subdomainname = mockupUpdateDto.Subdomainname;
-                    existingMockup.Tags = mockupUpdateDto.Tags;
-                    existingMockup.ModifiedDate = DateTime.Now;
-                }
-
+                var domain = await AddDomainAsync(new DomainDto { Name = mockupUpdateDtos.DomainName });
+                var subdomain = await AddSubdomainAsync(new SubdomainDto { Name = mockupUpdateDtos.SubdomainName });
+                existingMockup.ProjectTitle = mockupUpdateDtos.ProjectTitle;
+                existingMockup.ProjectDescription = mockupUpdateDtos.ProjectDescription;
+                existingMockup.DomainId = domain.Id;
+                existingMockup.SubDomainId = subdomain.Id;
+                existingMockup.ModifiedBy= userId;
+                existingMockup.ModifiedDate = DateTime.Now;
+                if(mockups.Any()) await AddMockUpFiles(mockups, existingMockup.Id);
+              
                 // Save changes to database
                 await _db.SaveChangesAsync();
 
@@ -189,30 +150,37 @@ namespace HxStudioFileUploadService.Services
 
             return response;
         }
-        public async Task<FileUploadResponseDto> DeleteTemplateAsync(Guid id)
+        public async Task<FileUploadResponseDto> DeleteTemplateAsync(int id)
         {
             var response = new FileUploadResponseDto();
 
             try
             {
                 // Find the existing mockup
-                var mockup = _db.Mockups.FirstOrDefault(m => m.Id == id);
-                if (mockup == null)
+                var mockupGroups =await _db.MockupGroups.FirstOrDefaultAsync(m => m.Id == id);
+                var mockups = await _db.Mockups.Where(m => m.MockupGroupId == id).ToListAsync();
+                if (mockupGroups == null)
                 {
                     response.Success = false;
                     response.Message = "Template not found";
                     _logger.LogWarning($"Attempt to delete a non-existing template with ID: {id}");
                     return response;
                 }
-
-                // Delete the file from disk
-                if (System.IO.File.Exists(mockup.FilePath))
+                if (mockups != null && mockups.Any())
                 {
-                    System.IO.File.Delete(mockup.FilePath);
-                }
+                    foreach (var mockup in mockups)
+                    {
+                        // Delete the file from disk
+                        if (System.IO.File.Exists(mockup.FilePath))
+                        {
+                            System.IO.File.Delete(mockup.FilePath);
+                        }
 
-                // Remove from database
-                _db.Mockups.Remove(mockup);
+                        // Remove from database
+                        _db.Mockups.Remove(mockup);
+                    }
+                }
+                _db.MockupGroups.Remove(mockupGroups);
                 await _db.SaveChangesAsync();
 
                 // Prepare response
@@ -229,19 +197,17 @@ namespace HxStudioFileUploadService.Services
 
             return response;
         }
-
-        public async Task<bool> LikeMockupAsync(Guid userId, Guid mockupId, bool isLiked)
+        public async Task<bool> LikeMockupAsync(int userId, int mockupGroupId, bool isLiked)
         {
             var userMockupLike = await _db.Likes
-                .FirstOrDefaultAsync(uml => uml.UserId == userId && uml.MockupId == mockupId);
+                .FirstOrDefaultAsync(uml => uml.UserId == userId && uml.MockupGroupId == mockupGroupId);
 
             if (userMockupLike == null)
             {
                 userMockupLike = new Like
                 {
-                    Id = Guid.NewGuid(),
                     UserId = userId,
-                    MockupId = mockupId,
+                    MockupGroupId = mockupGroupId,
                     IsLiked = isLiked
                 };
 
@@ -249,43 +215,60 @@ namespace HxStudioFileUploadService.Services
             }
             else
             {
-                 userMockupLike.IsLiked = isLiked;
+                userMockupLike.IsLiked = isLiked;
             }
 
             await _db.SaveChangesAsync();
             return true;
         }
-
-        public async Task<IEnumerable<MockupDto>> GetMockupsByUserAsync(Guid userId)
+        public async Task<IEnumerable<MockupGroupDto>> GetMockupsByUserAsync(int userId)
         {
-            return await _db.Mockups
-                .Select(uml => new MockupDto
+            return await _db.MockupGroups
+                .Include(x=>x.Tags) 
+                .Include(x=>x.Domain)
+                .Include(x=>x.SubDomain)
+                .Include(x=>x.Mockups)
+                .Include(x => x.Like)
+                .Select(uml => new MockupGroupDto
                 {
                     Id = uml.Id,
-                    Name = uml.Name,
-                    Domainname = uml.Domainname,
-                   Subdomainname = uml.Subdomainname,
-                    FilePath = uml.FilePath.Replace("C:\\Uploads\\uploads\\", "http://localhost:8080/"),
-                    //FilePath =uml.FilePath,
-                    Tags=uml.Tags
-                   
-
+                    ProjectTitle = uml.ProjectTitle,
+                    ProjectDescription = uml.ProjectDescription,
+                    DomainId = uml.DomainId,
+                    Domain = new DomainDto { Id = uml.Domain.Id, Name = uml.Domain.Name },
+                    SubDomainId = uml.SubDomainId,
+                    Subdomain = new SubdomainDto {Id = uml.SubDomainId, Name = uml.SubDomain.Name },
+                    Mockups = uml.Mockups.Select(mps => new MockupDto 
+                    { 
+                        FileName= mps.FileName, 
+                        FilePath=mps.FilePath.Replace("C:\\Uploads\\uploads\\", "http://localhost:8080/"),
+                        MockupGroupId= mps.MockupGroupId
+                    }).ToList(),
+                    Tags = uml.Tags,
+                    Like = uml.Like,
+                    CreatedBy = uml.CreatedBy,
+                    CreatedDate = uml.CreatedDate,
+                    ModifiedBy = uml.ModifiedBy,
+                    ModifiedDate = uml.ModifiedDate
                 })
                 .ToListAsync();
         }
         public async Task<Domain> AddDomainAsync(DomainDto domainDto)
         {
-          var  domain = new Domain
+            var  domain = new Domain
             {
-                Id = Guid.NewGuid(),
                Name= domainDto.Name
             };
-            _db.Domain.Add(domain);
-            await _db.SaveChangesAsync();
+            if (_db.Domain.Any(x => x.Name == domainDto.Name))
+                return await _db.Domain.FirstOrDefaultAsync(x => x.Name == domainDto.Name);
+            else
+            {
+                _db.Domain.Add(domain);
+                await _db.SaveChangesAsync();
+            }
             return domain;
         }
-       
-        public async Task<List<Subdomain>> GetSubdomainsAsync(Guid domainId)
+        public async Task<List<Subdomain>> GetSubdomainsAsync(int domainId)
         {
             return await _db.Subdomain.Where(s => s.DomainId == domainId).ToListAsync();
         }
@@ -293,132 +276,223 @@ namespace HxStudioFileUploadService.Services
         {
             return await _db.Domain.ToListAsync();
         }
-
         public async Task<Subdomain> AddSubdomainAsync(SubdomainDto subdomainDto)
         {
            
             var subDomain = new Subdomain
             {
-                Id = Guid.NewGuid(),
                 Name = subdomainDto.Name,
                 DomainId=subdomainDto.DomainId
             };
-            _db.Subdomain.Add(subDomain);
-            await _db.SaveChangesAsync();
+            if (_db.Subdomain.Any(x => x.Name == subdomainDto.Name && x.DomainId == subdomainDto.DomainId))
+                return await _db.Subdomain.FirstOrDefaultAsync(x => x.Name == subdomainDto.Name && x.DomainId == subdomainDto.DomainId);
+            else
+            {
+                _db.Subdomain.Add(subDomain);
+                await _db.SaveChangesAsync();
+            }
             return subDomain;
         }
-        public async Task<IEnumerable<MockupDto>> GetRecentMockupsByUserAsync(Guid userId, int days = 1)
+        public async Task<MockupGroup> AddMockUpGroup(MockupGroupDto mockupGroupDto)
+        {
+
+            var mockupGroup = new MockupGroup
+            {
+                ProjectTitle = mockupGroupDto.ProjectTitle,
+                ProjectDescription = mockupGroupDto.ProjectDescription,
+                DomainId = mockupGroupDto.DomainId,
+                SubDomainId = mockupGroupDto.SubDomainId,
+                CreatedBy = mockupGroupDto.CreatedBy,
+                CreatedDate = mockupGroupDto.CreatedDate
+            };
+
+            _db.MockupGroups.Add(mockupGroup);
+            await _db.SaveChangesAsync();
+            return mockupGroup;
+        }
+        public async Task<List<Tag>> AddTagsToMockupGroup(MockupGroupDto mockupGroupDto)
+        {
+
+            mockupGroupDto.Tags.ForEach(x => x.MockupGroupId = mockupGroupDto.Id);
+            _db.Tags.AddRange(mockupGroupDto.Tags);
+            await _db.SaveChangesAsync();
+            return mockupGroupDto.Tags;
+        }
+        public async Task<List<Mockup>> AddMockUpFiles(List<MockupDto> mockupDto, int mockUpGroupId)
+        {
+            var existingMockups = await _db.Mockups.Where(x => x.MockupGroupId == mockUpGroupId).ToListAsync();
+            if(existingMockups!=null && existingMockups.Any())
+            {
+                _db.Mockups.RemoveRange(existingMockups);
+            }
+            var mockups = mockupDto.Select(dto => new Mockup
+            {
+                FileName = dto.FileName,
+                FilePath = dto.FilePath,
+                MockupGroupId = mockUpGroupId
+            }).ToList();
+
+            _db.Mockups.AddRange(mockups);
+            await _db.SaveChangesAsync();
+            
+            return mockups;
+        }
+        public async Task<IEnumerable<MockupGroupDto>> GetRecentMockupsByUserAsync(int userId, int days = 1)
         {
             var recentDate = DateTime.Now.AddDays(-days);
 
-            return await _db.Mockups
+            return await _db.MockupGroups
+                 .Include(x => x.Tags)
+                .Include(x => x.Domain)
+                .Include(x => x.SubDomain)
+                .Include(x => x.Mockups)
+                .Include(x => x.Like)
                 .Where(m => m.CreatedBy == userId && m.CreatedDate >= recentDate)
-                .Select(m => new MockupDto
+                .Select(m => new MockupGroupDto
                 {
 
                     Id = m.Id,
-                    Name = m.Name,
-                    Domainname = m.Domainname,
-                    Subdomainname = m.Subdomainname,
-                    FilePath = m.FilePath.Replace("C:\\Uploads\\uploads\\", "http://localhost:8080/"),
-                    //FilePath =uml.FilePath,
-                    Tags = m.Tags
+                    ProjectTitle = m.ProjectTitle,
+                    ProjectDescription = m.ProjectDescription,
+                    DomainId = m.DomainId,
+                    Domain = new DomainDto { Id = m.Domain.Id, Name = m.Domain.Name },
+                    SubDomainId = m.SubDomainId,
+                    Subdomain = new SubdomainDto { Id = m.SubDomainId, Name = m.SubDomain.Name },
+                    Mockups = m.Mockups.Select(mps => new MockupDto
+                    {
+                        FileName = mps.FileName,
+                        FilePath = mps.FilePath.Replace("C:\\Uploads\\uploads\\", "http://localhost:8080/"),
+                        MockupGroupId = mps.MockupGroupId
+                    }).ToList(),
+                    Tags = m.Tags,
+                    CreatedBy = m.CreatedBy,
+                    CreatedDate = m.CreatedDate,
+                    ModifiedBy=m.ModifiedBy,
+                    ModifiedDate=m.ModifiedDate,
+                    Like = m.Like
                 })
                 .ToListAsync();
         }
-        public async Task<IEnumerable<MockupDto>> GetMockupsByUserByNameAsync(Guid userId)
+        public async Task<IEnumerable<MockupGroupDto>> GetMockupsByUserByNameAsync(int userId)
         {
-            return await _db.Mockups
+            return await _db.MockupGroups
+                 .Include(x => x.Tags)
+                .Include(x => x.Domain)
+                .Include(x => x.SubDomain)
+                .Include(x => x.Mockups)
+                .Include(x => x.Like)
                 .Where(m => m.CreatedBy == userId)
-                .OrderBy(m => m.Name) // Order alphabetically by name
-                .Select(m => new MockupDto
+                .OrderBy(m => m.ProjectTitle) // Order alphabetically by name
+                .Select(m => new MockupGroupDto
                 {
+
                     Id = m.Id,
-                    Name = m.Name,
-                    Domainname = m.Domainname,
-                    Subdomainname = m.Subdomainname,
-                    FilePath = m.FilePath.Replace("C:\\Uploads\\uploads\\", "http://localhost:8080/"),
-                    //FilePath =uml.FilePath,
-                    Tags = m.Tags
+                    ProjectTitle = m.ProjectTitle,
+                    ProjectDescription = m.ProjectDescription,
+                    DomainId = m.DomainId,
+                    Domain = new DomainDto { Id = m.Domain.Id, Name = m.Domain.Name },
+                    SubDomainId = m.SubDomainId,
+                    Subdomain = new SubdomainDto { Id = m.SubDomainId, Name = m.SubDomain.Name },
+                    Mockups = m.Mockups.Select(mps => new MockupDto
+                    {
+                        FileName = mps.FileName,
+                        FilePath = mps.FilePath.Replace("C:\\Uploads\\uploads\\", "http://localhost:8080/"),
+                        MockupGroupId = mps.MockupGroupId
+                    }).ToList(),
+                    Tags = m.Tags,
+                    CreatedBy = m.CreatedBy,
+                    CreatedDate = m.CreatedDate,
+                    ModifiedBy = m.ModifiedBy,
+                    ModifiedDate = m.ModifiedDate,
+                    Like = m.Like
                 })
                 .ToListAsync();
         }
-        public async Task<IEnumerable<MockupDto>> SearchMockupsAsync(Guid userId, string searchTerm)
+        public async Task<IEnumerable<MockupGroupDto>> SearchMockupsAsync(int userId, string searchTerm)
         {
             // Sanitize and handle search term for security reasons
             if (string.IsNullOrWhiteSpace(searchTerm))
             {
-                return Enumerable.Empty<MockupDto>();
+                return Enumerable.Empty<MockupGroupDto>();
             }
 
             // Convert search term to lower case for case-insensitive search
             var lowerSearchTerm = searchTerm.ToLower();
 
-            return await _db.Mockups
+            return await _db.MockupGroups
+                 .Include(x => x.Tags)
+                .Include(x => x.Domain)
+                .Include(x => x.SubDomain)
+                .Include(x => x.Mockups)
+                .Include(x => x.Like)
                 .Where(m => m.CreatedBy == userId && (
-                    m.Name.ToLower().Contains(lowerSearchTerm) ||
-                      (m.Tags != null && m.Tags.Any(tag => tag.ToLower().Contains(lowerSearchTerm))) ||
-                   // m.FileName.ToLower().Contains(lowerSearchTerm) ||
-                    m.Domainname.ToLower().Contains(lowerSearchTerm) ||
-                    m.Subdomainname.ToLower().Contains(lowerSearchTerm)
+                    m.ProjectTitle.ToLower().Contains(lowerSearchTerm) ||
+                      (m.Tags != null && m.Tags.Any(tag => tag.Name.ToLower().Contains(lowerSearchTerm))) ||
+                    m.Domain.Name.ToLower().Contains(lowerSearchTerm) ||
+                    m.SubDomain.Name.ToLower().Contains(lowerSearchTerm)
                 ))
-                .Select(m => new MockupDto
+                .Select(m => new MockupGroupDto
                 {
                     Id = m.Id,
-                    Name = m.Name,
-                    Domainname = m.Domainname,
-                    Subdomainname = m.Subdomainname,
-                    FilePath = m.FilePath.Replace("C:\\Uploads\\uploads\\", "http://localhost:8080/"),
-                    Tags = m.Tags
+                    ProjectTitle = m.ProjectTitle,
+                    ProjectDescription = m.ProjectDescription,
+                    DomainId = m.DomainId,
+                    Domain = new DomainDto { Id = m.Domain.Id, Name = m.Domain.Name },
+                    SubDomainId = m.SubDomainId,
+                    Subdomain = new SubdomainDto { Id = m.SubDomainId, Name = m.SubDomain.Name },
+                    Mockups = m.Mockups.Select(mps => new MockupDto
+                    {
+                        FileName = mps.FileName,
+                        FilePath = mps.FilePath.Replace("C:\\Uploads\\uploads\\", "http://localhost:8080/"),
+                        MockupGroupId = mps.MockupGroupId
+                    }).ToList(),
+                    Tags = m.Tags,
+                    CreatedBy = m.CreatedBy,
+                    CreatedDate = m.CreatedDate,
+                    ModifiedBy = m.ModifiedBy,
+                    ModifiedDate = m.ModifiedDate,
+                    Like =m.Like
                 })
                 .ToListAsync();
         }
-        //public async Task<IEnumerable<MockupDto>> SearchMockupsByDomainAsync(Guid userId, string domainName)
-        //{
-        //    if (string.IsNullOrWhiteSpace(domainName))
-        //    {
-        //        return Enumerable.Empty<MockupDto>();
-        //    }
-
-        //    var lowerDomainName = domainName.ToLower();
-
-        //    return await _db.Mockups
-        //        .Where(m => m.CreatedBy == userId && m.Domainname.ToLower().Contains(lowerDomainName))
-        //        .Select(m => new MockupDto
-        //        {
-        //            Id = m.Id,
-        //            Name = m.Name,
-        //            Domainname = m.Domainname,
-        //            Subdomainname = m.Subdomainname,
-        //            FilePath = m.FilePath.Replace("C:\\Uploads\\uploads\\", "http://localhost:8080/"),
-        //            Tags = m.Tags
-        //        })
-        //        .ToListAsync();
-        //}
-
-        public async Task<IEnumerable<MockupDto>> SearchMockupsByDomainAsync(Guid userId, string domainName)
+        public async Task<IEnumerable<MockupGroupDto>> SearchMockupsByDomainAsync(int userId, string domainName)
         {
-            IQueryable<Mockup> query = _db.Mockups.Where(m => m.CreatedBy == userId);
+            IQueryable<MockupGroup> query = _db.MockupGroups.Include(x => x.Tags)
+                .Include(x => x.Domain)
+                .Include(x => x.SubDomain)
+                .Include(x => x.Mockups)
+                .Include(x => x.Like).Where(m => m.CreatedBy == userId);
 
             if (!string.IsNullOrWhiteSpace(domainName) && domainName.ToLower() != "all")
             {
                 var lowerDomainName = domainName.ToLower();
-                query = query.Where(m => m.Domainname.ToLower().Contains(lowerDomainName));
+                query = query.Where(m => m.Domain.Name.ToLower().Contains(lowerDomainName));
             }
 
             return await query
-                .Select(m => new MockupDto
+                .Select(m => new MockupGroupDto
                 {
                     Id = m.Id,
-                    Name = m.Name,
-                    Domainname = m.Domainname,
-                    Subdomainname = m.Subdomainname,
-                    FilePath = m.FilePath.Replace("C:\\Uploads\\uploads\\", "http://localhost:8080/"),
-                    Tags = m.Tags
+                    ProjectTitle = m.ProjectTitle,
+                    ProjectDescription=m.ProjectDescription,
+                    DomainId = m.DomainId,
+                    Domain = new DomainDto { Id = m.Domain.Id, Name = m.Domain.Name },
+                    SubDomainId = m.SubDomainId,
+                    Subdomain = new SubdomainDto { Id = m.SubDomainId, Name = m.SubDomain.Name },
+                    Mockups = m.Mockups.Select(mps => new MockupDto
+                    {
+                        FileName = mps.FileName,
+                        FilePath = mps.FilePath.Replace("C:\\Uploads\\uploads\\", "http://localhost:8080/"),
+                        MockupGroupId = mps.MockupGroupId
+                    }).ToList(),
+                    Tags = m.Tags,
+                    Like = m.Like,
+                    CreatedBy = m.CreatedBy,
+                    CreatedDate = m.CreatedDate,
+                    ModifiedBy = m.ModifiedBy,
+                    ModifiedDate = m.ModifiedDate
                 })
                 .ToListAsync();
         }
-
-
     }
 }
