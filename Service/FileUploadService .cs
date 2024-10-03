@@ -18,7 +18,7 @@ namespace HxStudioFileUploadService.Services
             _uploadSettings = uploadSettings.Value;
             _logger = logger;
         }
-        public async Task<FileUploadResponseDto> UploadFilesAsync(int userId,FileUploadRequestDto mockupUploadDto)
+        public async Task<FileUploadResponseDto> UploadFilesAsync(Guid userId,FileUploadRequestDto mockupUploadDto)
         {
             var response = new FileUploadResponseDto();
             var mockups = new List<MockupDto>();
@@ -86,7 +86,7 @@ namespace HxStudioFileUploadService.Services
 
             return response;
         }
-        public async Task<FileUploadResponseDto> UpdateTemplateAsync(int id, FileUploadRequestDto mockupUpdateDtos, int userId)
+        public async Task<FileUploadResponseDto> UpdateTemplateAsync(int id, FileUploadRequestDto mockupUpdateDtos, Guid userId)
         {
             var response = new FileUploadResponseDto();
             var mockups = new List<MockupDto>();
@@ -197,7 +197,7 @@ namespace HxStudioFileUploadService.Services
 
             return response;
         }
-        public async Task<bool> LikeMockupAsync(int userId, int mockupGroupId, bool isLiked)
+        public async Task<bool> LikeMockupAsync(Guid userId, int mockupGroupId, bool isLiked)
         {
             var userMockupLike = await _db.Likes
                 .FirstOrDefaultAsync(uml => uml.UserId == userId && uml.MockupGroupId == mockupGroupId);
@@ -221,7 +221,7 @@ namespace HxStudioFileUploadService.Services
             await _db.SaveChangesAsync();
             return true;
         }
-        public async Task<IEnumerable<MockupGroupDto>> GetMockupsByUserAsync(int userId)
+        public async Task<IEnumerable<MockupGroupDto>> GetMockupsByUserAsync(Guid userId)
         {
             return await _db.MockupGroups
                 .Include(x=>x.Tags) 
@@ -337,7 +337,7 @@ namespace HxStudioFileUploadService.Services
             
             return mockups;
         }
-        public async Task<IEnumerable<MockupGroupDto>> GetRecentMockupsByUserAsync(int userId, int days = 1)
+        public async Task<IEnumerable<MockupGroupDto>> GetRecentMockupsByUserAsync(Guid userId, int days = 1)
         {
             var recentDate = DateTime.Now.AddDays(-days);
 
@@ -373,7 +373,7 @@ namespace HxStudioFileUploadService.Services
                 })
                 .ToListAsync();
         }
-        public async Task<IEnumerable<MockupGroupDto>> GetMockupsByUserByNameAsync(int userId)
+        public async Task<IEnumerable<MockupGroupDto>> GetMockupsByUserByNameAsync(Guid userId)
         {
             return await _db.MockupGroups
                  .Include(x => x.Tags)
@@ -408,7 +408,7 @@ namespace HxStudioFileUploadService.Services
                 })
                 .ToListAsync();
         }
-        public async Task<IEnumerable<MockupGroupDto>> SearchMockupsAsync(int userId, string searchTerm)
+        public async Task<IEnumerable<MockupGroupDto>> SearchMockupsAsync(Guid userId, string searchTerm)
         {
             // Sanitize and handle search term for security reasons
             if (string.IsNullOrWhiteSpace(searchTerm))
@@ -455,7 +455,7 @@ namespace HxStudioFileUploadService.Services
                 })
                 .ToListAsync();
         }
-        public async Task<IEnumerable<MockupGroupDto>> SearchMockupsByDomainAsync(int userId, string domainName)
+        public async Task<IEnumerable<MockupGroupDto>> SearchMockupsByDomainAsync(Guid userId, string domainName)
         {
             IQueryable<MockupGroup> query = _db.MockupGroups.Include(x => x.Tags)
                 .Include(x => x.Domain)

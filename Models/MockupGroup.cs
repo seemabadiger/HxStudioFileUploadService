@@ -25,9 +25,9 @@ namespace HxStudioFileUploadService.Models
         public virtual List<Tag> Tags { get; set; }
         public virtual List<Mockup> Mockups { get; set; }
         public virtual Like Like { get; set; }
-        public int CreatedBy { get; set; }
+        public Guid CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
-        public int? ModifiedBy { get; set; }
+        public Guid? ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
 
     }

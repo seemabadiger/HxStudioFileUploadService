@@ -8,7 +8,7 @@ namespace HxStudioFileUploadService.Models
     {
         [Key]
         public int Id { get; set; }
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         [ForeignKey("MockupGroupId")]
         public int MockupGroupId { get; set; }
         public virtual MockupGroup MockupGroup { get; set; }

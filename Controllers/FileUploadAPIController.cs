@@ -20,7 +20,7 @@ namespace HxStudioFileUploadService.Controllers
 
         [HttpPost]
         [Route("upload")]
-        public async Task<IActionResult> UploadFiles(int userId, [FromForm] FileUploadRequestDto mockupUploadDto)
+        public async Task<IActionResult> UploadFiles(Guid userId, [FromForm] FileUploadRequestDto mockupUploadDto)
         {
             var response = await _fileUploadService.UploadFilesAsync(userId,mockupUploadDto);
             if (response.Success)
@@ -50,7 +50,7 @@ namespace HxStudioFileUploadService.Controllers
 
         [HttpPut]
         [Route("update/{id}")]
-        public async Task<IActionResult> UpdateTemplate(int id, [FromForm] FileUploadRequestDto mockupUpdateDto, int userId)
+        public async Task<IActionResult> UpdateTemplate(int id, [FromForm] FileUploadRequestDto mockupUpdateDto, Guid userId)
         {
             var response = await _fileUploadService.UpdateTemplateAsync(id, mockupUpdateDto, userId);
             if (response.Success)
@@ -64,7 +64,7 @@ namespace HxStudioFileUploadService.Controllers
         }
 
         [HttpPost("{userId}/like/{mockupId}")]
-        public async Task<IActionResult> LikeMockup(int userId, int mockupGroupId, [FromBody] bool isLiked)
+        public async Task<IActionResult> LikeMockup(Guid userId, int mockupGroupId, [FromBody] bool isLiked)
         {
             var result = await _fileUploadService.LikeMockupAsync(userId, mockupGroupId, isLiked);
             if (result)
@@ -75,7 +75,7 @@ namespace HxStudioFileUploadService.Controllers
             return BadRequest("Error liking the mockup.");
         }
         [HttpGet("{userId}/mockups")]
-        public async Task<IActionResult> GetMockupsByUser(int userId)
+        public async Task<IActionResult> GetMockupsByUser(Guid userId)
         {
             try
             {
@@ -128,7 +128,7 @@ namespace HxStudioFileUploadService.Controllers
             return Ok(domains);
         }
         [HttpGet("recent")]
-        public async Task<IActionResult> GetRecentMockups(int userId)
+        public async Task<IActionResult> GetRecentMockups(Guid userId)
         {
             try
             {
@@ -142,7 +142,7 @@ namespace HxStudioFileUploadService.Controllers
             }
         }
         [HttpGet("alphabetical")]
-        public async Task<IActionResult> GetAllMockups(int userId)
+        public async Task<IActionResult> GetAllMockups(Guid userId)
         {
             try
             {
@@ -157,13 +157,13 @@ namespace HxStudioFileUploadService.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<IActionResult> SearchMockups(int userId, string query)
+        public async Task<IActionResult> SearchMockups(Guid userId, string query)
         {
             var result = await _fileUploadService.SearchMockupsAsync(userId, query);
             return Ok(result);
         }
         [HttpGet("searchByDomain")]
-        public async Task<IActionResult> SearchByDomain([FromQuery] int userId, [FromQuery] string domainName)
+        public async Task<IActionResult> SearchByDomain([FromQuery] Guid userId, [FromQuery] string domainName)
         {
             var mockups = await _fileUploadService.SearchMockupsByDomainAsync(userId, domainName);
 
