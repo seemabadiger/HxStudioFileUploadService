@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HxStudioFileUploadService.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240930095208_Initial")]
-    partial class Initial
+    [Migration("20241008071011_Initial_Create")]
+    partial class Initial_Create
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,8 +44,8 @@ namespace HxStudioFileUploadService.Migrations
 
             modelBuilder.Entity("HxStudioFileUploadService.Models.Like", b =>
                 {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("MockupGroupId")
                         .HasColumnType("int");
@@ -58,7 +58,8 @@ namespace HxStudioFileUploadService.Migrations
 
                     b.HasKey("UserId", "MockupGroupId");
 
-                    b.HasIndex("MockupGroupId");
+                    b.HasIndex("MockupGroupId")
+                        .IsUnique();
 
                     b.ToTable("Likes");
                 });
@@ -97,8 +98,8 @@ namespace HxStudioFileUploadService.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -106,8 +107,8 @@ namespace HxStudioFileUploadService.Migrations
                     b.Property<int>("DomainId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
@@ -176,44 +177,15 @@ namespace HxStudioFileUploadService.Migrations
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("HxStudioFileUploadService.Models.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-                });
-
             modelBuilder.Entity("HxStudioFileUploadService.Models.Like", b =>
                 {
                     b.HasOne("HxStudioFileUploadService.Models.MockupGroup", "MockupGroup")
-                        .WithMany()
-                        .HasForeignKey("MockupGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HxStudioFileUploadService.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .WithOne("Like")
+                        .HasForeignKey("HxStudioFileUploadService.Models.Like", "MockupGroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("MockupGroup");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("HxStudioFileUploadService.Models.Mockup", b =>
@@ -270,6 +242,9 @@ namespace HxStudioFileUploadService.Migrations
 
             modelBuilder.Entity("HxStudioFileUploadService.Models.MockupGroup", b =>
                 {
+                    b.Navigation("Like")
+                        .IsRequired();
+
                     b.Navigation("Mockups");
 
                     b.Navigation("Tags");

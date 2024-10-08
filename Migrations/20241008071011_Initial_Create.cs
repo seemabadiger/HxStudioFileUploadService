@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HxStudioFileUploadService.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Initial_Create : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,20 +22,6 @@ namespace HxStudioFileUploadService.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Domain", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -67,9 +53,9 @@ namespace HxStudioFileUploadService.Migrations
                     ProjectDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DomainId = table.Column<int>(type: "int", nullable: false),
                     SubDomainId = table.Column<int>(type: "int", nullable: false),
-                    CreatedBy = table.Column<int>(type: "int", nullable: false),
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedBy = table.Column<int>(type: "int", nullable: true),
+                    ModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -93,7 +79,7 @@ namespace HxStudioFileUploadService.Migrations
                 name: "Likes",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MockupGroupId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false),
                     IsLiked = table.Column<bool>(type: "bit", nullable: false)
@@ -105,12 +91,6 @@ namespace HxStudioFileUploadService.Migrations
                         name: "FK_Likes_MockupGroups_MockupGroupId",
                         column: x => x.MockupGroupId,
                         principalTable: "MockupGroups",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Likes_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -159,7 +139,8 @@ namespace HxStudioFileUploadService.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Likes_MockupGroupId",
                 table: "Likes",
-                column: "MockupGroupId");
+                column: "MockupGroupId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_MockupGroups_DomainId",
@@ -198,9 +179,6 @@ namespace HxStudioFileUploadService.Migrations
 
             migrationBuilder.DropTable(
                 name: "Tags");
-
-            migrationBuilder.DropTable(
-                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "MockupGroups");
