@@ -4,7 +4,8 @@ using HxStudioFileUploadService.Models.Dto;
 using HxStudioFileUploadService.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 namespace HxStudioFileUploadService.Services
 {
     public class FileUploadService : IFileUploadService
@@ -12,16 +13,25 @@ namespace HxStudioFileUploadService.Services
         private readonly AppDbContext _db;
         private readonly ILogger<FileUploadService> _logger;
         private readonly UploadSettings _uploadSettings;
+        private readonly BlobServiceClient _blobServiceClient;
+        private readonly BlobContainerClient _blobContainer;
+
         public FileUploadService(AppDbContext db, IOptions<UploadSettings> uploadSettings, ILogger<FileUploadService> logger)
         {
             _db = db;
             _uploadSettings = uploadSettings.Value;
             _logger = logger;
+
+            // Initialize Azure Blob Storage
+            _blobServiceClient = new BlobServiceClient(_uploadSettings.AzureStorageConnectionString);
+            _blobContainer = _blobServiceClient.GetBlobContainerClient(_uploadSettings.AzureStorageContainerName);
         }
-        public async Task<FileUploadResponseDto> UploadFilesAsync(Guid userId,FileUploadRequestDto mockupUploadDto)
+
+        public async Task<FileUploadResponseDto> UploadFilesAsync(Guid userId, FileUploadRequestDto mockupUploadDto)
         {
             var response = new FileUploadResponseDto();
             var mockups = new List<MockupDto>();
+
             // Check if files are provided
             if (mockupUploadDto.MockupFiles == null || !mockupUploadDto.MockupFiles.Any())
             {
@@ -31,31 +41,34 @@ namespace HxStudioFileUploadService.Services
                 return response;
             }
 
-            // Define upload directory
-            var uploads = Path.Combine(_uploadSettings.Path, "uploads");
-            if (!Directory.Exists(uploads))
-            {
-                Directory.CreateDirectory(uploads);
-            }
-
             try
             {
                 foreach (var file in mockupUploadDto.MockupFiles)
                 {
                     if (file.Length > 0)
                     {
-                        var filePath = Path.Combine(uploads, file.FileName);
-
-                        // Save file to disk
-                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        // Generate unique file name
+                        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                        // Check if container exists, if not exists then create it
+                        if (!_blobServiceClient.GetBlobContainerClient(_uploadSettings.AzureStorageContainerName).Exists())
                         {
-                            await file.CopyToAsync(fileStream);
+                            await _blobServiceClient.CreateBlobContainerAsync(_uploadSettings.AzureStorageContainerName);
                         }
+                        // Upload file to Azure Blob Storage
+                        var blobClient = _blobContainer.GetBlobClient(fileName);
+                        using (var fileStream = file.OpenReadStream())
+                        {
+                            await blobClient.UploadAsync(fileStream, true);
+                        }
+
+                        // Save file path in database
+                        var filePath = blobClient.Uri.ToString();
                         mockups.Add(new MockupDto { FileName = file.FileName, FilePath = filePath });
                     }
                 }
+
                 var domain = await AddDomainAsync(new DomainDto { Name = mockupUploadDto.DomainName });
-                var subdomain = await AddSubdomainAsync(new SubdomainDto { Name = mockupUploadDto.SubdomainName, DomainId=domain.Id,Domain=domain });
+                var subdomain = await AddSubdomainAsync(new SubdomainDto { Name = mockupUploadDto.SubdomainName, DomainId = domain.Id, Domain = domain });
                 var mockupGroupDto = new MockupGroupDto
                 {
                     ProjectTitle = mockupUploadDto.ProjectTitle,
@@ -67,13 +80,14 @@ namespace HxStudioFileUploadService.Services
                     Tags = mockupUploadDto.Tags.Select(tagName => new Tag { Name = tagName }).ToList()
                 };
                 var mockupGroup = await AddMockUpGroup(mockupGroupDto);
-                 await AddMockUpFiles(mockups, mockupGroup.Id);
+                await AddMockUpFiles(mockups, mockupGroup.Id);
                 mockupGroupDto.Id = mockupGroup.Id;
                 await AddTagsToMockupGroup(mockupGroupDto);
+
                 // Prepare response
                 response.Success = true;
                 response.Message = "Files uploaded successfully";
-               
+
                 _logger.LogInformation("Files uploaded successfully. Details: Mockup Group Id: " + mockupGroup.Id);
             }
             catch (Exception ex)
@@ -86,6 +100,7 @@ namespace HxStudioFileUploadService.Services
 
             return response;
         }
+
         public async Task<FileUploadResponseDto> UpdateTemplateAsync(int id, FileUploadRequestDto mockupUpdateDtos, Guid userId)
         {
             var response = new FileUploadResponseDto();
@@ -99,10 +114,6 @@ namespace HxStudioFileUploadService.Services
                 _logger.LogWarning($"Attempt to update a non-existing template with ID: {id}");
                 return response;
             }
-
-            // Define upload directory
-            var uploads = Path.Combine(_uploadSettings.Path, "uploads");
-
             try
             {
                 if (mockupUpdateDtos.MockupFiles != null && mockupUpdateDtos.MockupFiles.Any())
@@ -111,15 +122,23 @@ namespace HxStudioFileUploadService.Services
                     {
                         if (file.Length > 0)
                         {
-                            var filePath = Path.Combine(uploads, file.FileName);
-
-                            // Save file to disk
-                            using (var fileStream = new FileStream(filePath, FileMode.Create))
+                            // Generate unique file name
+                            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                            // Check if container exists, if not exists then create it
+                            if (!_blobServiceClient.GetBlobContainerClient(_uploadSettings.AzureStorageContainerName).Exists())
                             {
-                                await file.CopyToAsync(fileStream);
+                                await _blobServiceClient.CreateBlobContainerAsync(_uploadSettings.AzureStorageContainerName);
                             }
-                            mockups.Add(new MockupDto { FileName = file.FileName, FilePath = filePath,MockupGroupId= existingMockup.Id });
-                            // Update the existing mockup object
+                            // Upload file to Azure Blob Storage
+                            var blobClient = _blobContainer.GetBlobClient(fileName);
+                            using (var fileStream = file.OpenReadStream())
+                            {
+                                await blobClient.UploadAsync(fileStream, true);
+                            }
+
+                            // Save file path in database
+                            var filePath = blobClient.Uri.ToString();
+                            mockups.Add(new MockupDto { FileName = file.FileName, FilePath = filePath, MockupGroupId = existingMockup.Id });
                         }
                     }
                 }
@@ -129,10 +148,10 @@ namespace HxStudioFileUploadService.Services
                 existingMockup.ProjectDescription = mockupUpdateDtos.ProjectDescription;
                 existingMockup.DomainId = domain.Id;
                 existingMockup.SubDomainId = subdomain.Id;
-                existingMockup.ModifiedBy= userId;
+                existingMockup.ModifiedBy = userId;
                 existingMockup.ModifiedDate = DateTime.Now;
-                if(mockups.Any()) await AddMockUpFiles(mockups, existingMockup.Id);
-              
+                if (mockups.Any()) await AddMockUpFiles(mockups, existingMockup.Id);
+
                 // Save changes to database
                 await _db.SaveChangesAsync();
 
@@ -157,7 +176,7 @@ namespace HxStudioFileUploadService.Services
             try
             {
                 // Find the existing mockup
-                var mockupGroups =await _db.MockupGroups.FirstOrDefaultAsync(m => m.Id == id);
+                var mockupGroups = await _db.MockupGroups.FirstOrDefaultAsync(m => m.Id == id);
                 var mockups = await _db.Mockups.Where(m => m.MockupGroupId == id).ToListAsync();
                 if (mockupGroups == null)
                 {
@@ -175,6 +194,12 @@ namespace HxStudioFileUploadService.Services
                         {
                             System.IO.File.Delete(mockup.FilePath);
                         }
+
+                        // Delete the file from Azure Blob Storage
+                        var blobUri = new Uri(mockup.FilePath);
+                        var blobName = Path.GetFileName(blobUri.LocalPath);
+                        var blobClient = _blobContainer.GetBlobClient(blobName);
+                        await blobClient.DeleteIfExistsAsync();
 
                         // Remove from database
                         _db.Mockups.Remove(mockup);
@@ -224,10 +249,10 @@ namespace HxStudioFileUploadService.Services
         public async Task<IEnumerable<MockupGroupDto>> GetMockupsByUserAsync(Guid userId)
         {
             return await _db.MockupGroups
-                .Include(x=>x.Tags) 
-                .Include(x=>x.Domain)
-                .Include(x=>x.SubDomain)
-                .Include(x=>x.Mockups)
+                .Include(x => x.Tags)
+                .Include(x => x.Domain)
+                .Include(x => x.SubDomain)
+                .Include(x => x.Mockups)
                 .Include(x => x.Like)
                 .Select(uml => new MockupGroupDto
                 {
@@ -237,12 +262,12 @@ namespace HxStudioFileUploadService.Services
                     DomainId = uml.DomainId,
                     Domain = new DomainDto { Id = uml.Domain.Id, Name = uml.Domain.Name },
                     SubDomainId = uml.SubDomainId,
-                    Subdomain = new SubdomainDto {Id = uml.SubDomainId, Name = uml.SubDomain.Name },
-                    Mockups = uml.Mockups.Select(mps => new MockupDto 
-                    { 
-                        FileName= mps.FileName, 
-                        FilePath=mps.FilePath.Replace("C:\\Uploads\\uploads\\", "http://localhost:8080/"),
-                        MockupGroupId= mps.MockupGroupId
+                    Subdomain = new SubdomainDto { Id = uml.SubDomainId, Name = uml.SubDomain.Name },
+                    Mockups = uml.Mockups.Select(mps => new MockupDto
+                    {
+                        FileName = mps.FileName,
+                        FilePath = mps.FilePath,
+                        MockupGroupId = mps.MockupGroupId
                     }).ToList(),
                     Tags = uml.Tags,
                     Like = uml.Like,
@@ -255,9 +280,9 @@ namespace HxStudioFileUploadService.Services
         }
         public async Task<Domain> AddDomainAsync(DomainDto domainDto)
         {
-            var  domain = new Domain
+            var domain = new Domain
             {
-               Name= domainDto.Name
+                Name = domainDto.Name
             };
             if (_db.Domain.Any(x => x.Name == domainDto.Name))
                 return await _db.Domain.FirstOrDefaultAsync(x => x.Name == domainDto.Name);
@@ -278,11 +303,11 @@ namespace HxStudioFileUploadService.Services
         }
         public async Task<Subdomain> AddSubdomainAsync(SubdomainDto subdomainDto)
         {
-           
+
             var subDomain = new Subdomain
             {
                 Name = subdomainDto.Name,
-                DomainId=subdomainDto.DomainId
+                DomainId = subdomainDto.DomainId
             };
             if (_db.Subdomain.Any(x => x.Name == subdomainDto.Name && x.DomainId == subdomainDto.DomainId))
                 return await _db.Subdomain.FirstOrDefaultAsync(x => x.Name == subdomainDto.Name && x.DomainId == subdomainDto.DomainId);
@@ -321,7 +346,7 @@ namespace HxStudioFileUploadService.Services
         public async Task<List<Mockup>> AddMockUpFiles(List<MockupDto> mockupDto, int mockUpGroupId)
         {
             var existingMockups = await _db.Mockups.Where(x => x.MockupGroupId == mockUpGroupId).ToListAsync();
-            if(existingMockups!=null && existingMockups.Any())
+            if (existingMockups != null && existingMockups.Any())
             {
                 _db.Mockups.RemoveRange(existingMockups);
             }
@@ -334,7 +359,7 @@ namespace HxStudioFileUploadService.Services
 
             _db.Mockups.AddRange(mockups);
             await _db.SaveChangesAsync();
-            
+
             return mockups;
         }
         public async Task<IEnumerable<MockupGroupDto>> GetRecentMockupsByUserAsync(Guid userId, int days = 1)
@@ -361,14 +386,14 @@ namespace HxStudioFileUploadService.Services
                     Mockups = m.Mockups.Select(mps => new MockupDto
                     {
                         FileName = mps.FileName,
-                        FilePath = mps.FilePath.Replace("C:\\Uploads\\uploads\\", "http://localhost:8080/"),
+                        FilePath = mps.FilePath,
                         MockupGroupId = mps.MockupGroupId
                     }).ToList(),
                     Tags = m.Tags,
                     CreatedBy = m.CreatedBy,
                     CreatedDate = m.CreatedDate,
-                    ModifiedBy=m.ModifiedBy,
-                    ModifiedDate=m.ModifiedDate,
+                    ModifiedBy = m.ModifiedBy,
+                    ModifiedDate = m.ModifiedDate,
                     Like = m.Like
                 })
                 .ToListAsync();
@@ -396,7 +421,7 @@ namespace HxStudioFileUploadService.Services
                     Mockups = m.Mockups.Select(mps => new MockupDto
                     {
                         FileName = mps.FileName,
-                        FilePath = mps.FilePath.Replace("C:\\Uploads\\uploads\\", "http://localhost:8080/"),
+                        FilePath = mps.FilePath,
                         MockupGroupId = mps.MockupGroupId
                     }).ToList(),
                     Tags = m.Tags,
@@ -443,7 +468,7 @@ namespace HxStudioFileUploadService.Services
                     Mockups = m.Mockups.Select(mps => new MockupDto
                     {
                         FileName = mps.FileName,
-                        FilePath = mps.FilePath.Replace("C:\\Uploads\\uploads\\", "http://localhost:8080/"),
+                        FilePath = mps.FilePath,
                         MockupGroupId = mps.MockupGroupId
                     }).ToList(),
                     Tags = m.Tags,
@@ -451,7 +476,7 @@ namespace HxStudioFileUploadService.Services
                     CreatedDate = m.CreatedDate,
                     ModifiedBy = m.ModifiedBy,
                     ModifiedDate = m.ModifiedDate,
-                    Like =m.Like
+                    Like = m.Like
                 })
                 .ToListAsync();
         }
@@ -474,7 +499,7 @@ namespace HxStudioFileUploadService.Services
                 {
                     Id = m.Id,
                     ProjectTitle = m.ProjectTitle,
-                    ProjectDescription=m.ProjectDescription,
+                    ProjectDescription = m.ProjectDescription,
                     DomainId = m.DomainId,
                     Domain = new DomainDto { Id = m.Domain.Id, Name = m.Domain.Name },
                     SubDomainId = m.SubDomainId,
@@ -482,7 +507,7 @@ namespace HxStudioFileUploadService.Services
                     Mockups = m.Mockups.Select(mps => new MockupDto
                     {
                         FileName = mps.FileName,
-                        FilePath = mps.FilePath.Replace("C:\\Uploads\\uploads\\", "http://localhost:8080/"),
+                        FilePath = mps.FilePath,
                         MockupGroupId = mps.MockupGroupId
                     }).ToList(),
                     Tags = m.Tags,
@@ -494,5 +519,40 @@ namespace HxStudioFileUploadService.Services
                 })
                 .ToListAsync();
         }
+        public async Task<MockupGroupDto> GetMockupGroupDetailsAsync(int mockupGroupId)
+        {
+            return await _db.MockupGroups
+                .Include(x => x.Tags)
+                .Include(x => x.Domain)
+                .Include(x => x.SubDomain)
+                .Include(x => x.Mockups)
+                .Include(x => x.Like)
+                .Where(m => m.Id == mockupGroupId)
+                .Select(m => new MockupGroupDto
+                {
+                    Id = m.Id,
+                    ProjectTitle = m.ProjectTitle,
+                    ProjectDescription = m.ProjectDescription,
+                    DomainId = m.DomainId,
+                    Domain = new DomainDto { Id = m.Domain.Id, Name = m.Domain.Name },
+                    SubDomainId = m.SubDomainId,
+                    Subdomain = new SubdomainDto { Id = m.SubDomainId, Name = m.SubDomain.Name },
+                    Mockups = m.Mockups.Select(mps => new MockupDto
+                    {
+                        FileName = mps.FileName,
+                        FilePath = mps.FilePath,
+                        MockupGroupId = mps.MockupGroupId
+                    }).ToList(),
+                    Tags = m.Tags,
+                    CreatedBy = m.CreatedBy,
+                    CreatedDate = m.CreatedDate,
+                    ModifiedBy = m.ModifiedBy,
+                    ModifiedDate = m.ModifiedDate,
+                    Like = m.Like
+                })
+                .FirstOrDefaultAsync();
+        }
+
     }
+
 }

@@ -175,5 +175,19 @@ namespace HxStudioFileUploadService.Controllers
             return Ok(mockups);
         }
 
+        [HttpGet("getmockupgroupdetails/{mockupGroupId}")]
+        public async Task<IActionResult> GetMockupGroupDetails(int mockupGroupId)
+        {
+            var mockupGroupDetails = await _fileUploadService.GetMockupGroupDetailsAsync(mockupGroupId);
+            if (mockupGroupDetails == null)
+            {
+                return NotFound("Mockup group not found.");
+            }
+
+            return Ok(mockupGroupDetails);
+        }
+
+
+
     }
 }

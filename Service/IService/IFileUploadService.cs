@@ -25,6 +25,6 @@ namespace HxStudioFileUploadService.Services
         Task<FileUploadResponseDto> UpdateTemplateAsync(int id, FileUploadRequestDto mockupUpdateDto, Guid userId);
         Task<FileUploadResponseDto> DeleteTemplateAsync(int id);
 
-
+        Task<MockupGroupDto> GetMockupGroupDetailsAsync(int mockupGroupId);
     }
 }
