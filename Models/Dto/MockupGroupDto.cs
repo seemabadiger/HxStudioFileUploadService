@@ -14,6 +14,7 @@ namespace HxStudioFileUploadService.Models.Dto
         public List<Tag> Tags { get; set; }
         public List<MockupDto> Mockups { get; set; }
         public Like Like { get; set; }
+        public bool IsFavorite { get; set; }
         public Guid CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public Guid? ModifiedBy { get; set; }

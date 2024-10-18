@@ -63,7 +63,7 @@ namespace HxStudioFileUploadService.Controllers
             }
         }
 
-        [HttpPost("{userId}/like/{mockupId}")]
+        [HttpPost("{userId}/like/{mockupGroupId}")]
         public async Task<IActionResult> LikeMockup(Guid userId, int mockupGroupId, [FromBody] bool isLiked)
         {
             var result = await _fileUploadService.LikeMockupAsync(userId, mockupGroupId, isLiked);

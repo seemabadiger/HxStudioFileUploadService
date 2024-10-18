@@ -271,6 +271,7 @@ namespace HxStudioFileUploadService.Services
                     }).ToList(),
                     Tags = uml.Tags,
                     Like = uml.Like,
+                    IsFavorite = uml.Like != null ? uml.Like.IsLiked : false ,
                     CreatedBy = uml.CreatedBy,
                     CreatedDate = uml.CreatedDate,
                     ModifiedBy = uml.ModifiedBy,
