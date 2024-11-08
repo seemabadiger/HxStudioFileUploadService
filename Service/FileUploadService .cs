@@ -58,7 +58,11 @@ namespace HxStudioFileUploadService.Services
                         var blobClient = _blobContainer.GetBlobClient(fileName);
                         using (var fileStream = file.OpenReadStream())
                         {
-                            await blobClient.UploadAsync(fileStream, true);
+                            BlobHttpHeaders blobHttpHeaders = new BlobHttpHeaders()
+                            {
+                                ContentType = file.ContentType
+                            };
+                            await blobClient.UploadAsync(fileStream, new BlobUploadOptions { HttpHeaders = blobHttpHeaders });
                         }
 
                         // Save file path in database
