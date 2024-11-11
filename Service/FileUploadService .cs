@@ -56,6 +56,7 @@ namespace HxStudioFileUploadService.Services
                         }
                         // Upload file to Azure Blob Storage
                         var blobClient = _blobContainer.GetBlobClient(fileName);
+
                         using (var fileStream = file.OpenReadStream())
                         {
                             BlobHttpHeaders blobHttpHeaders = new BlobHttpHeaders()
@@ -73,6 +74,7 @@ namespace HxStudioFileUploadService.Services
 
                 var domain = await AddDomainAsync(new DomainDto { Name = mockupUploadDto.DomainName });
                 var subdomain = await AddSubdomainAsync(new SubdomainDto { Name = mockupUploadDto.SubdomainName, DomainId = domain.Id, Domain = domain });
+                var mockupType = _db.MockupTypes.FirstOrDefault(m => m.Name == mockupUploadDto.MockupType);
                 var mockupGroupDto = new MockupGroupDto
                 {
                     ProjectTitle = mockupUploadDto.ProjectTitle,
@@ -81,6 +83,7 @@ namespace HxStudioFileUploadService.Services
                     SubDomainId = subdomain.Id,
                     CreatedBy = userId,
                     CreatedDate = DateTime.Now,
+                    MockupTypeId = mockupType.Id,
                     Tags = mockupUploadDto.Tags.Select(tagName => new Tag { Name = tagName }).ToList()
                 };
                 var mockupGroup = await AddMockUpGroup(mockupGroupDto);
@@ -148,10 +151,12 @@ namespace HxStudioFileUploadService.Services
                 }
                 var domain = await AddDomainAsync(new DomainDto { Name = mockupUpdateDtos.DomainName });
                 var subdomain = await AddSubdomainAsync(new SubdomainDto { Name = mockupUpdateDtos.SubdomainName });
+                var mockupType = _db.MockupTypes.FirstOrDefault(m => m.Name == mockupUpdateDtos.MockupType);
                 existingMockup.ProjectTitle = mockupUpdateDtos.ProjectTitle;
                 existingMockup.ProjectDescription = mockupUpdateDtos.ProjectDescription;
                 existingMockup.DomainId = domain.Id;
                 existingMockup.SubDomainId = subdomain.Id;
+                existingMockup.MockupTypeId = mockupType.Id;
                 existingMockup.ModifiedBy = userId;
                 existingMockup.ModifiedDate = DateTime.Now;
                 if (mockups.Any()) await AddMockUpFiles(mockups, existingMockup.Id);
@@ -275,7 +280,8 @@ namespace HxStudioFileUploadService.Services
                     }).ToList(),
                     Tags = uml.Tags,
                     Like = uml.Like,
-                    IsFavorite = uml.Like != null ? uml.Like.IsLiked : false ,
+                    MockupTypeId = uml.MockupTypeId,
+                    IsFavorite = uml.Like != null ? uml.Like.IsLiked : false,
                     CreatedBy = uml.CreatedBy,
                     CreatedDate = uml.CreatedDate,
                     ModifiedBy = uml.ModifiedBy,
@@ -332,6 +338,7 @@ namespace HxStudioFileUploadService.Services
                 ProjectDescription = mockupGroupDto.ProjectDescription,
                 DomainId = mockupGroupDto.DomainId,
                 SubDomainId = mockupGroupDto.SubDomainId,
+                MockupTypeId = mockupGroupDto.MockupTypeId,
                 CreatedBy = mockupGroupDto.CreatedBy,
                 CreatedDate = mockupGroupDto.CreatedDate
             };
@@ -377,7 +384,8 @@ namespace HxStudioFileUploadService.Services
                 .Include(x => x.SubDomain)
                 .Include(x => x.Mockups)
                 .Include(x => x.Like)
-                .Where(m => m.CreatedBy == userId && m.CreatedDate >= recentDate)
+                 //.Where(m => m.CreatedBy == userId && m.CreatedDate >= recentDate)
+                 .Where(m => m.CreatedDate >= recentDate)
                 .Select(m => new MockupGroupDto
                 {
 
@@ -395,6 +403,7 @@ namespace HxStudioFileUploadService.Services
                         MockupGroupId = mps.MockupGroupId
                     }).ToList(),
                     Tags = m.Tags,
+                    MockupTypeId = m.MockupTypeId,
                     CreatedBy = m.CreatedBy,
                     CreatedDate = m.CreatedDate,
                     ModifiedBy = m.ModifiedBy,
@@ -411,7 +420,7 @@ namespace HxStudioFileUploadService.Services
                 .Include(x => x.SubDomain)
                 .Include(x => x.Mockups)
                 .Include(x => x.Like)
-                .Where(m => m.CreatedBy == userId)
+                //.Where(m => m.CreatedBy == userId)
                 .OrderBy(m => m.ProjectTitle) // Order alphabetically by name
                 .Select(m => new MockupGroupDto
                 {
@@ -430,6 +439,7 @@ namespace HxStudioFileUploadService.Services
                         MockupGroupId = mps.MockupGroupId
                     }).ToList(),
                     Tags = m.Tags,
+                    MockupTypeId = m.MockupTypeId,
                     CreatedBy = m.CreatedBy,
                     CreatedDate = m.CreatedDate,
                     ModifiedBy = m.ModifiedBy,
@@ -477,6 +487,7 @@ namespace HxStudioFileUploadService.Services
                         MockupGroupId = mps.MockupGroupId
                     }).ToList(),
                     Tags = m.Tags,
+                    MockupTypeId = m.MockupTypeId,
                     CreatedBy = m.CreatedBy,
                     CreatedDate = m.CreatedDate,
                     ModifiedBy = m.ModifiedBy,
@@ -491,12 +502,13 @@ namespace HxStudioFileUploadService.Services
                 .Include(x => x.Domain)
                 .Include(x => x.SubDomain)
                 .Include(x => x.Mockups)
-                .Include(x => x.Like).Where(m => m.CreatedBy == userId);
+                .Include(x => x.Like);
+            //.Where(m => m.CreatedBy == userId);
 
             if (!string.IsNullOrWhiteSpace(domainName) && domainName.ToLower() != "all")
             {
                 var lowerDomainName = domainName.ToLower();
-                query = query.Where(m => m.Domain.Name.ToLower().Contains(lowerDomainName));
+                query = query.Where(m => m.Domain.Name.ToLower().Contains(lowerDomainName) || m.Tags.Any(x => x.Name.ToLower().Contains(lowerDomainName)));
             }
 
             return await query
@@ -517,6 +529,7 @@ namespace HxStudioFileUploadService.Services
                     }).ToList(),
                     Tags = m.Tags,
                     Like = m.Like,
+                    MockupTypeId = m.MockupTypeId,
                     CreatedBy = m.CreatedBy,
                     CreatedDate = m.CreatedDate,
                     ModifiedBy = m.ModifiedBy,
@@ -549,6 +562,7 @@ namespace HxStudioFileUploadService.Services
                         MockupGroupId = mps.MockupGroupId
                     }).ToList(),
                     Tags = m.Tags,
+                    MockupTypeId = m.MockupTypeId,
                     CreatedBy = m.CreatedBy,
                     CreatedDate = m.CreatedDate,
                     ModifiedBy = m.ModifiedBy,
@@ -557,7 +571,9 @@ namespace HxStudioFileUploadService.Services
                 })
                 .FirstOrDefaultAsync();
         }
-
+        public async Task<IEnumerable<MockupType>> GetMockupTypesAsync()
+        {
+            return await _db.MockupTypes.ToListAsync();
+        }
     }
-
 }

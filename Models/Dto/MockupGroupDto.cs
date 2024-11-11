@@ -11,6 +11,8 @@ namespace HxStudioFileUploadService.Models.Dto
         public DomainDto Domain { get; set; }
         public int SubDomainId { get; set; }
         public SubdomainDto Subdomain { get; set; }
+        public int MockupTypeId { get; set; } // Added MockupTypeId as foreign key
+        public MockupTypeDto MockupType { get; set; } // Added MockupType navigation property
         public List<Tag> Tags { get; set; }
         public List<MockupDto> Mockups { get; set; }
         public Like Like { get; set; }
