@@ -67,7 +67,7 @@ public class Program
             options.AddPolicy("AllowLocalhost",
             builder =>
             {
-                builder.WithOrigins("http://localhost:5173")
+                builder.WithOrigins("*")
                        .AllowAnyHeader()
                        .AllowAnyMethod();
             });
