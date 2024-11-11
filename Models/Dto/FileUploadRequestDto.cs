@@ -12,5 +12,6 @@ namespace HxStudioFileUploadService.Models.Dto
         public List<string> Tags { get; set; }
         public string DomainName { get; set; }
         public string SubdomainName { get; set; }
+        public string MockupType { get; set; }
     }
 }

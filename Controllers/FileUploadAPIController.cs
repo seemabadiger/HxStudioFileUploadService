@@ -186,7 +186,20 @@ namespace HxStudioFileUploadService.Controllers
 
             return Ok(mockupGroupDetails);
         }
-
+        [HttpGet("mockuptypes")]
+        public async Task<IActionResult> GetMockupTypes()
+        {
+            try
+            {
+                var mockupTypes = await _fileUploadService.GetMockupTypesAsync();
+                return Ok(mockupTypes);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "Internal server error: " + ex.Message);
+            }
+        }
 
 
     }

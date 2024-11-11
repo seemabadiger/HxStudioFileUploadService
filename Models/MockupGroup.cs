@@ -20,6 +20,9 @@ namespace HxStudioFileUploadService.Models
         [ForeignKey("SubDomain")]
         public int SubDomainId { get; set; }
         public virtual Subdomain SubDomain { get; set; }
+        [ForeignKey("MockupType")]
+        public int MockupTypeId { get; set; }
+        public virtual MockupType MockupType { get; set; }
 
         [Column(TypeName = "nvarchar(max)")]
         public virtual List<Tag> Tags { get; set; }
