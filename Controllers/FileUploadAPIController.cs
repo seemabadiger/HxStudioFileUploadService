@@ -3,6 +3,9 @@ using HxStudioFileUploadService.Models.Dto;
 using HxStudioFileUploadService.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Azure.Storage.Blobs.Models;
+using Azure.Storage.Blobs;
+using HxStudioFileUploadService.Service;
 
 namespace HxStudioFileUploadService.Controllers
 {
@@ -200,7 +203,65 @@ namespace HxStudioFileUploadService.Controllers
                 return StatusCode(500, "Internal server error: " + ex.Message);
             }
         }
+        [HttpPost]
+        [Route("uploadCaseStudy")]
+        public async Task<IActionResult> UploadCaseStudy(Guid userId, [FromForm] FileUploadRequestDto mockupUploadDto)
+        {
+            var response = await _fileUploadService.UploadCaseStudy(userId, mockupUploadDto);
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
 
+        [HttpPost]
+        [Route("uploadBeforeAfter")]
+        public async Task<IActionResult> UploadBeforeAfter(Guid userId, [FromForm] FileUploadRequestDto mockupUploadDto)
+        {
+            var response = await _fileUploadService.UploadBeforeAfter(userId, mockupUploadDto);
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
+
+        [HttpPost]
+        [Route("uploadProcessDiagram")]
+        public async Task<IActionResult> UploadProcessDiagram([FromForm] ProcessDiagramFileUploadRequestDto processDiagramFileUploadRequestDto)
+        {
+
+            var response = await _fileUploadService.UploadProcessDiagram(processDiagramFileUploadRequestDto);
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
+        [HttpGet]
+        [Route("getprocessdiagrams")]
+        public async Task<IActionResult> GetProcessDiagramsAsync()
+        {
+            try
+            {
+                var processDiagrams = await _fileUploadService.GetProcessDiagramsAsync();
+                return Ok(processDiagrams);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error: " + ex.Message);
+            }
+        }
 
     }
 }

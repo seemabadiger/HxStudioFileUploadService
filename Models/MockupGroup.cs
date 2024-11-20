@@ -25,13 +25,14 @@ namespace HxStudioFileUploadService.Models
         public virtual MockupType MockupType { get; set; }
 
         [Column(TypeName = "nvarchar(max)")]
-        public virtual List<Tag> Tags { get; set; }
-        public virtual List<Mockup> Mockups { get; set; }
-        public virtual Like Like { get; set; }
+        public virtual List<Tag>? Tags { get; set; }
+        public virtual List<Mockup>? Mockups { get; set; }
+        public virtual Like? Like { get; set; }
         public Guid CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public Guid? ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
-
+        public virtual CaseStudy? CaseStudy { get; set; }
+        public virtual BeforeAfter? BeforeAfter { get; set; }
     }
 }

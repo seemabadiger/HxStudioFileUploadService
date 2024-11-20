@@ -15,6 +15,11 @@ namespace HxStudioFileUploadService.Data
         public DbSet<Subdomain> Subdomain { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<MockupType> MockupTypes { get; set; }
+        public DbSet<CaseStudy> CaseStudies { get; set; }
+        public DbSet<ProcessType> ProcessTypes { get; set; }
+        public DbSet<Deliverable> Deliverables { get; set; }
+        public DbSet<ProcessDiagram> ProcessDiagrams { get; set; }
+        public DbSet<BeforeAfter> BeforeAfters { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,6 +44,32 @@ namespace HxStudioFileUploadService.Data
                 new MockupType { Id = 3, Name = "Process Diagram & Artifacts" },
                 new MockupType { Id = 4, Name = "Before After" }
             );
+            modelBuilder.Entity<ProcessType>().HasData(
+              new ProcessType { Id = 1, ProcessName = "Discover" },
+              new ProcessType { Id = 2, ProcessName = "Define" },
+              new ProcessType { Id = 3, ProcessName = "Design" },
+              new ProcessType { Id = 4, ProcessName = "Develop" }
+          );
+            modelBuilder.Entity<Deliverable>().HasData(
+              new Deliverable { Id = 1, DeliverableName = "Empathy Mapping" },
+              new Deliverable { Id = 2, DeliverableName = "Journey Mapping" },
+              new Deliverable { Id = 3, DeliverableName = "Task Flow" },
+              new Deliverable { Id = 4, DeliverableName = "Personas" },
+              new Deliverable { Id = 5, DeliverableName = "Scenarios" },
+              new Deliverable { Id = 6, DeliverableName = "Heuristic Evaluation" },
+              new Deliverable { Id = 7, DeliverableName = "Information Architecture (Block Diagram)" },
+              new Deliverable { Id = 8, DeliverableName = "Low-hi Fidelity Wireframes" },
+              new Deliverable { Id = 9, DeliverableName = "Prototype" },
+              new Deliverable { Id = 10, DeliverableName = "Research Report" },
+              new Deliverable { Id = 11, DeliverableName = "Branding Style Guide" },
+              new Deliverable { Id = 12, DeliverableName = "Visual Design" },
+              new Deliverable { Id = 13, DeliverableName = "Design System (Assets, Micro interactions)" },
+              new Deliverable { Id = 14, DeliverableName = "Clickable Prototype" },
+              new Deliverable { Id = 15, DeliverableName = "HTML CSS Markups" },
+              new Deliverable { Id = 16, DeliverableName = "Atomic Design" },
+              new Deliverable { Id = 17, DeliverableName = "Accessibilty Compliance(WCAG)" },
+              new Deliverable { Id = 18, DeliverableName = "React/Angular based components" }
+          );
 
             // Add default value of 1 for existing records in MockupGroup table
             modelBuilder.Entity<MockupGroup>()

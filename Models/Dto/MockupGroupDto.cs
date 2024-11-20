@@ -21,5 +21,7 @@ namespace HxStudioFileUploadService.Models.Dto
         public DateTime CreatedDate { get; set; }
         public Guid? ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
+        public CaseStudy CaseStudy { get; set; }
+        public BeforeAfter BeforeAfter { get; set; }
     }
 }
