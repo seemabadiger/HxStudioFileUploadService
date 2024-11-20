@@ -27,5 +27,11 @@ namespace HxStudioFileUploadService.Services
 
         Task<MockupGroupDto> GetMockupGroupDetailsAsync(int mockupGroupId);
         Task<IEnumerable<MockupType>> GetMockupTypesAsync();
+        Task<FileUploadResponseDto> UploadProcessDiagram(ProcessDiagramFileUploadRequestDto processDiagramFileUploadRequestDto);
+        Task<FileUploadResponseDto> UploadCaseStudy(Guid userId, FileUploadRequestDto mockupUploadDto);
+        Task<FileUploadResponseDto> UploadBeforeAfter(Guid userId, FileUploadRequestDto mockupUploadDto);
+        Task<IEnumerable<ProcessDiagramResponseDto>> GetProcessDiagramsAsync();
+        Task<IEnumerable<ProcessType>> GetProcessTypesAsync();
+        Task<IEnumerable<Deliverable>> GetDeliverablesAsync();
     }
 }

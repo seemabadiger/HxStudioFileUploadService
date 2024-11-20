@@ -5,8 +5,10 @@ namespace HxStudioFileUploadService.Models.Dto
     public class MockupDto
     {
         public int Id { get; set; }
+        public IFormFile MockupFile { get; set; }
         public string FileName { get; set; }
         public string FilePath { get; set; }
-        public int MockupGroupId { get; set; }
+        public string Tags { get; set; }
+        public int? MockupGroupId { get; set; }
     }
 }

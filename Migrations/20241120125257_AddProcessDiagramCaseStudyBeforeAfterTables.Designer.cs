@@ -4,6 +4,7 @@ using HxStudioFileUploadService.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HxStudioFileUploadService.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241120125257_AddProcessDiagramCaseStudyBeforeAfterTables")]
+    partial class AddProcessDiagramCaseStudyBeforeAfterTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,21 +34,27 @@ namespace HxStudioFileUploadService.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AfterDesignFileName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AfterDesignFilePath")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AfterTags")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BeforeDesignFileName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BeforeDesignFilePath")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BeforeTags")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("CreatedBy")
@@ -129,12 +138,7 @@ namespace HxStudioFileUploadService.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProcessTypeId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ProcessTypeId");
 
                     b.ToTable("Deliverables");
 
@@ -142,116 +146,92 @@ namespace HxStudioFileUploadService.Migrations
                         new
                         {
                             Id = 1,
-                            DeliverableName = "Empathy Mapping",
-                            ProcessTypeId = 1
+                            DeliverableName = "Empathy Mapping"
                         },
                         new
                         {
                             Id = 2,
-                            DeliverableName = "Journey Mapping",
-                            ProcessTypeId = 1
+                            DeliverableName = "Journey Mapping"
                         },
                         new
                         {
                             Id = 3,
-                            DeliverableName = "Task Flow",
-                            ProcessTypeId = 1
+                            DeliverableName = "Task Flow"
                         },
                         new
                         {
                             Id = 4,
-                            DeliverableName = "Personas",
-                            ProcessTypeId = 1
+                            DeliverableName = "Personas"
                         },
                         new
                         {
                             Id = 5,
-                            DeliverableName = "Scenarios",
-                            ProcessTypeId = 1
+                            DeliverableName = "Scenarios"
                         },
                         new
                         {
                             Id = 6,
-                            DeliverableName = "Heuristic Evaluation",
-                            ProcessTypeId = 1
+                            DeliverableName = "Heuristic Evaluation"
                         },
                         new
                         {
                             Id = 7,
-                            DeliverableName = "Information Architecture (Block Diagram)",
-                            ProcessTypeId = 2
+                            DeliverableName = "Information Architecture (Block Diagram)"
                         },
                         new
                         {
                             Id = 8,
-                            DeliverableName = "Low-hi Fidelity Wireframes",
-                            ProcessTypeId = 2
+                            DeliverableName = "Low-hi Fidelity Wireframes"
                         },
                         new
                         {
                             Id = 9,
-                            DeliverableName = "Prototype",
-                            ProcessTypeId = 2
+                            DeliverableName = "Prototype"
                         },
                         new
                         {
                             Id = 10,
-                            DeliverableName = "Research Report",
-                            ProcessTypeId = 2
+                            DeliverableName = "Research Report"
                         },
                         new
                         {
                             Id = 11,
-                            DeliverableName = "Branding Style Guide",
-                            ProcessTypeId = 3
+                            DeliverableName = "Branding Style Guide"
                         },
                         new
                         {
                             Id = 12,
-                            DeliverableName = "Visual Design",
-                            ProcessTypeId = 3
+                            DeliverableName = "Visual Design"
                         },
                         new
                         {
                             Id = 13,
-                            DeliverableName = "Design System (Assets, Micro interactions)",
-                            ProcessTypeId = 3
+                            DeliverableName = "Design System (Assets, Micro interactions)"
                         },
                         new
                         {
                             Id = 14,
-                            DeliverableName = "Clickable Prototype",
-                            ProcessTypeId = 3
+                            DeliverableName = "Clickable Prototype"
                         },
                         new
                         {
                             Id = 15,
-                            DeliverableName = "HTML CSS Markups",
-                            ProcessTypeId = 4
+                            DeliverableName = "HTML CSS Markups"
                         },
                         new
                         {
                             Id = 16,
-                            DeliverableName = "Atomic Design",
-                            ProcessTypeId = 4
+                            DeliverableName = "Atomic Design"
                         },
                         new
                         {
                             Id = 17,
-                            DeliverableName = "Accessibilty Compliance(WCAG)",
-                            ProcessTypeId = 4
+                            DeliverableName = "Accessibilty Compliance(WCAG)"
                         },
                         new
                         {
                             Id = 18,
-                            DeliverableName = "React/Angular based components",
-                            ProcessTypeId = 4
-                        },
-                        new
-                        {
-                            Id = 19,
-                            DeliverableName = "Competitor Analysis",
-                            ProcessTypeId = 1
+                            DeliverableName = "React/Angular based components"
                         });
                 });
 
@@ -428,15 +408,18 @@ namespace HxStudioFileUploadService.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DeliverableFileName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DeliverableFilePath")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("DeliverableId")
                         .HasColumnType("int");
 
                     b.Property<string>("DeliverableLink")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("ModifiedBy")
@@ -560,17 +543,6 @@ namespace HxStudioFileUploadService.Migrations
                         .IsRequired();
 
                     b.Navigation("MockupGroup");
-                });
-
-            modelBuilder.Entity("HxStudioFileUploadService.Models.Deliverable", b =>
-                {
-                    b.HasOne("HxStudioFileUploadService.Models.ProcessType", "ProcessType")
-                        .WithMany()
-                        .HasForeignKey("ProcessTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ProcessType");
                 });
 
             modelBuilder.Entity("HxStudioFileUploadService.Models.Like", b =>

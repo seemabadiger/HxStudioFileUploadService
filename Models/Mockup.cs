@@ -10,5 +10,6 @@ namespace HxStudioFileUploadService.Models
         [ForeignKey("MockupGroupId")]
         public int MockupGroupId { get; set; }
         public virtual MockupGroup MockupGroup { get; set; }
+        public string Tags { get; set; }
     }
 }
