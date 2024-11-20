@@ -849,5 +849,15 @@ namespace HxStudioFileUploadService.Services
 
             return result;
         }
+        public async Task<IEnumerable<ProcessType>> GetProcessTypesAsync()
+        {
+            return await _db.ProcessTypes.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Deliverable>> GetDeliverablesAsync()
+        {
+            return await _db.Deliverables.Include(x=>x.ProcessType).ToListAsync();
+        }
+
     }
 }

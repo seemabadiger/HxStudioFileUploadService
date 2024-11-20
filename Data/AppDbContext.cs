@@ -51,24 +51,26 @@ namespace HxStudioFileUploadService.Data
               new ProcessType { Id = 4, ProcessName = "Develop" }
           );
             modelBuilder.Entity<Deliverable>().HasData(
-              new Deliverable { Id = 1, DeliverableName = "Empathy Mapping" },
-              new Deliverable { Id = 2, DeliverableName = "Journey Mapping" },
-              new Deliverable { Id = 3, DeliverableName = "Task Flow" },
-              new Deliverable { Id = 4, DeliverableName = "Personas" },
-              new Deliverable { Id = 5, DeliverableName = "Scenarios" },
-              new Deliverable { Id = 6, DeliverableName = "Heuristic Evaluation" },
-              new Deliverable { Id = 7, DeliverableName = "Information Architecture (Block Diagram)" },
-              new Deliverable { Id = 8, DeliverableName = "Low-hi Fidelity Wireframes" },
-              new Deliverable { Id = 9, DeliverableName = "Prototype" },
-              new Deliverable { Id = 10, DeliverableName = "Research Report" },
-              new Deliverable { Id = 11, DeliverableName = "Branding Style Guide" },
-              new Deliverable { Id = 12, DeliverableName = "Visual Design" },
-              new Deliverable { Id = 13, DeliverableName = "Design System (Assets, Micro interactions)" },
-              new Deliverable { Id = 14, DeliverableName = "Clickable Prototype" },
-              new Deliverable { Id = 15, DeliverableName = "HTML CSS Markups" },
-              new Deliverable { Id = 16, DeliverableName = "Atomic Design" },
-              new Deliverable { Id = 17, DeliverableName = "Accessibilty Compliance(WCAG)" },
-              new Deliverable { Id = 18, DeliverableName = "React/Angular based components" }
+              new Deliverable { Id = 1, ProcessTypeId = 1,DeliverableName = "Empathy Mapping" },
+              new Deliverable { Id = 2, ProcessTypeId = 1,DeliverableName = "Journey Mapping" },
+              new Deliverable { Id = 3, ProcessTypeId = 1,DeliverableName = "Task Flow" },
+              new Deliverable { Id = 4, ProcessTypeId = 1,DeliverableName = "Personas" },
+              new Deliverable { Id = 5, ProcessTypeId = 1,DeliverableName = "Scenarios" },
+              new Deliverable { Id = 6, ProcessTypeId = 1,DeliverableName = "Heuristic Evaluation" },                          
+              new Deliverable { Id = 7, ProcessTypeId = 2,DeliverableName = "Information Architecture (Block Diagram)" },
+                
+              new Deliverable { Id = 8,ProcessTypeId = 2, DeliverableName = "Low-hi Fidelity Wireframes" },
+              new Deliverable { Id = 9, ProcessTypeId = 2, DeliverableName = "Prototype" },
+              new Deliverable { Id = 10, ProcessTypeId = 2, DeliverableName = "Research Report" },
+              new Deliverable { Id = 11, ProcessTypeId = 3, DeliverableName = "Branding Style Guide" },
+              new Deliverable { Id = 12, ProcessTypeId = 3, DeliverableName = "Visual Design" },
+              new Deliverable { Id = 13, ProcessTypeId = 3, DeliverableName = "Design System (Assets, Micro interactions)" },
+              new Deliverable { Id = 14, ProcessTypeId = 3, DeliverableName = "Clickable Prototype" },
+              new Deliverable { Id = 15, ProcessTypeId = 4, DeliverableName = "HTML CSS Markups" },
+              new Deliverable { Id = 16, ProcessTypeId = 4, DeliverableName = "Atomic Design" },
+              new Deliverable { Id = 17, ProcessTypeId = 4, DeliverableName = "Accessibilty Compliance(WCAG)" },
+              new Deliverable { Id = 18, ProcessTypeId = 4, DeliverableName = "React/Angular based components" },
+              new Deliverable { Id = 19, ProcessTypeId = 1, DeliverableName = "Competitor Analysis" }
           );
 
             // Add default value of 1 for existing records in MockupGroup table

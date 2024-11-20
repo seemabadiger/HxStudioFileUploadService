@@ -204,7 +204,7 @@ namespace HxStudioFileUploadService.Controllers
             }
         }
         [HttpPost]
-        [Route("uploadCaseStudy")]
+        [Route("uploadcasestudy")]
         public async Task<IActionResult> UploadCaseStudy(Guid userId, [FromForm] FileUploadRequestDto mockupUploadDto)
         {
             var response = await _fileUploadService.UploadCaseStudy(userId, mockupUploadDto);
@@ -219,7 +219,7 @@ namespace HxStudioFileUploadService.Controllers
         }
 
         [HttpPost]
-        [Route("uploadBeforeAfter")]
+        [Route("uploadbeforeafter")]
         public async Task<IActionResult> UploadBeforeAfter(Guid userId, [FromForm] FileUploadRequestDto mockupUploadDto)
         {
             var response = await _fileUploadService.UploadBeforeAfter(userId, mockupUploadDto);
@@ -234,7 +234,7 @@ namespace HxStudioFileUploadService.Controllers
         }
 
         [HttpPost]
-        [Route("uploadProcessDiagram")]
+        [Route("uploadprocessdiagram")]
         public async Task<IActionResult> UploadProcessDiagram([FromForm] ProcessDiagramFileUploadRequestDto processDiagramFileUploadRequestDto)
         {
 
@@ -259,6 +259,35 @@ namespace HxStudioFileUploadService.Controllers
             }
             catch (Exception ex)
             {
+                return StatusCode(500, "Internal server error: " + ex.Message);
+            }
+        }
+        [HttpGet("processtypes")]
+        public async Task<IActionResult> GetProcessTypes()
+        {
+            try
+            {
+                var processTypes = await _fileUploadService.GetProcessTypesAsync();
+                return Ok(processTypes);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "Internal server error: " + ex.Message);
+            }
+        }
+
+        [HttpGet("deliverables")]
+        public async Task<IActionResult> GetDeliverables()
+        {
+            try
+            {
+                var deliverables = await _fileUploadService.GetDeliverablesAsync();
+                return Ok(deliverables);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
                 return StatusCode(500, "Internal server error: " + ex.Message);
             }
         }
