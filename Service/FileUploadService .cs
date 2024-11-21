@@ -123,7 +123,7 @@ namespace HxStudioFileUploadService.Services
             }
             return response;
         }
-        public async Task<FileUploadResponseDto> UploadCaseStudy(Guid userId, FileUploadRequestDto mockupUploadDto)
+        public async Task<FileUploadResponseDto> UploadCaseStudy(Guid userId, CaseStudyFileUploadRequestDto mockupUploadDto)
         {
             var response = new FileUploadResponseDto();
             var caseStudy = new CaseStudy();
@@ -131,7 +131,7 @@ namespace HxStudioFileUploadService.Services
             var subdomain = await AddSubdomainAsync(new SubdomainDto { Name = mockupUploadDto.SubdomainName, DomainId = domain.Id, Domain = domain });
             var mockUpType = await GetMockupType(mockupUploadDto.MockupType);
             // Check if files are provided
-            if (mockupUploadDto.CaseStudy == null)
+            if (mockupUploadDto.CaseStudyFile == null)
             {
                 response.Success = false;
                 response.Message = "No files selected";
@@ -141,20 +141,20 @@ namespace HxStudioFileUploadService.Services
             try
             {
 
-                if (mockupUploadDto.CaseStudy.CaseStudyFile.Length > 0)
+                if (mockupUploadDto.CaseStudyFile.Length > 0)
                 {
                     // Save file path in database
-                    var filePath = await UploadFileToBlobStorage(mockupUploadDto.CaseStudy.CaseStudyFile);
-                    caseStudy.CaseStudyFileName = mockupUploadDto.CaseStudy.CaseStudyFile.FileName;
+                    var filePath = await UploadFileToBlobStorage(mockupUploadDto.CaseStudyFile);
+                    caseStudy.CaseStudyFileName = mockupUploadDto.CaseStudyFile.FileName;
                     caseStudy.CaseStudyFilePath = filePath;
 
 
                 }
-                if (mockupUploadDto.CaseStudy.ThumbnailImage.Length > 0)
+                if (mockupUploadDto.ThumbnailImage.Length > 0)
                 {
                     // Save file path in database
-                    var filePath = await UploadFileToBlobStorage(mockupUploadDto.CaseStudy.ThumbnailImage);
-                    caseStudy.ThumbnailImageName = mockupUploadDto.CaseStudy.ThumbnailImage.FileName;
+                    var filePath = await UploadFileToBlobStorage(mockupUploadDto.ThumbnailImage);
+                    caseStudy.ThumbnailImageName = mockupUploadDto.ThumbnailImage.FileName;
                     caseStudy.ThumbnailImagePath = filePath;
                 }
 
@@ -171,7 +171,7 @@ namespace HxStudioFileUploadService.Services
                 var mockupGroup = await AddMockUpGroup(caseStudyDto);
 
                 caseStudy.MockupGroupId = caseStudyDto.Id;
-                caseStudy.Tags = mockupUploadDto.CaseStudy.Tags;
+                caseStudy.Tags = mockupUploadDto.Tags;
                 await AddCaseStudy(caseStudy);
                 // Prepare response
                 response.Success = true;
@@ -188,7 +188,7 @@ namespace HxStudioFileUploadService.Services
             }
             return response;
         }
-        public async Task<FileUploadResponseDto> UploadBeforeAfter(Guid userId, FileUploadRequestDto mockupUploadDto)
+        public async Task<FileUploadResponseDto> UploadBeforeAfter(Guid userId, BeforeAfterFileUploadRequestDto mockupUploadDto)
         {
             var response = new FileUploadResponseDto();
             var beforeAfter = new BeforeAfter();
@@ -196,7 +196,7 @@ namespace HxStudioFileUploadService.Services
             var subdomain = await AddSubdomainAsync(new SubdomainDto { Name = mockupUploadDto.SubdomainName, DomainId = domain.Id, Domain = domain });
             var mockUpType = await GetMockupType(mockupUploadDto.MockupType);
             // Check if files are provided
-            if (mockupUploadDto.BeforeAfter == null)
+            if (mockupUploadDto.BeforeFile == null || mockupUploadDto.AfterFile == null)
             {
                 response.Success = false;
                 response.Message = "No files selected";
@@ -206,19 +206,19 @@ namespace HxStudioFileUploadService.Services
             try
             {
 
-                if (mockupUploadDto.BeforeAfter.BeforeDesignFile !=null && mockupUploadDto.BeforeAfter.BeforeDesignFile.Length > 0)
+                if (mockupUploadDto.BeforeFile !=null && mockupUploadDto.BeforeFile.Length > 0)
                 {
                     // Save file path in database
-                    beforeAfter.BeforeDesignFileName = mockupUploadDto.BeforeAfter.BeforeDesignFile.FileName;
-                    beforeAfter.BeforeDesignFilePath = await UploadFileToBlobStorage(mockupUploadDto.BeforeAfter.BeforeDesignFile);
-                    beforeAfter.BeforeTags = mockupUploadDto.BeforeAfter.BeforeTags;
+                    beforeAfter.BeforeDesignFileName = mockupUploadDto.BeforeFile.FileName;
+                    beforeAfter.BeforeDesignFilePath = await UploadFileToBlobStorage(mockupUploadDto.BeforeFile);
+                    beforeAfter.BeforeTags = mockupUploadDto.BeforeTags;
                 }
-                if (mockupUploadDto.BeforeAfter.AfterDesignFile.Length > 0)
+                if (mockupUploadDto.AfterFile.Length > 0)
                 {
                     // Save file path in database
-                    beforeAfter.AfterDesignFileName = mockupUploadDto.BeforeAfter.AfterDesignFile.FileName;
-                    beforeAfter.AfterDesignFilePath = await UploadFileToBlobStorage(mockupUploadDto.BeforeAfter.AfterDesignFile);
-                    beforeAfter.AfterTags = mockupUploadDto.BeforeAfter.AfterTags;
+                    beforeAfter.AfterDesignFileName = mockupUploadDto.AfterFile.FileName;
+                    beforeAfter.AfterDesignFilePath = await UploadFileToBlobStorage(mockupUploadDto.AfterFile);
+                    beforeAfter.AfterTags = mockupUploadDto.AfterTags;
                 }
 
                 var beforeAfterDto = new MockupGroupDto
@@ -790,6 +790,11 @@ namespace HxStudioFileUploadService.Services
                 processDiagram.ModifiedDate = processDiagram.CreatedDate;
                 processDiagram.CreatedBy = existingProcessDiagrams.CreatedBy;
                 processDiagram.CreatedDate = existingProcessDiagrams.CreatedDate;
+
+                // Delete the file from Azure Blob Storage
+                if (processDiagram.DeliverableFilePath != null)
+                    await DeleteFileFromBlobStorage(processDiagram.DeliverableFilePath);
+
                 _db.ProcessDiagrams.Remove(existingProcessDiagrams);
             }
             _db.ProcessDiagrams.Add(processDiagram);
@@ -804,6 +809,12 @@ namespace HxStudioFileUploadService.Services
                 caseStudy.ModifiedDate = caseStudy.CreatedDate;
                 caseStudy.CreatedBy = existingCaseStudies.CreatedBy;
                 caseStudy.CreatedDate = existingCaseStudies.CreatedDate;
+
+                // Delete the file from Azure Blob Storage
+                if (caseStudy.CaseStudyFilePath!=null)
+                    await DeleteFileFromBlobStorage(caseStudy.CaseStudyFilePath);
+                if (caseStudy.ThumbnailImagePath != null) 
+                    await DeleteFileFromBlobStorage(caseStudy.ThumbnailImagePath);
                 _db.CaseStudies.Remove(existingCaseStudies);
             }
 
@@ -819,6 +830,12 @@ namespace HxStudioFileUploadService.Services
                 beforeAfter.ModifiedDate = beforeAfter.CreatedDate;
                 beforeAfter.CreatedBy = existingBeforeAfters.CreatedBy;
                 beforeAfter.CreatedDate = existingBeforeAfters.CreatedDate;
+                // Delete the file from Azure Blob Storage
+                if (beforeAfter.BeforeDesignFilePath != null)
+                    await DeleteFileFromBlobStorage(beforeAfter.BeforeDesignFilePath);
+                if (beforeAfter.AfterDesignFilePath != null)
+                    await DeleteFileFromBlobStorage(beforeAfter.AfterDesignFilePath);
+
                 _db.BeforeAfters.Remove(existingBeforeAfters);
             }
 
@@ -857,6 +874,14 @@ namespace HxStudioFileUploadService.Services
         public async Task<IEnumerable<Deliverable>> GetDeliverablesAsync()
         {
             return await _db.Deliverables.Include(x=>x.ProcessType).ToListAsync();
+        }
+        private async Task DeleteFileFromBlobStorage(string filePath)
+        {
+            // Delete the file from Azure Blob Storage
+            var blobUri = new Uri(filePath);
+            var blobName = Path.GetFileName(blobUri.LocalPath);
+            var blobClient = _blobContainer.GetBlobClient(blobName);
+            await blobClient.DeleteIfExistsAsync();
         }
 
     }

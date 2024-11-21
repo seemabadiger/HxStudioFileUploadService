@@ -205,7 +205,7 @@ namespace HxStudioFileUploadService.Controllers
         }
         [HttpPost]
         [Route("uploadcasestudy")]
-        public async Task<IActionResult> UploadCaseStudy(Guid userId, [FromForm] FileUploadRequestDto mockupUploadDto)
+        public async Task<IActionResult> UploadCaseStudy(Guid userId, [FromForm] CaseStudyFileUploadRequestDto mockupUploadDto)
         {
             var response = await _fileUploadService.UploadCaseStudy(userId, mockupUploadDto);
             if (response.Success)
@@ -220,7 +220,7 @@ namespace HxStudioFileUploadService.Controllers
 
         [HttpPost]
         [Route("uploadbeforeafter")]
-        public async Task<IActionResult> UploadBeforeAfter(Guid userId, [FromForm] FileUploadRequestDto mockupUploadDto)
+        public async Task<IActionResult> UploadBeforeAfter(Guid userId, [FromForm] BeforeAfterFileUploadRequestDto mockupUploadDto)
         {
             var response = await _fileUploadService.UploadBeforeAfter(userId, mockupUploadDto);
             if (response.Success)
