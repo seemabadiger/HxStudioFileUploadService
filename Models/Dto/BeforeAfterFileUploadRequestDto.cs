@@ -10,8 +10,7 @@ namespace HxStudioFileUploadService.Models.Dto
         public string ProjectDescription { get; set; }
         public string DomainName { get; set; }
         public string SubdomainName { get; set; }
-        public string MockupType { get; set; }
-        public int MockupTypeId { get; set; }
+        public string MockupType { get; set; }        
         public IFormFile BeforeFile { get; set; }
         public string BeforeTags { get; set; }
         public IFormFile AfterFile { get; set; }        

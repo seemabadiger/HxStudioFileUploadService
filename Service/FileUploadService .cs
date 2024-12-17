@@ -37,24 +37,24 @@ namespace HxStudioFileUploadService.Services
             var subdomain = await AddSubdomainAsync(new SubdomainDto { Name = mockupUploadDto.SubdomainName, DomainId = domain.Id, Domain = domain });
             var mockUpType = await GetMockupType(mockupUploadDto.MockupType);
             var mockups = new List<MockupDto>();
-            // Check if files are provided
-            if (mockupUploadDto.Mockups == null || !mockupUploadDto.Mockups.Any())
-            {
-                response.Success = false;
-                response.Message = "No files selected";
-                _logger.LogWarning("File upload attempt with no files selected.");
-                return response;
-            }
+           // Check if files are provided
+           if (mockupUploadDto.Mockups == null || !mockupUploadDto.Mockups.Any())
+           {
+               response.Success = false;
+               response.Message = "No files selected";
+               _logger.LogWarning("File upload attempt with no files selected.");
+               return response;
+           }
             try
             {
-                foreach (var mockup in mockupUploadDto.Mockups)
-                {
-                    if (mockup.MockupFile.Length > 0)
-                    {
-                        var filePath = await UploadFileToBlobStorage(mockup.MockupFile);
-                        mockups.Add(new MockupDto { FileName = mockup.MockupFile.FileName, FilePath = filePath, Tags = mockup.Tags });
-                    }
-                }
+               foreach (var mockup in mockupUploadDto.Mockups)
+               {
+                   if (mockup.MockupFile.Length > 0)
+                   {
+                       var filePath = await UploadFileToBlobStorage(mockup.MockupFile);
+                       mockups.Add(new MockupDto { FileName = mockup.MockupFile.FileName, FilePath = filePath, Tags = mockup.Tags });
+                   }
+               }
 
                 var mockupGroupDto = new MockupGroupDto
                 {
@@ -170,7 +170,7 @@ namespace HxStudioFileUploadService.Services
                 };
                 var mockupGroup = await AddMockUpGroup(caseStudyDto);
 
-                caseStudy.MockupGroupId = caseStudyDto.Id;
+                caseStudy.MockupGroupId = mockupGroup.Id;
                 caseStudy.Tags = mockupUploadDto.Tags;
                 await AddCaseStudy(caseStudy);
                 // Prepare response
@@ -233,7 +233,7 @@ namespace HxStudioFileUploadService.Services
                 };
                 var mockupGroup = await AddMockUpGroup(beforeAfterDto);
 
-                beforeAfter.MockupGroupId = beforeAfterDto.Id;
+                beforeAfter.MockupGroupId = mockupGroup.Id;
 
                 await AddBeforeAfter(beforeAfter);
                 // Prepare response
