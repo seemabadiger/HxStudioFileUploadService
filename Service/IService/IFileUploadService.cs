@@ -33,5 +33,11 @@ namespace HxStudioFileUploadService.Services
         Task<IEnumerable<ProcessDiagramResponseDto>> GetProcessDiagramsAsync();
         Task<IEnumerable<ProcessType>> GetProcessTypesAsync();
         Task<IEnumerable<Deliverable>> GetDeliverablesAsync();
+        Task<FileUploadResponseDto> UpdateCaseStudy(int caseStudyId, Guid userId, CaseStudyFileUploadRequestDto updateCaseStudy);
+        Task<FileUploadResponseDto> UpdateBeforeAfter(int beforeAfterId, BeforeAfterFileUploadRequestDto updatedBeforeAfter, Guid userId);
+        Task<FileUploadResponseDto> UpdateProcessDiagram(int processDiagramId, ProcessDiagramFileUploadRequestDto updatedProcessDiagram, Guid userId);
+        Task<FileUploadResponseDto> DeleteCaseStudy(int caseStudyId);
+        Task<FileUploadResponseDto> DeleteBeforeAfter(int beforeAfterId);
+        Task<FileUploadResponseDto> DeleteProcessDiagram(int processDiagramId);
     }
 }

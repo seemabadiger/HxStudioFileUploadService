@@ -172,6 +172,8 @@ namespace HxStudioFileUploadService.Services
 
                 caseStudy.MockupGroupId = mockupGroup.Id;
                 caseStudy.Tags = mockupUploadDto.Tags;
+                caseStudy.CreatedBy = userId;
+                caseStudy.CreatedDate = DateTime.Now;
                 await AddCaseStudy(caseStudy);
                 // Prepare response
                 response.Success = true;
@@ -234,7 +236,8 @@ namespace HxStudioFileUploadService.Services
                 var mockupGroup = await AddMockUpGroup(beforeAfterDto);
 
                 beforeAfter.MockupGroupId = mockupGroup.Id;
-
+                beforeAfter.CreatedBy = userId;
+                beforeAfter.CreatedDate = DateTime.Now;
                 await AddBeforeAfter(beforeAfter);
                 // Prepare response
                 response.Success = true;
@@ -883,6 +886,264 @@ namespace HxStudioFileUploadService.Services
             var blobClient = _blobContainer.GetBlobClient(blobName);
             await blobClient.DeleteIfExistsAsync();
         }
+        public async Task<FileUploadResponseDto> UpdateCaseStudy(int caseStudyId, Guid userId, CaseStudyFileUploadRequestDto updateCaseStudy)
+        {
+            var response = new FileUploadResponseDto();
+            var existingCaseStudy = await _db.CaseStudies.Include(c => c.MockupGroup).FirstOrDefaultAsync(x => x.MockupGroupId == updateCaseStudy.ImageGroupId || x.Id == caseStudyId);
 
+            if (existingCaseStudy == null)
+            {
+                response.Success = false;
+                response.Message = "Case Study not found";
+                return response;
+            }
+
+            try
+            {
+                if (updateCaseStudy.CaseStudyFile != null && updateCaseStudy.CaseStudyFile.Length > 0)
+                {
+                    await DeleteFileFromBlobStorage(existingCaseStudy.CaseStudyFilePath);
+                    existingCaseStudy.CaseStudyFilePath = await UploadFileToBlobStorage(updateCaseStudy.CaseStudyFile);
+                    existingCaseStudy.CaseStudyFileName = updateCaseStudy.CaseStudyFile.FileName;
+                }
+
+                if (updateCaseStudy.ThumbnailImage != null && updateCaseStudy.ThumbnailImage.Length > 0)
+                {
+                    await DeleteFileFromBlobStorage(existingCaseStudy.ThumbnailImagePath);
+                    existingCaseStudy.ThumbnailImagePath = await UploadFileToBlobStorage(updateCaseStudy.ThumbnailImage);
+                    existingCaseStudy.ThumbnailImageName = updateCaseStudy.ThumbnailImage.FileName;
+                }
+
+                existingCaseStudy.Tags = updateCaseStudy.Tags;
+                existingCaseStudy.ModifiedBy = userId;
+                existingCaseStudy.ModifiedDate = DateTime.Now;
+
+                // Update related MockupGroup
+                var mockupGroup = existingCaseStudy.MockupGroup;
+                mockupGroup.ProjectTitle = updateCaseStudy.ProjectTitle;
+                mockupGroup.ProjectDescription = updateCaseStudy.ProjectDescription;
+                mockupGroup.ModifiedBy = userId;
+                mockupGroup.ModifiedDate = DateTime.Now;
+
+                await _db.SaveChangesAsync();
+
+                response.Success = true;
+                response.Message = "Case Study updated successfully";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error updating Case Study");
+                response.Success = false;
+                response.Message = "Error updating Case Study";
+            }
+
+            return response;
+        }
+        public async Task<FileUploadResponseDto> UpdateBeforeAfter(int beforeAfterId, BeforeAfterFileUploadRequestDto updatedBeforeAfter, Guid userId)
+        {
+            var response = new FileUploadResponseDto();
+            var existingBeforeAfter = await _db.BeforeAfters.Include(c => c.MockupGroup).FirstOrDefaultAsync(x => x.MockupGroupId == updatedBeforeAfter.ImageGroupId || x.Id == beforeAfterId);
+
+            if (existingBeforeAfter == null)
+            {
+                response.Success = false;
+                response.Message = "Before-After record not found";
+                return response;
+            }
+
+            try
+            {
+                if (updatedBeforeAfter.BeforeFile != null && updatedBeforeAfter.BeforeFile.Length > 0)
+                {
+                    await DeleteFileFromBlobStorage(existingBeforeAfter.BeforeDesignFilePath);
+                    existingBeforeAfter.BeforeDesignFilePath = await UploadFileToBlobStorage(updatedBeforeAfter.BeforeFile);
+                    existingBeforeAfter.BeforeDesignFileName = updatedBeforeAfter.BeforeFile.FileName;
+                    existingBeforeAfter.BeforeTags = updatedBeforeAfter.BeforeTags;
+                }
+
+                if (updatedBeforeAfter.AfterFile != null && updatedBeforeAfter.AfterFile.Length > 0)
+                {
+                    await DeleteFileFromBlobStorage(existingBeforeAfter.AfterDesignFilePath);
+                    existingBeforeAfter.AfterDesignFilePath = await UploadFileToBlobStorage(updatedBeforeAfter.AfterFile);
+                    existingBeforeAfter.AfterDesignFileName = updatedBeforeAfter.AfterFile.FileName;
+                    existingBeforeAfter.AfterTags = updatedBeforeAfter.AfterTags;
+                }
+
+                existingBeforeAfter.ModifiedBy = userId;
+                existingBeforeAfter.ModifiedDate = DateTime.Now;
+
+                // Update related MockupGroup
+                var mockupGroup = existingBeforeAfter.MockupGroup;
+                mockupGroup.ProjectTitle = updatedBeforeAfter.ProjectTitle;
+                mockupGroup.ProjectDescription = updatedBeforeAfter.ProjectDescription;
+                mockupGroup.ModifiedBy = userId;
+                mockupGroup.ModifiedDate = DateTime.Now;
+
+                await _db.SaveChangesAsync();
+
+                response.Success = true;
+                response.Message = "Before-After updated successfully";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error updating Before-After record");
+                response.Success = false;
+                response.Message = "Error updating Before-After record";
+            }
+
+            return response;
+        }
+        public async Task<FileUploadResponseDto> UpdateProcessDiagram(int processDiagramId, ProcessDiagramFileUploadRequestDto updatedProcessDiagram, Guid userId)
+        {
+            var response = new FileUploadResponseDto();
+            var existingProcessDiagram = await _db.ProcessDiagrams.FindAsync(processDiagramId);
+
+            if (existingProcessDiagram == null)
+            {
+                response.Success = false;
+                response.Message = "Process Diagram not found";
+                return response;
+            }
+
+            try
+            {
+                if (updatedProcessDiagram.DeliverableFile != null && updatedProcessDiagram.DeliverableFile.Length > 0)
+                {
+                    await DeleteFileFromBlobStorage(existingProcessDiagram.DeliverableFilePath);
+                    existingProcessDiagram.DeliverableFilePath = await UploadFileToBlobStorage(updatedProcessDiagram.DeliverableFile);
+                    existingProcessDiagram.DeliverableFileName = updatedProcessDiagram.DeliverableFile.FileName;
+                }
+
+                existingProcessDiagram.DeliverableLink = updatedProcessDiagram.DeliverableLink;
+                existingProcessDiagram.ModifiedBy = userId;
+                existingProcessDiagram.ModifiedDate = DateTime.Now;
+
+                await _db.SaveChangesAsync();
+
+                response.Success = true;
+                response.Message = "Process Diagram updated successfully";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error updating Process Diagram");
+                response.Success = false;
+                response.Message = "Error updating Process Diagram";
+            }
+
+            return response;
+        }
+        public async Task<FileUploadResponseDto> DeleteCaseStudy(int caseStudyId)
+        {
+            var response = new FileUploadResponseDto();
+            var caseStudy = await _db.CaseStudies.Include(c => c.MockupGroup).FirstOrDefaultAsync(c => c.Id == caseStudyId);
+
+            if (caseStudy == null)
+            {
+                response.Success = false;
+                response.Message = "Case Study not found";
+                return response;
+            }
+
+            try
+            {
+                await DeleteFileFromBlobStorage(caseStudy.CaseStudyFilePath);
+                await DeleteFileFromBlobStorage(caseStudy.ThumbnailImagePath);
+                // Get related MockupGroup
+                var mockupGroup = caseStudy.MockupGroup;
+
+                // Remove the Case Study
+                _db.CaseStudies.Remove(caseStudy);
+
+                // If no other related records exist, remove MockupGroup
+                if (mockupGroup.BeforeAfter == null && mockupGroup.Mockups == null)
+                {
+                    _db.MockupGroups.Remove(mockupGroup);
+                }
+                await _db.SaveChangesAsync();
+
+                response.Success = true;
+                response.Message = "Case Study deleted successfully";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error deleting Case Study");
+                response.Success = false;
+                response.Message = "Error deleting Case Study";
+            }
+
+            return response;
+        }
+        public async Task<FileUploadResponseDto> DeleteBeforeAfter(int beforeAfterId)
+        {
+            var response = new FileUploadResponseDto();
+            var beforeAfter = await _db.BeforeAfters.Include(b => b.MockupGroup).FirstOrDefaultAsync(b => b.Id == beforeAfterId);
+
+            if (beforeAfter == null)
+            {
+                response.Success = false;
+                response.Message = "Before-After record not found";
+                return response;
+            }
+
+            try
+            {
+                await DeleteFileFromBlobStorage(beforeAfter.BeforeDesignFilePath);
+                await DeleteFileFromBlobStorage(beforeAfter.AfterDesignFilePath);
+                // Get related MockupGroup
+                var mockupGroup = beforeAfter.MockupGroup;
+
+                // Remove the Before-After record
+                _db.BeforeAfters.Remove(beforeAfter);
+
+                // If no other related records exist, remove MockupGroup
+                if (mockupGroup.CaseStudy == null && mockupGroup.Mockups == null)
+                {
+                    _db.MockupGroups.Remove(mockupGroup);
+                }
+
+                await _db.SaveChangesAsync();
+
+                response.Success = true;
+                response.Message = "Before-After record deleted successfully";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error deleting Before-After record");
+                response.Success = false;
+                response.Message = "Error deleting Before-After record";
+            }
+
+            return response;
+        }
+        public async Task<FileUploadResponseDto> DeleteProcessDiagram(int processDiagramId)
+        {
+            var response = new FileUploadResponseDto();
+            var processDiagram = await _db.ProcessDiagrams.FindAsync(processDiagramId);
+
+            if (processDiagram == null)
+            {
+                response.Success = false;
+                response.Message = "Process Diagram not found";
+                return response;
+            }
+
+            try
+            {
+                await DeleteFileFromBlobStorage(processDiagram.DeliverableFilePath);
+                _db.ProcessDiagrams.Remove(processDiagram);
+                await _db.SaveChangesAsync();
+
+                response.Success = true;
+                response.Message = "Process Diagram deleted successfully";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error deleting Process Diagram");
+                response.Success = false;
+                response.Message = "Error deleting Process Diagram";
+            }
+
+            return response;
+        }
     }
 }

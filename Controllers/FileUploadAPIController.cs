@@ -291,6 +291,90 @@ namespace HxStudioFileUploadService.Controllers
                 return StatusCode(500, "Internal server error: " + ex.Message);
             }
         }
+        [HttpPost]
+        [Route("updatecasestudy")]
+        public async Task<IActionResult> UpdateCaseStudy(int caseStudyId, Guid userId, [FromForm] CaseStudyFileUploadRequestDto updateCaseStudy)
+        {
+            var response = await _fileUploadService.UpdateCaseStudy(caseStudyId, userId, updateCaseStudy);
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
+        [HttpPost]
+        [Route("updatebeforeafter")]
+        public async Task<IActionResult> UpdateBeforeAfter(int beforeAfterId, Guid userId, [FromForm] BeforeAfterFileUploadRequestDto updatedBeforeAfter)
+        {
+            var response = await _fileUploadService.UpdateBeforeAfter(beforeAfterId, updatedBeforeAfter, userId);
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
+        [HttpPost]
+        [Route("updateprocessdiagram")]
+        public async Task<IActionResult> UpdateProcessDiagramAsync(int processDiagramId, Guid userId, [FromForm] ProcessDiagramFileUploadRequestDto updatedProcessDiagram)
+        {
+            var response = await _fileUploadService.UpdateProcessDiagram(processDiagramId, updatedProcessDiagram, userId);
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
+        [HttpDelete]
+        [Route("deletecasestudy/{caseStudyId}")]
+        public async Task<IActionResult> DeleteCaseStudy(int caseStudyId)
+        {
+            var response = await _fileUploadService.DeleteCaseStudy(caseStudyId);
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
+        [HttpDelete]
+        [Route("deletebeforeafter/{beforeAfterId}")]
+        public async Task<IActionResult> DeleteBeforeAfter(int beforeAfterId)
+        {
+            var response = await _fileUploadService.DeleteBeforeAfter(beforeAfterId);
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
+        [HttpDelete]
+        [Route("deleteprocessdiagram/{processDiagramId}")]
+        public async Task<IActionResult> DeleteProcessDiagram(int processDiagramId)
+        {
+            var response = await _fileUploadService.DeleteProcessDiagram(processDiagramId);
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
 
     }
 }
